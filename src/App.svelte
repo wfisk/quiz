@@ -6,10 +6,6 @@
 
   import { onMount, setContext } from 'svelte';
   import { authState } from 'rxfire/auth';
-    
-  import 'src/services/firebase'
-  import { auth, googleProvider } from 'src/services/firebase';
-  // import session from 'src/stores/session.js';
   import Router from 'svelte-spa-router'
 
   import Question01Page from 'src/pages/question_01.svelte';
@@ -23,6 +19,11 @@
   import Question09Page from 'src/pages/question_09.svelte';
   import Question10Page from 'src/pages/question_10.svelte';
   import QuestionsPage from 'src/pages/questions.svelte';
+
+  import 'src/services/firebase'
+  import { auth, googleProvider } from 'src/services/firebase';
+
+  import session from 'src/stores/session.js';
 
   let signOut = null;
 
