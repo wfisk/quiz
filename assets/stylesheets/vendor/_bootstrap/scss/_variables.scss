@@ -1,0 +1,29 @@
+$spacer: 1rem;
+
+
+/* $font-size-base:  0.8125rem; */
+$font-size-base:  0.87 5rem;
+
+/* $spacer: 0.25rem; */
+
+
+
+$badge-font-size:                   85% !default;
+/* $badge-padding-y:                   .25em !default; */
+/* $badge-padding-x:                   .4em !default; */
+$badge-padding-y:                   .3em !default;
+$badge-padding-x:                   .5em !default;
+
+$navbar-padding-y:                  $spacer / 8;
+$navbar-padding-x:                  $spacer / 4;
+
+
+$table-cell-padding:          .5rem !default;
+$table-cell-padding-sm:       .3rem !default;
+/* $table-accent-bg:             rgba(231, 243, 217, 1) !default;  */
+/* $table-hover-bg:              rgba(245, 245, 245, 1) !default; */
+/* see _theme.css */
+
+
+$dropdown-link-hover-color:   #fff;
+$dropdown-link-hover-bg:      #4077ac;

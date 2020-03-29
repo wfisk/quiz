@@ -1,0 +1,53 @@
+// Custom.scss
+// Option B: Include parts of Bootstrap
+// see 
+
+
+@import "theme";
+@import "variables";
+
+
+
+// Required
+@import "../../twbs/bootstrap-4.4.1/scss/functions";
+@import "../../twbs/bootstrap-4.4.1/scss/variables";
+@import "../../twbs/bootstrap-4.4.1/scss/mixins";
+
+
+
+
+// Optional
+@import "../../twbs/bootstrap-4.4.1/scss/root";
+@import "../../twbs/bootstrap-4.4.1/scss/reboot";
+@import "../../twbs/bootstrap-4.4.1/scss/type";
+@import "../../twbs/bootstrap-4.4.1/scss/images";
+@import "../../twbs/bootstrap-4.4.1/scss/code";
+@import "../../twbs/bootstrap-4.4.1/scss/grid";
+@import "../../twbs/bootstrap-4.4.1/scss/tables";
+@import "../../twbs/bootstrap-4.4.1/scss/forms";
+@import "../../twbs/bootstrap-4.4.1/scss/buttons";
+@import "../../twbs/bootstrap-4.4.1/scss/transitions";
+@import "../../twbs/bootstrap-4.4.1/scss/dropdown";
+@import "../../twbs/bootstrap-4.4.1/scss/button-group";
+@import "../../twbs/bootstrap-4.4.1/scss/input-group";
+@import "../../twbs/bootstrap-4.4.1/scss/custom-forms";
+@import "../../twbs/bootstrap-4.4.1/scss/nav";
+@import "../../twbs/bootstrap-4.4.1/scss/navbar";
+@import "../../twbs/bootstrap-4.4.1/scss/card";
+@import "../../twbs/bootstrap-4.4.1/scss/breadcrumb";
+@import "../../twbs/bootstrap-4.4.1/scss/pagination";
+@import "../../twbs/bootstrap-4.4.1/scss/badge";
+// @import "../../twbs/bootstrap-4.4.1/scss/jumbotron";
+@import "../../twbs/bootstrap-4.4.1/scss/alert";
+@import "../../twbs/bootstrap-4.4.1/scss/progress";
+@import "../../twbs/bootstrap-4.4.1/scss/media";
+@import "../../twbs/bootstrap-4.4.1/scss/list-group";
+@import "../../twbs/bootstrap-4.4.1/scss/close";
+// @import "../../twbs/bootstrap-4.4.1/scss/toasts";
+@import "../../twbs/bootstrap-4.4.1/scss/modal";
+@import "../../twbs/bootstrap-4.4.1/scss/tooltip";
+@import "../../twbs/bootstrap-4.4.1/scss/popover";
+// @import "../../twbs/bootstrap-4.4.1/scss/carousel";
+@import "../../twbs/bootstrap-4.4.1/scss/spinners";
+@import "../../twbs/bootstrap-4.4.1/scss/utilities";
+@import "../../twbs/bootstrap-4.4.1/scss/print";

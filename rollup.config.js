@@ -4,6 +4,12 @@ import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 
+import alias from '@rollup/plugin-alias';
+import json from '@rollup/plugin-json';
+import postcss from 'rollup-plugin-postcss';
+import autoPreprocess from 'svelte-preprocess';
+
+
 const production = !process.env.ROLLUP_WATCH;
 
 export default {
@@ -22,8 +28,16 @@ export default {
 			// a separate file - better for performance
 			css: css => {
 				css.write('public/build/bundle.css');
-			}
-		}),
+      },
+      preprocess: autoPreprocess({   
+        scss: {
+          includePaths: [
+              'node_modules',
+              'src'
+          ]
+        },
+      }),
+    }), 
 
 		// If you have external dependencies installed from
 		// npm, you'll most likely need these plugins. In
@@ -46,7 +60,16 @@ export default {
 
 		// If we're building for production (npm run build
 		// instead of npm run dev), minify
-		production && terser()
+    production && terser(),
+    
+    alias({
+      resolve: [ '.js', '.json', '.scss', '.svelte' ],
+      entries:[
+        { find: /^src/, replacement: __dirname + '/src' } 
+      ],
+    }),
+    json(),
+    postcss(),
 	],
 	watch: {
 		clearScreen: false

@@ -1,0 +1,50 @@
+@function tint($color, $percent) {
+  @return mix(white, $color, $percent);
+}
+
+// Add percentage of black to a color
+@function shade($color, $percent) {
+  @return mix(black, $color, $percent);
+}
+
+$theme-colors: (
+  "primary":         #006e51,
+  "success":         #a0ce67,
+  "warning":         #f8a157,
+  "danger":          #f2545a,
+  "info":            #ffd35b
+);
+
+
+$gray: #8d909b;
+
+$gray-100: tint( $gray, 80%);
+$gray-200: tint( $gray, 60%);
+$gray-300: tint( $gray, 40%);
+$gray-400: tint( $gray, 20%);
+$gray-500: $gray;
+$gray-600: shade( $gray, 20%);
+$gray-700: shade( $gray, 40%);
+$gray-800: shade( $gray, 60%);
+$gray-900: shade( $gray, 80%);
+
+/* Tables */
+/* $table-accent-bg: #e5ecf9;
+$table-hover-bg:  shade( #e5ecf9, 20%); */
+$table-accent-bg: #f1f1f3;
+$table-hover-bg:  shade( #f1f1f3, 20%);
+
+
+:root {
+  --color-primary: #006e51;
+  --color-success: #a0ce67;
+  --color-info:    #f8a157;
+  --color-warning: #f2545a; 
+  --color-danger:  #ffd35b;
+
+  --color-dark-green:  #006e51;
+  --color-light-green:  #a0ce67;
+}
+
+
+$breadcrumb-bg:             $gray-100;
