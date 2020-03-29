@@ -23,6 +23,8 @@
   import 'src/services/firebase'
   import { auth, googleProvider } from 'src/services/firebase';
 
+  import Question from 'src/collections/Question.js';
+  import Quiz from 'src/collections/Quiz.js';
   import session from 'src/stores/session.js';
 
   let signOut = null;
@@ -48,10 +50,32 @@
     '*':                  QuestionsPage,
   };
 
+  const pages = [
+		{ questionIndex:  1, component: Question01Page },
+		{ questionIndex:  2, component: Question02Page },
+		{ questionIndex:  3, component: Question03Page },
+		{ questionIndex:  4, component: Question04Page },
+		{ questionIndex:  5, component: Question05Page },
+		{ questionIndex:  6, component: Question06Page },
+		{ questionIndex:  7, component: Question07Page },
+		{ questionIndex:  8, component: Question08Page },
+		{ questionIndex:  9, component: Question09Page },
+		{ questionIndex: 10, component: Question10Page },
+	];
+
+
 
   onMount( function(){
     signOut = auth.onAuthStateChanged;
   });
+
+  let quizzes = Quiz.findAll();
+  $: console.log( $quizzes );
+  $: quiz = $quizzes[0];
+  $: console.log( quiz );
+  $: page = pages.find( (page) => page.questionIndex === ( quiz ? quiz.activeQuestion : 1 ) );
+  $: console.log( page );
+
 </script>
 
 <style global lang="scss" >
@@ -60,7 +84,7 @@
 
 <template>
   <div class="container-fluid">
-    <Router {routes} />
+    <svelte:component this={page.component}/>
   </div>
 </template>
 

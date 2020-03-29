@@ -4,9 +4,9 @@ import { bufferCount, groupBy, map, startWith } from 'rxjs/operators';
 import Collection from 'src/collections/Collection';
 import { firestore } from 'src/services/firebase';
 
-export default class Maze extends Collection {
+export default class User extends Collection {
 
-  constructor(){
+  constructor() {
     super();
   }
 
@@ -18,42 +18,39 @@ export default class Maze extends Collection {
     firestore.collection( this.collectionName ).doc( id ).delete();
   }
 
-  static find( id ){
+  static find( id ) {
     let docRef = this.collectionRef.doc( id );
 
     return docData( docRef ).pipe( startWith( null ) );
-    
+
     // let doc = await docRef.get();
     // return { id, ...doc.data() };
   }
 
-  static findAll(){
+  static findAll() {
     const collectionRef = firestore.collection( this.collectionName );
-    return collectionData( collectionRef, 'id' ).pipe( startWith( [] ) );
+    return collectionData( collectionRef, 'id' ).pipe(
+      startWith( [ { text: "one" } ] )
+    );
   }
 
-  static findAllInGroupsOfThree(){
+  static findAllInGroupsOfThree() {
     const collectionRef = firestore.collection( this.collectionName );
-    return collectionData( collectionRef, 'id' ).pipe( 
+    return collectionData( collectionRef, 'id' ).pipe(
       startWith( [] ),
-      map( (it,index) => {
+      map( ( it, index ) => {
         it.index = index;
         return it;
-      }),
+      } ),
       groupBy( it => it.index )
-    );  
+    );
   }
 
   static update( id, props ) {
-    firestore.collection( this.collectionName ).doc(id).update( props );
+    firestore.collection( this.collectionName ).doc( id ).update( props );
   }
 
 }
 
-Maze.collectionName = 'mazes';
-Maze.collectionRef = firestore.collection( Maze.collectionName );
-
-
-
-
-
+User.collectionName = 'users';
+User.collectionRef = firestore.collection( User.collectionName );
