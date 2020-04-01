@@ -70,12 +70,8 @@
   });
 
   let quizzes = Quiz.findAll();
-  $: console.log( $quizzes );
   $: quiz = $quizzes[0];
-  $: console.log( quiz );
   $: page = pages.find( (page) => page.questionIndex === ( quiz ? quiz.activeQuestion : 1 ) );
-  $: console.log( page );
-
 </script>
 
 <style global lang="scss" >
@@ -84,7 +80,8 @@
 
 <template>
   <div class="container-fluid">
-    <svelte:component this={page.component}/>
+    <!-- svelte:component this={page.component}/ -->
+    <QuestionsPage />
   </div>
 </template>
 
