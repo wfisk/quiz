@@ -15,38 +15,38 @@ import Question09Page from 'src/pages/question_09.svelte';
 import Question10Page from 'src/pages/question_10.svelte';
 
 const pages = [
-  { questionIndex:  1, component: Question01Page },
-  { questionIndex:  2, component: Question02Page },
-  { questionIndex:  3, component: Question03Page },
-  { questionIndex:  4, component: Question04Page },
-  { questionIndex:  5, component: Question05Page },
-  { questionIndex:  6, component: Question06Page },
-  { questionIndex:  7, component: Question07Page },
-  { questionIndex:  8, component: Question08Page },
-  { questionIndex:  9, component: Question09Page },
+  { questionIndex: 1, component: Question01Page },
+  { questionIndex: 2, component: Question02Page },
+  { questionIndex: 3, component: Question03Page },
+  { questionIndex: 4, component: Question04Page },
+  { questionIndex: 5, component: Question05Page },
+  { questionIndex: 6, component: Question06Page },
+  { questionIndex: 7, component: Question07Page },
+  { questionIndex: 8, component: Question08Page },
+  { questionIndex: 9, component: Question09Page },
   { questionIndex: 10, component: Question10Page },
 ];
 
 
 
 let activeQuestionPage = writable(
-  Question01Page, 
+  Question01Page,
   // Handle Subscribe
   function( set ) {
-    console.log('got a subscriber');
+    console.log( 'got a subscriber' );
 
-    let quizzes = Quiz.findAll();
-    let unsubscribeQuizzes = quizzes.subscribe( function( values ) {
-      let quiz = values[0];
+    // let quizzes = Quiz.findAll();
+    let quiz = Quiz.find( 'default' );
+    let unsubscribeQuiz = quiz.subscribe( function( value ) {
+      let quiz = value;
       let activeQuestion = quiz ? quiz.activeQuestion : 1;
-      let activePage = pages.find( (it) => it.questionIndex === activeQuestion );
+      let activePage = pages.find( ( it ) => it.questionIndex === activeQuestion );
       set( activePage.component );
-    });
-	  return function(){ 
-      unsubscribeQuizzes();
+    } );
+    return function() {
+      unsubscribeQuiz();
     };
   }
 );
 
 export default activeQuestionPage;
-

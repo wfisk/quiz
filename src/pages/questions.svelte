@@ -6,18 +6,26 @@
 
   // Question Observable
   let questions = Question.findAll();
-  let quizzes = Quiz.findAll();
+  // let quizzes = Quiz.findAll();
+  let quiz = Quiz.find('default');
 
-  function increment(value) {
-    return value + 1;
-  }
 
   function handleClick_PreviousQuestion() {
-    $quiz.activeQactiveQuestion = (($activeQuestion + 8) % 10) + 1;
+    // $activeQuestion = (($activeQuestion + 8) % 10) + 1;
+    let value = (($quiz.activeQuestion + 8) % 10) + 1;
+    Quiz.update('default', {
+      activeQuestion: value
+    });
   }
+
   function handleClick_NextQuestion() {
-    $activeQuestion = ($activeQuestion % 10) + 1;
+    // $activeQuestion = ($activeQuestion % 10) + 1;
+    let value = ($quiz.activeQuestion % 10) + 1;
+    Quiz.update('default', {
+      activeQuestion: value
+    });
   }
+
 </script>
 
 <template>
@@ -29,10 +37,7 @@
   </dl>
 
   <div class="buttons">
-    <button
-      class="btn btn-outline-secondary"
-      on:click="{handleClick_PreviousQuestion}"
-    >
+    <button class="btn btn-outline-secondary" on:click="{handleClick_PreviousQuestion}">
       &lt; Previous Question
     </button>
 

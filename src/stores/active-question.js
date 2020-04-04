@@ -15,23 +15,24 @@ import Quiz from 'src/collections/Quiz.js';
 // );
 
 let activeQuestion = readable(
-  1, 
+  1,
   // Handle Subscribe
   function( set ) {
-    console.log('got a subscriber');
+    console.log( 'got a subscriber' );
 
-    let quizzes = Quiz.findAll();
-    let unsubscribeQuizzes = quizzes.subscribe( function( values ) {
-      let quiz = values[0];
+    // let quizzes = Quiz.findAll();
+    let quiz = Quiz.find( 'default' );
+
+    let unsubscribeQuiz = quiz.subscribe( function( value ) {
+      let quiz = value;
       let activeQuestion = quiz ? quiz.activeQuestion : 1;
       set( activeQuestion );
-    });
-	  return function(){ 
-      unsubscribeQuizzes();
+    } );
+    return function() {
+      unsubscribeQuiz();
     };
   }
 );
 
 
 export default activeQuestion;
-
