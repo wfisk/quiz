@@ -11,7 +11,14 @@
   import {
     authState
   } from 'rxfire/auth';
-  import Router from 'svelte-spa-router'
+  // import Router from 'svelte-spa-router'
+  import {
+    default as Router,
+    location,
+    querystring
+  } from 'svelte-spa-router';
+  import qs from 'qs';
+
 
   import Question01Page from 'src/pages/question_01.svelte';
   import Question02Page from 'src/pages/question_02.svelte';
@@ -108,8 +115,14 @@
     signOut = auth.onAuthStateChanged;
   });
 
-  let quiz = Quiz.find('deafult');
-  $: page = pages.find((page) => page.questionIndex === (quiz ? quiz.activeQuestion : 1));
+  let quiz = Quiz.find('default');
+  $: activeQuestion = $quiz ? $quiz.activeQuestion : 1;
+  $: page = pages.find((page) => page.questionIndex === activeQuestion);
+  $: params = qs.parse($querystring);
+  $: loggedIn = params.loggedIn;
+
+  $: console.log(activeQuestion);
+  $: console.log(page);
 
 </script>
 
@@ -120,7 +133,12 @@
 
 <template>
   <div class="container-fluid">
-    <!-- svelte:component this={page.component}/ -->
-    <QuestionsPage />
+    {#if loggedIn }
+      <QuestionsPage />
+      {:else}
+      {#if page}
+      <svelte:component this={page.component} />
+      {/if}
+    {/if}
   </div>
 </template>

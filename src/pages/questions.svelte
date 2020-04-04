@@ -1,17 +1,70 @@
 <script>
   import Question from "src/collections/Question.js";
   import Quiz from "src/collections/Quiz.js";
-  import activeQuestion from "src/stores/active-question.js";
-  import activeQuestionPage from "src/stores/active-question-page.js";
+  import Question01Page from 'src/pages/question_01.svelte';
+  import Question02Page from 'src/pages/question_02.svelte';
+  import Question03Page from 'src/pages/question_03.svelte';
+  import Question04Page from 'src/pages/question_04.svelte';
+  import Question05Page from 'src/pages/question_05.svelte';
+  import Question06Page from 'src/pages/question_06.svelte';
+  import Question07Page from 'src/pages/question_07.svelte';
+  import Question08Page from 'src/pages/question_08.svelte';
+  import Question09Page from 'src/pages/question_09.svelte';
+  import Question10Page from 'src/pages/question_10.svelte';
+  import QuestionsPage from 'src/pages/questions.svelte';
+  const pages = [{
+      questionIndex: 1,
+      component: Question01Page
+    },
+    {
+      questionIndex: 2,
+      component: Question02Page
+    },
+    {
+      questionIndex: 3,
+      component: Question03Page
+    },
+    {
+      questionIndex: 4,
+      component: Question04Page
+    },
+    {
+      questionIndex: 5,
+      component: Question05Page
+    },
+    {
+      questionIndex: 6,
+      component: Question06Page
+    },
+    {
+      questionIndex: 7,
+      component: Question07Page
+    },
+    {
+      questionIndex: 8,
+      component: Question08Page
+    },
+    {
+      questionIndex: 9,
+      component: Question09Page
+    },
+    {
+      questionIndex: 10,
+      component: Question10Page
+    },
+  ];
+  let page = pages[0];
+
 
   // Question Observable
   let questions = Question.findAll();
-  // let quizzes = Quiz.findAll();
   let quiz = Quiz.find('default');
+  $: activeQuestion = $quiz ? $quiz.activeQuestion : 1;
+  $: page = pages.find((page) => page.questionIndex === activeQuestion);
+  $: console.log(activeQuestion);
 
 
   function handleClick_PreviousQuestion() {
-    // $activeQuestion = (($activeQuestion + 8) % 10) + 1;
     let value = (($quiz.activeQuestion + 8) % 10) + 1;
     Quiz.update('default', {
       activeQuestion: value
@@ -19,7 +72,6 @@
   }
 
   function handleClick_NextQuestion() {
-    // $activeQuestion = ($activeQuestion % 10) + 1;
     let value = ($quiz.activeQuestion % 10) + 1;
     Quiz.update('default', {
       activeQuestion: value
@@ -33,7 +85,7 @@
 
   <dl>
     <dt>Active Question</dt>
-    <dd>{$activeQuestion}</dd>
+    <dd>{activeQuestion}</dd>
   </dl>
 
   <div class="buttons">
@@ -58,7 +110,7 @@
           {question.text}
         </td>
         <td class="question-active">
-          {#if question.questionIndex == $activeQuestion} Active {/if}
+          {#if question.questionIndex == activeQuestion} Active {/if}
         </td>
       </tr>
       {/each}
@@ -66,4 +118,4 @@
   </table>
 </template>
 
-<svelte:component this="{$activeQuestionPage}" />
+<svelte:component this="{page.component}" />
