@@ -10,22 +10,30 @@
     Howl
   } from 'howler';
 
+  let sound;
+  let soundId;
+
   onMount(function() {
-    let sound = new Howl({
+    sound = new Howl({
       src: ['/assets/audio/persuaders.mp3']
     });
-
-    sound.play();
-
   })
 
   function playMusic() {
-    let sound = new Howl({
-      src: ['/assets/audio/persuaders.mp3']
-    });
+    soundId = sound.play();
+  }
 
-    sound.play();
+  function pauseMusic() {
+    sound.pause(soundId);
+  }
 
+  function resumeMusic() {
+    sound.play(soundId);
+  }
+
+  function stopMusic() {
+    sound.stop(soundId);
+    soundId = null;
   }
 
 </script>
@@ -39,9 +47,22 @@
   <div in:fade="{{delay: 300, duration: 600}}" out:fade="{{delay: 0, duration: 300}}">
     <h1>Question One</h1>
 
-    <button class="btn btn-primary" on:click={playMusic}>
+    <button class="btn btn-primary" on:click={playMusic} disabled={!sound || soundId}>
       Play Music
     </button>
+
+    <button class="btn btn-primary" on:click={pauseMusic} disabled={!sound || !soundId}>
+      Pause Music
+    </button>
+
+    <button class="btn btn-primary" on:click={resumeMusic} disabled={!sound || !soundId}>
+      Resume Music
+    </button>
+
+    <button class="btn btn-primary" on:click={stopMusic} disabled={!sound || !soundId}>
+      Stop Music
+    </button>
+
 
   </div>
 </template>
