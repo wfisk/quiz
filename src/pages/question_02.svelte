@@ -18,7 +18,6 @@
     <p>
       The film Haloween starred Jamie Lee Curtis, the daughter of Tony Curtis.
       How many sequels were there to Haloween
-      12 Sequels including remakes
     </p>
 
   </div>
