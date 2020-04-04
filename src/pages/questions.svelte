@@ -11,6 +11,16 @@
   import Question08Page from 'src/pages/question_08.svelte';
   import Question09Page from 'src/pages/question_09.svelte';
   import Question10Page from 'src/pages/question_10.svelte';
+  import Question11Page from 'src/pages/question_11.svelte';
+  import Question12Page from 'src/pages/question_12.svelte';
+  import Question13Page from 'src/pages/question_13.svelte';
+  import Question14Page from 'src/pages/question_14.svelte';
+  import Question15Page from 'src/pages/question_15.svelte';
+  import Question16Page from 'src/pages/question_16.svelte';
+  import Question17Page from 'src/pages/question_17.svelte';
+  import Question18Page from 'src/pages/question_18.svelte';
+  import Question19Page from 'src/pages/question_19.svelte';
+  import Question20Page from 'src/pages/question_20.svelte';
   import QuestionsPage from 'src/pages/questions.svelte';
   const pages = [{
       questionIndex: 1,
@@ -52,6 +62,46 @@
       questionIndex: 10,
       component: Question10Page
     },
+    {
+      questionIndex: 11,
+      component: Question11Page
+    },
+    {
+      questionIndex: 12,
+      component: Question12Page
+    },
+    {
+      questionIndex: 13,
+      component: Question13Page
+    },
+    {
+      questionIndex: 14,
+      component: Question14Page
+    },
+    {
+      questionIndex: 15,
+      component: Question15Page
+    },
+    {
+      questionIndex: 16,
+      component: Question16Page
+    },
+    {
+      questionIndex: 17,
+      component: Question17Page
+    },
+    {
+      questionIndex: 18,
+      component: Question18Page
+    },
+    {
+      questionIndex: 19,
+      component: Question19Page
+    },
+    {
+      questionIndex: 20,
+      component: Question20Page
+    },
   ];
   let page = pages[0];
 
@@ -65,14 +115,14 @@
 
 
   function handleClick_PreviousQuestion() {
-    let value = (($quiz.activeQuestion + 8) % 10) + 1;
+    let value = (($quiz.activeQuestion + 18) % 20) + 1;
     Quiz.update('default', {
       activeQuestion: value
     });
   }
 
   function handleClick_NextQuestion() {
-    let value = ($quiz.activeQuestion % 10) + 1;
+    let value = ($quiz.activeQuestion % 20) + 1;
     Quiz.update('default', {
       activeQuestion: value
     });

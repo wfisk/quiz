@@ -15,8 +15,15 @@
 
   onMount(function() {
     sound = new Howl({
-      src: ['/assets/audio/persuaders.mp3']
+      src: ['/assets/audio/nationwide.mp3']
     });
+
+    return function() {
+      if (soundId) {
+        stopMusic();
+      }
+
+    };
   })
 
   function playMusic() {

@@ -12,12 +12,7 @@
 
 <template>
   <div in:fade="{{delay: 300, duration: 600}}" out:fade="{{delay: 0, duration: 300}}">
-    <h1>Question 7</h1>
-
-    <p>
-      Nationwide ran from 1969 to 1983.
-      Name the original presenter and one other presenter of the show.
-    </p>
+    <h1>Answer 10</h1>
 
   </div>
 </template>

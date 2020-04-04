@@ -17,6 +17,13 @@
     sound = new Howl({
       src: ['/assets/audio/persuaders.mp3']
     });
+
+    return function() {
+      if (soundId) {
+        stopMusic();
+      }
+
+    };
   })
 
   function playMusic() {
