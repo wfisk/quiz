@@ -21,6 +21,6 @@
       12 Sequels including remakes
     </p>
 
-
+  </div>
 
 </template>
