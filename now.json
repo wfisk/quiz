@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  {
+    "routes": [
+      { "src": "/assets/audio/persuaders.mp3", "dest": "/assets/audio/persuaders.mp3" }
+    ]
+  }
+}
