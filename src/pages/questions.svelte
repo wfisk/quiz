@@ -1,59 +1,50 @@
 <script>
-  import { onMount } from "svelte";
-  import { fromEvent, interval } from "rxjs";
-  import { map, sample } from "rxjs/operators";
   import Question from "src/collections/Question.js";
+  import Quiz from "src/collections/Quiz.js";
+  import activeQuestion from "src/stores/active-question.js";
+  import activeQuestionPage from "src/stores/active-question-page.js";
 
   // Question Observable
   let questions = Question.findAll();
+  let quizzes = Quiz.findAll();
 
-  //emit value every 1s
-  const source = interval(1000);
-  //sample last emitted value from source every 2s
-  const example = source.pipe(sample(interval(2000)));
-  //output: 2..4..6..8..
-  // const subscribe = example.subscribe((val) => console.log(val));
-
-  let button = null;
-  let buttonLog = null;
-
-  onMount(function () {
-    button = document.querySelector("#btn-test");
-    //create observable that emits click events
-    const buttonClick$ = fromEvent(button, "click");
-    //map to string with given event timestamp
-    buttonLog = buttonClick$.pipe(
-      map((event) => `Event time: ${event.timeStamp}`)
-    );
-  });
-  console.log(button);
-
-  //output (example): 'Event time: 7276.390000000001'
-
-  $: console.log($buttonLog);
-
-  // $: console.log($questions);
-</script>
-
-<style>
-  .buttons {
-    display: flex;
-    justify-content: flex-end;
+  function increment(value) {
+    return value + 1;
   }
-</style>
+
+  function handleClick_PreviousQuestion() {
+    $quiz.activeQactiveQuestion = (($activeQuestion + 8) % 10) + 1;
+  }
+  function handleClick_NextQuestion() {
+    $activeQuestion = ($activeQuestion % 10) + 1;
+  }
+</script>
 
 <template>
   <h1>Questions</h1>
 
+  <dl>
+    <dt>Active Question</dt>
+    <dd>{$activeQuestion}</dd>
+  </dl>
+
   <div class="buttons">
-    <button id="btn-test">
-      Click Me.
+    <button
+      class="btn btn-outline-secondary"
+      on:click="{handleClick_PreviousQuestion}"
+    >
+      &lt; Previous Question
+    </button>
+
+    <button class="btn btn-primary" on:click="{handleClick_NextQuestion}">
+      Next Question &gt;
     </button>
   </div>
 
-  <table class="table">
+  <table class="table table-striped">
     <thead>
       <th class="question-text">Text</th>
+      <th class="question-active">Active</th>
     </thead>
     <tbody>
       {#each $questions as question}
@@ -61,8 +52,13 @@
         <td class="question-text">
           {question.text}
         </td>
+        <td class="question-active">
+          {#if question.questionIndex == $activeQuestion} Active {/if}
+        </td>
       </tr>
       {/each}
     </tbody>
   </table>
 </template>
+
+<svelte:component this="{$activeQuestionPage}" />
