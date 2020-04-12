@@ -172,7 +172,7 @@
     <div class="questions">
 
     <div class="question" in:fade="{{delay: 2000}}" style="margin-bottom: 1rem;">
-      In the UK Best-Selling Songs, based on combined physical, download and streaming sales, 
+      In the UK Best-Selling Singles, based on combined physical, download and streaming sales, 
       as at September 2017, Boheminam Rhapsody was ranked Number 4.
     </div>
     <div class="question" in:fade="{{delay: 5000}}">

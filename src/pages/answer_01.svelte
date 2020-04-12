@@ -97,6 +97,10 @@
     margin-bottom: 2rem;
   }
 
+  .title {
+    font-weight: bold;
+  }
+
 </style>
 
 <template>
