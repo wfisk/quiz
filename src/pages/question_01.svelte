@@ -40,17 +40,7 @@
         playing: false
       })
     );
-  $: console.log($timer);
   $: soundFinished = soundFinished || $timer.seek > 36;
-
-
-  //   nterval(2*60*1000)
-  // .timeInterval()
-  // .flatMap(() => this.notificationService.getNotifications(this.token))
-  // .subscribe(data => {
-  // console.log(data);
-  // });
-
 
 
   onMount(function() {

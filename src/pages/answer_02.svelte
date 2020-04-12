@@ -40,7 +40,6 @@
         playing: false
       })
     );
-  $: console.log($timer);
   $: soundFinished = soundFinished || $timer.seek > 7.5;
 
 

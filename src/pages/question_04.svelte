@@ -40,7 +40,6 @@
         playing: false
       })
     );
-  $: console.log($timer);
   $: soundFinished = soundFinished || $timer.seek > 36;
 
 
@@ -147,7 +146,7 @@
         </Lyric>
 
         <Lyric showWhen={true}>
-          <en>Un instinto me guiaba</en>
+          <em>Un instinto me guiaba</em>
         </Lyric>
 
         <Lyric showWhen={true}>
