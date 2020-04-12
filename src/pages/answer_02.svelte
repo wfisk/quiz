@@ -44,14 +44,6 @@
   $: soundFinished = soundFinished || $timer.seek > 7.5;
 
 
-  //   nterval(2*60*1000)
-  // .timeInterval()
-  // .flatMap(() => this.notificationService.getNotifications(this.token))
-  // .subscribe(data => {
-  // console.log(data);
-  // });
-
-
 
   onMount(function() {
     sound = new Howl({
@@ -110,37 +102,36 @@
     font-weight: bold;
   }
 
+  .answer {
+    font-size: 3rem;
+    font-weight: normal;
+  }
+
+  .highlight {
+    color: red;
+  }
+
+  .title {
+    font-weight: bold;
+  }
+
 </style>
 
 <template>
   <div in:fade="{{delay: 300, duration: 600}}" out:fade="{{delay: 0, duration: 300}}">
-    <h1>Question 2</h1>
+    <h1>Answer 2</h1>
 
-    <div class="buttons">
-      <button class="btn btn-primary" on:click={playMusic} disabled={!sound || soundId}>
-        Play Music
-      </button>
+    <p style="font-size: 3rem;">
+      <span class="title">Party Rock Anthem</span> by LMFAO, released 2011
 
-      <button class="btn btn-primary" on:click={pauseMusic} disabled={!sound || !soundId}>
-        Pause Music
-      </button>
+    </p>
 
-      <button class="btn btn-primary" on:click={resumeMusic} disabled={!sound || !soundId}>
-        Resume Music
-      </button>
-
-      <button class="btn btn-primary" on:click={stopMusic} disabled={!sound || !soundId}>
-        Stop Music
-      </button>
-
+    <div class="question">
+      What dance is being danced here?
     </div>
-
-
-    {#if $timer.seek > 7.5 || soundFinished }
-      <div class="question">
-        What dance is being danced here?
-      </div>
-    {/if}
+    <div class="answer">
+      Everyday I'm <span class="highlight">Shuffling</span>
+    </div>
 
 
   </div>

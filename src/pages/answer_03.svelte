@@ -41,21 +41,13 @@
       })
     );
   $: console.log($timer);
-  $: soundFinished = soundFinished || $timer.seek > 7.5;
-
-
-  //   nterval(2*60*1000)
-  // .timeInterval()
-  // .flatMap(() => this.notificationService.getNotifications(this.token))
-  // .subscribe(data => {
-  // console.log(data);
-  // });
+  $: soundFinished = soundFinished || $timer.seek > 36;
 
 
 
   onMount(function() {
     sound = new Howl({
-      src: ['/assets/audio/shuffling.mp3']
+      src: ['/assets/audio/viva_la_vida.mp3']
     });
 
     return function() {
@@ -86,14 +78,13 @@
 </script>
 
 <style>
-  :global(.lyric:last-child) {
+  :global(.lyrics .lyric:last-child) {
     color: red;
   }
 
   .options {
     font-size: 3rem;
     font-weight: bold;
-    color: blue;
     margin-left: 3rem;
   }
 
@@ -105,42 +96,28 @@
     margin-bottom: 2rem;
   }
 
-  .question {
-    font-size: 3rem;
-    font-weight: bold;
-  }
-
 </style>
 
 <template>
   <div in:fade="{{delay: 300, duration: 600}}" out:fade="{{delay: 0, duration: 300}}">
-    <h1>Question 2</h1>
+    <h1>Question 3</h1>
 
-    <div class="buttons">
-      <button class="btn btn-primary" on:click={playMusic} disabled={!sound || soundId}>
-        Play Music
-      </button>
+    <p style="font-size: 3rem;">
+      <span class="title">Viva La Vida</span> by Coldplay released September 2008
 
-      <button class="btn btn-primary" on:click={pauseMusic} disabled={!sound || !soundId}>
-        Pause Music
-      </button>
+    </p>
 
-      <button class="btn btn-primary" on:click={resumeMusic} disabled={!sound || !soundId}>
-        Resume Music
-      </button>
+    <Lyric showWhen={true}>
+      I hear .......
+    </Lyric>
 
-      <button class="btn btn-primary" on:click={stopMusic} disabled={!sound || !soundId}>
-        Stop Music
-      </button>
+    <ol type="A" class="options" in:fade>
+      <li style="color:red;">Jerusalem bells are ringing</li>
+      <li>Solomon's temple falling</li>
+      <li>The holy lands are warring</li>
+      <li>the Knight's Templar calling</li>
+    </ol>
 
-    </div>
-
-
-    {#if $timer.seek > 7.5 || soundFinished }
-      <div class="question">
-        What dance is being danced here?
-      </div>
-    {/if}
 
 
   </div>

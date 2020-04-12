@@ -100,67 +100,28 @@
 
 <template>
   <div in:fade="{{delay: 300, duration: 600}}" out:fade="{{delay: 0, duration: 300}}">
-    <h1>Question 6</h1>
+    <h1>Answer 6</h1>
 
-    <div class="buttons">
-      <button class="btn btn-primary" on:click={playMusic} disabled={!sound || soundId}>
-        Play Music
-      </button>
+    <p style="font-size: 3rem;">
+      <span class="title">The 59th Street Bridge Song (Feelin' Groovy)</span> by Simon & Garfunkel released September 1966
 
-      <button class="btn btn-primary" on:click={pauseMusic} disabled={!sound || !soundId}>
-        Pause Music
-      </button>
+    </p>
 
-      <button class="btn btn-primary" on:click={resumeMusic} disabled={!sound || !soundId}>
-        Resume Music
-      </button>
+    <Lyric showWhen={true}>
+      Hello, ????, what'cha knowin'?
+    </Lyric>
 
-      <button class="btn btn-primary" on:click={stopMusic} disabled={!sound || !soundId}>
-        Stop Music
-      </button>
-
-    </div>
-
-    <div class="lyrics">
-
-      <Lyric showWhen="{$timer.seek> 0.5}" hideWhen="{$timer.seek > 24}">
-        Slow down, you move too fast
-      </Lyric>
-
-      <Lyric showWhen="{$timer.seek> 4}" hideWhen="{$timer.seek > 24}">
-        You got to make the morning last
-      </Lyric>
-
-      <Lyric showWhen="{$timer.seek> 7}" hideWhen="{$timer.seek > 24}">
-        Just kicking down the cobblestones
-      </Lyric>
-
-      <Lyric showWhen="{$timer.seek> 11}" hideWhen="{$timer.seek > 24}">
-        Looking for fun and feelin' groovy
-      </Lyric>
-
-      <Lyric showWhen="{$timer.seek> 17.5}" hideWhen="{$timer.seek > 24}">
-        Ba da da da da da da, feelin' groovy
-      </Lyric>
-
-      <Lyric showWhen="{$timer.seek> 25 || soundFinished }">
-        Hello, ????, what'cha knowin'?
-      </Lyric>
-
-      <Lyric showWhen="{$timer.seek> 28 || soundFinished }">
-        I've come to watch your flowers growin'
-      </Lyric>
-    </div>
+    <Lyric showWhen={true}>
+      I've come to watch your flowers growin'
+    </Lyric>
 
 
-    {#if $timer.seek > 32 || soundFinished }
     <ol type="A" class="options" in:fade>
       <li>Bus stop</li>
-      <li>Lamppost</li>
+      <li style="color:red;">Lamppost</li>
       <li>Mail box</li>
       <li>Stop light</li>
     </ol>
-    {/if}
 
 
   </div>

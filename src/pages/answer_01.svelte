@@ -41,21 +41,15 @@
       })
     );
   $: console.log($timer);
-  $: soundFinished = soundFinished || $timer.seek > 7.5;
+  $: soundFinished = soundFinished || $timer.seek > 36;
 
 
-  //   nterval(2*60*1000)
-  // .timeInterval()
-  // .flatMap(() => this.notificationService.getNotifications(this.token))
-  // .subscribe(data => {
-  // console.log(data);
-  // });
 
 
 
   onMount(function() {
     sound = new Howl({
-      src: ['/assets/audio/shuffling.mp3']
+      src: ['/assets/audio/gimme2.mp3']
     });
 
     return function() {
@@ -86,14 +80,13 @@
 </script>
 
 <style>
-  :global(.lyric:last-child) {
+  :global(.lyrics .lyric:last-child) {
     color: red;
   }
 
   .options {
     font-size: 3rem;
     font-weight: bold;
-    color: blue;
     margin-left: 3rem;
   }
 
@@ -105,42 +98,30 @@
     margin-bottom: 2rem;
   }
 
-  .question {
-    font-size: 3rem;
-    font-weight: bold;
-  }
-
 </style>
 
 <template>
   <div in:fade="{{delay: 300, duration: 600}}" out:fade="{{delay: 0, duration: 300}}">
-    <h1>Question 2</h1>
-
-    <div class="buttons">
-      <button class="btn btn-primary" on:click={playMusic} disabled={!sound || soundId}>
-        Play Music
-      </button>
-
-      <button class="btn btn-primary" on:click={pauseMusic} disabled={!sound || !soundId}>
-        Pause Music
-      </button>
-
-      <button class="btn btn-primary" on:click={resumeMusic} disabled={!sound || !soundId}>
-        Resume Music
-      </button>
-
-      <button class="btn btn-primary" on:click={stopMusic} disabled={!sound || !soundId}>
-        Stop Music
-      </button>
-
-    </div>
+    <h1>Answer 1</h1>
 
 
-    {#if $timer.seek > 7.5 || soundFinished }
-      <div class="question">
-        What dance is being danced here?
-      </div>
-    {/if}
+
+    <p style="font-size: 3rem;">
+      <span class="title">Gimme! Gimme! Gimme! (A Man After Midnight)</span> by ABBA, released Ocotober 1979
+
+    </p>
+
+    <Lyric showWhen={true}>
+      Gimme, gimme, gimme .......
+    </Lyric>
+
+
+    <ol type="A" class="options" in:fade>
+      <li style="color:red;">A Man after Midnight</li>
+      <li>A Man after my Heart</li>
+      <li>A Man after this Night</li>
+      <li>A Man after my Dreams</li>
+    </ol>
 
 
   </div>

@@ -41,13 +41,13 @@
       })
     );
   $: console.log($timer);
-  $: soundFinished = soundFinished || $timer.seek > 50;
+  $: soundFinished = soundFinished || $timer.seek > 32;
 
 
 
   onMount(function() {
     sound = new Howl({
-      src: ['/assets/audio/corona_rhapsody.mp3']
+      src: ['/assets/audio/barcelona.mp3']
     });
 
     return function() {
@@ -82,13 +82,10 @@
     color: red;
   }
 
-  :global(.questions .question:last-child) {
-    color: red;
-  }
-
-  .question {
+  .options {
     font-size: 3rem;
     font-weight: bold;
+    margin-left: 3rem;
   }
 
   h1 {
@@ -99,11 +96,15 @@
     margin-bottom: 2rem;
   }
 
+  .translation {
+    font-weight: normal !important;
+  }
+
 </style>
 
 <template>
   <div in:fade="{{delay: 300, duration: 600}}" out:fade="{{delay: 0, duration: 300}}">
-    <h1>Question 5</h1>
+    <h1>Answer 4</h1>
 
     <div class="buttons">
       <button class="btn btn-primary" on:click={playMusic} disabled={!sound || soundId}>
@@ -125,62 +126,40 @@
     </div>
 
     <div class="lyrics">
-
-      <Lyric showWhen="{$timer.seek > 0.3}" hideWhen="{$timer.seek > 14}">
-        Is this a fever?
+      <Lyric showWhen="{$timer.seek> 0.5}">
+        The wind is a gentle breeze
       </Lyric>
 
-      <Lyric showWhen="{$timer.seek > 3}" hideWhen="{$timer.seek > 14}">
-        Is this just allergies?
+      <Lyric showWhen="{$timer.seek> 6}">
+        Él me habló de ti <span class="translation">(He told me about you)</span>
       </Lyric>
 
-      <Lyric showWhen="{$timer.seek > 7}" hideWhen="{$timer.seek > 14}">
-        Caught in a lockdown
+      <Lyric showWhen="{$timer.seek> 11.2}">
+        The bells are ringing out
       </Lyric>
 
-      <Lyric showWhen="{$timer.seek > 10}" hideWhen="{$timer.seek > 14}">
-        No escape from the family
+      <Lyric showWhen="{$timer.seek> 14}">
+        El canto vuela <span class="translation">(Singing flies)</span>
       </Lyric>
 
-      <Lyric showWhen="{$timer.seek > 14.5}" hideWhen="{$timer.seek > 50}">
-        Don't touch your eyes
+      <Lyric showWhen="{$timer.seek> 17}">
+        They're calling us together
       </Lyric>
 
-      <Lyric showWhen="{$timer.seek > 17.5}" hideWhen="{$timer.seek > 50}">
-        Just hand sanitize quickly
+      <Lyric showWhen="{$timer.seek> 19.5}">
+        Guiding us forever
       </Lyric>
 
-      <Lyric showWhen="{$timer.seek > 24.5}" hideWhen="{$timer.seek > 50}">
-        I'm just a poor boy, no job security
+      <Lyric showWhen="{$timer.seek> 22}">
+        Wish my dream would never go away
       </Lyric>
 
-      <Lyric showWhen="{$timer.seek > 31.20}" hideWhen="{$timer.seek > 50}">
-        Because of easy spread, even though
-      </Lyric>
-
-      <Lyric showWhen="{$timer.seek > 34.5}" hideWhen="{$timer.seek > 50}">
-        I washed my hands, laying low
-      </Lyric>
-
-      <Lyric showWhen="{$timer.seek > 38}" hideWhen="{$timer.seek > 50}">
-        I look out the window, the curve doesn't look flatter, to me, to me.
+      <Lyric showWhen="{$timer.seek> 32 || soundFinished }">
+        Barcelona by Freddie Mercury and Montserrat Caballé, released 1987
       </Lyric>
     </div>
 
 
-
-    {#if $timer.seek > 52 || soundFinished }
-    <div class="questions">
-
-    <div class="question" in:fade="{{delay: 2000}}" style="margin-bottom: 1rem;">
-      In the UK Best-Selling Songs, based on combined physical, download and streaming sales, 
-      as at September 2017, Boheminam Rhapsody was ranked Number 4.
-    </div>
-    <div class="question" in:fade="{{delay: 5000}}">
-      Name one other song in this top ten.
-    </div>
-  </div>
-  {/if}
 
 
   </div>

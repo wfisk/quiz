@@ -41,21 +41,13 @@
       })
     );
   $: console.log($timer);
-  $: soundFinished = soundFinished || $timer.seek > 7.5;
-
-
-  //   nterval(2*60*1000)
-  // .timeInterval()
-  // .flatMap(() => this.notificationService.getNotifications(this.token))
-  // .subscribe(data => {
-  // console.log(data);
-  // });
+  $: soundFinished = soundFinished || $timer.seek > 30;
 
 
 
   onMount(function() {
     sound = new Howl({
-      src: ['/assets/audio/shuffling.mp3']
+      src: ['/assets/audio/karma.mp3']
     });
 
     return function() {
@@ -86,14 +78,13 @@
 </script>
 
 <style>
-  :global(.lyric:last-child) {
+  :global(.lyrics .lyric:last-child) {
     color: red;
   }
 
   .options {
     font-size: 3rem;
     font-weight: bold;
-    color: blue;
     margin-left: 3rem;
   }
 
@@ -105,8 +96,7 @@
     margin-bottom: 2rem;
   }
 
-  .question {
-    font-size: 3rem;
+  .title {
     font-weight: bold;
   }
 
@@ -114,33 +104,26 @@
 
 <template>
   <div in:fade="{{delay: 300, duration: 600}}" out:fade="{{delay: 0, duration: 300}}">
-    <h1>Question 2</h1>
+    <h1>Answer 7 - Bonus Question</h1>
 
-    <div class="buttons">
-      <button class="btn btn-primary" on:click={playMusic} disabled={!sound || soundId}>
-        Play Music
-      </button>
+    <p style="font-size: 3rem;">
+      <span class="title">Karma Chameleon</span> by Culture Club released September 1983
 
-      <button class="btn btn-primary" on:click={pauseMusic} disabled={!sound || !soundId}>
-        Pause Music
-      </button>
-
-      <button class="btn btn-primary" on:click={resumeMusic} disabled={!sound || !soundId}>
-        Resume Music
-      </button>
-
-      <button class="btn btn-primary" on:click={stopMusic} disabled={!sound || !soundId}>
-        Stop Music
-      </button>
-
-    </div>
+    </p>
 
 
-    {#if $timer.seek > 7.5 || soundFinished }
-      <div class="question">
-        What dance is being danced here?
-      </div>
-    {/if}
+    <Lyric showWhen={true}>
+      Red, ????, and green, red, ????, and green
+    </Lyric>
+
+
+
+    <ol type="A" class="options" in:fade>
+      <li>Blue</li>
+      <li style="color:red;">Gold</li>
+      <li>Orange</li>
+      <li>Yellow</li>
+    </ol>
 
 
   </div>

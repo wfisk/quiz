@@ -8,20 +8,14 @@
   import Question05Page from 'src/pages/question_05.svelte';
   import Question06Page from 'src/pages/question_06.svelte';
   import Question07Page from 'src/pages/question_07.svelte';
-  import Question08Page from 'src/pages/question_08.svelte';
-  import Question09Page from 'src/pages/question_09.svelte';
-  import Question10Page from 'src/pages/question_10.svelte';
-  import Question11Page from 'src/pages/question_11.svelte';
-  import Question12Page from 'src/pages/question_12.svelte';
-  import Question13Page from 'src/pages/question_13.svelte';
-  import Question14Page from 'src/pages/question_14.svelte';
-  import Question15Page from 'src/pages/question_15.svelte';
-  import Question16Page from 'src/pages/question_16.svelte';
-  import Question17Page from 'src/pages/question_17.svelte';
-  import Question18Page from 'src/pages/question_18.svelte';
-  import Question19Page from 'src/pages/question_19.svelte';
-  import Question20Page from 'src/pages/question_20.svelte';
-  import QuestionsPage from 'src/pages/questions.svelte';
+  import Answer01Page from 'src/pages/answer_01.svelte';
+  import Answer02Page from 'src/pages/answer_02.svelte';
+  import Answer03Page from 'src/pages/answer_03.svelte';
+  import Answer04Page from 'src/pages/answer_04.svelte';
+  import Answer05Page from 'src/pages/answer_05.svelte';
+  import Answer06Page from 'src/pages/answer_06.svelte';
+  import Answer07Page from 'src/pages/answer_07.svelte';
+
   const pages = [{
       questionIndex: 1,
       component: Question01Page
@@ -52,55 +46,31 @@
     },
     {
       questionIndex: 8,
-      component: Question08Page
+      component: Answer01Page
     },
     {
       questionIndex: 9,
-      component: Question09Page
+      component: Answer02Page
     },
     {
       questionIndex: 10,
-      component: Question10Page
+      component: Answer03Page
     },
     {
       questionIndex: 11,
-      component: Question11Page
+      component: Answer04Page
     },
     {
       questionIndex: 12,
-      component: Question12Page
+      component: Answer05Page
     },
     {
       questionIndex: 13,
-      component: Question13Page
+      component: Answer06Page
     },
     {
       questionIndex: 14,
-      component: Question14Page
-    },
-    {
-      questionIndex: 15,
-      component: Question15Page
-    },
-    {
-      questionIndex: 16,
-      component: Question16Page
-    },
-    {
-      questionIndex: 17,
-      component: Question17Page
-    },
-    {
-      questionIndex: 18,
-      component: Question18Page
-    },
-    {
-      questionIndex: 19,
-      component: Question19Page
-    },
-    {
-      questionIndex: 20,
-      component: Question20Page
+      component: Answer07Page
     },
   ];
   let page = pages[0];

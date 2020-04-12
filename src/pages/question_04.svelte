@@ -1,12 +1,113 @@
 <script>
   import {
-    fade
+    onMount
+  } from 'svelte';
+  import {
+    Howler,
+    Howl
+  } from 'howler';
+  import {
+    from as rxFrom,
+    timer as rxTimer
+  } from 'rxjs'
+  import {
+    switchMap,
+    startWith
+  } from 'rxjs/operators'
+  import {
+    fade,
+    fly
   } from 'svelte/transition';
+  import Lyric from 'src/components/lyric.svelte';
+
+  let sound;
+  let soundId;
+  let soundFinished = false;
+
+  let timer =
+    rxTimer(0, 500)
+    .pipe(
+      switchMap(function() {
+        let seek = sound ? sound.seek() : 0;
+        let playing = sound ? sound.playing() : false;
+        return rxFrom([{
+          seek,
+          playing
+        }]);
+      }),
+      startWith({
+        seek: 0,
+        playing: false
+      })
+    );
+  $: console.log($timer);
+  $: soundFinished = soundFinished || $timer.seek > 36;
+
+
+
+  onMount(function() {
+    sound = new Howl({
+      src: ['/assets/audio/barcelona.mp3']
+    });
+
+    return function() {
+      if (soundId) {
+        stopMusic();
+      }
+
+    };
+  })
+
+  function playMusic() {
+    soundId = sound.play();
+  }
+
+  function pauseMusic() {
+    sound.pause(soundId);
+  }
+
+  function resumeMusic() {
+    sound.play(soundId);
+  }
+
+  function stopMusic() {
+    sound.stop(soundId);
+    soundId = null;
+  }
 
 </script>
 
 <style>
+  :global(.lyrics .verse .lyric) {
+    color: black !important;
+    font-size: 2rem;
+    font-weight: normal;
+  }
 
+  :global(.lyrics .verse) {
+    margin-bottom: 1rem;
+  }
+
+  .question {
+    font-size: 3rem;
+    font-weight: bold;
+    color: red;
+  }
+
+
+  .options {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-left: 3rem;
+  }
+
+  h1 {
+    margin-bottom: 1rem;
+  }
+
+  .buttons {
+    margin-bottom: 2rem;
+  }
 
 </style>
 
@@ -14,60 +115,88 @@
   <div in:fade="{{delay: 300, duration: 600}}" out:fade="{{delay: 0, duration: 300}}">
     <h1>Question 4</h1>
 
-    <h2>BBC 1 - Thursday, 6 April 1972</h2>
+    <div class="question">
+      From which song are these lyrics taken?
+    </div>
 
-    <dl class="row">
-      <dt class="col-3">14:25</dt>
-      <dd class="col-9">Racing at Aintree</dd>
 
-      <dt class="col-3">16:20</dt>
-      <dd class="col-9">******</dd>
 
-      <dt class="col-3">16:45</dt>
-      <dd class="col-9">******</dd>
+    <div class="lyrics">
 
-      <dt class="col-3">16:55</dt>
-      <dd class="col-9">******</dd>
+      <div class="verse">
+        <Lyric showWhen={true}>
+          I had this perfect dream
+        </Lyric>
 
-      <dt class="col-3">17:20</dt>
-      <dd class="col-9">******</dd>
+        <Lyric showWhen={true}>
+          <em>Un sueño me envolvió</em>
+        </Lyric>
 
-      <dt class="col-3">17:44</dt>
-      <dd class="col-9">******</dd>
+        <Lyric showWhen={true}>
+          This dream was me and you
+        </Lyric>
 
-      <dt class="col-3">17:50</dt>
-      <dd class="col-9">******</dd>
+        <Lyric showWhen={true}>
+          <em>Tal vez estás aquí</em>
+        </Lyric>
+      </div>
 
-      <dt class="col-3">18:00</dt>
-      <dd class="col-9">******</dd>
+      <div class="verse">
+        <Lyric showWhen={true}>
+          I want all the world to see
+        </Lyric>
 
-      <dt class="col-3">18:50</dt>
-      <dd class="col-9">******</dd>
+        <Lyric showWhen={true}>
+          <en>Un instinto me guiaba</en>
+        </Lyric>
 
-      <dt class="col-3">19:00</dt>
-      <dd class="col-9">******</dd>
+        <Lyric showWhen={true}>
+          A miracle sensation
+        </Lyric>
 
-      <dt class="col-3">19:25</dt>
-      <dd class="col-9">******</dd>
+        <Lyric showWhen={true} style="margin-bottom: 2rem;">
+          My guide and inspiration
+        </Lyric>
+      </div>
 
-      <dt class="col-3">20:00</dt>
-      <dd class="col-9">******</dd>
+      <div class="verse">
+        <Lyric showWhen={true}>
+          Now my dream is slowly coming true
+        </Lyric>
 
-      <dt class="col-3">20:30</dt>
-      <dd class="col-9">******</dd>
+        <Lyric showWhen={true}>
+          The wind is a gentle breeze
+        </Lyric>
 
-      <dt class="col-3">21:00</dt>
-      <dd class="col-9">******</dd>
+        <Lyric showWhen={true}>
+          <em>Él me habló de ti</em>
+        </Lyric>
 
-      <dt class="col-3">21:20</dt>
-      <dd class="col-9">Emma's Time</dd>
+        <Lyric showWhen={true}>
+          The bells are ringing out
+        </Lyric>
+      </div>
 
-      <dt class="col-3">22:40</dt>
-      <dd class="col-9">24 Hours</dd>
+      <div class="verse">
+        <Lyric showWhen={true}>
+          <em>El canto vuela</em>
+        </Lyric>
 
+        <Lyric showWhen={true}>
+          They're calling us together
+        </Lyric>
+
+        <Lyric showWhen={true}>
+          Guiding us forever
+        </Lyric>
+
+        <Lyric showWhen={true}>
+          Wish my dream would never go away
+        </Lyric>
+      </div>
+    </div>
 
 
   </div>
-
 
 </template>
