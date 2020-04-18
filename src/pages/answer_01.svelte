@@ -1,104 +1,13 @@
 <script>
   import {
-    onMount
-  } from 'svelte';
-  import {
-    Howler,
-    Howl
-  } from 'howler';
-  import {
-    from as rxFrom,
-    timer as rxTimer
-  } from 'rxjs'
-  import {
-    switchMap,
-    startWith
-  } from 'rxjs/operators'
-  import {
     fade,
-    fly
   } from 'svelte/transition';
-  import Lyric from 'src/components/lyric.svelte';
-
-  let sound;
-  let soundId;
-  let soundFinished = false;
-
-  let timer =
-    rxTimer(0, 500)
-    .pipe(
-      switchMap(function() {
-        let seek = sound ? sound.seek() : 0;
-        let playing = sound ? sound.playing() : false;
-        return rxFrom([{
-          seek,
-          playing
-        }]);
-      }),
-      startWith({
-        seek: 0,
-        playing: false
-      })
-    );
-  $: soundFinished = soundFinished || $timer.seek > 36;
-
-
-
-
-
-  onMount(function() {
-    sound = new Howl({
-      src: ['/assets/audio/gimme2.mp3']
-    });
-
-    return function() {
-      if (soundId) {
-        stopMusic();
-      }
-
-    };
-  })
-
-  function playMusic() {
-    soundId = sound.play();
-  }
-
-  function pauseMusic() {
-    sound.pause(soundId);
-  }
-
-  function resumeMusic() {
-    sound.play(soundId);
-  }
-
-  function stopMusic() {
-    sound.stop(soundId);
-    soundId = null;
-  }
 
 </script>
 
 <style>
-  :global(.lyrics .lyric:last-child) {
-    color: red;
-  }
-
-  .options {
-    font-size: 3rem;
-    font-weight: bold;
-    margin-left: 3rem;
-  }
-
   h1 {
     margin-bottom: 1rem;
-  }
-
-  .buttons {
-    margin-bottom: 2rem;
-  }
-
-  .title {
-    font-weight: bold;
   }
 
 </style>
@@ -108,25 +17,10 @@
     <h1>Answer 1</h1>
 
 
-
-    <p style="font-size: 3rem;">
-      <span class="title">Gimme! Gimme! Gimme! (A Man After Midnight)</span> by ABBA, released Ocotober 1979
-
-    </p>
-
-    <Lyric showWhen={true}>
-      Gimme, gimme, gimme .......
-    </Lyric>
-
-
-    <ol type="A" class="options" in:fade>
-      <li style="color:red;">A Man after Midnight</li>
-      <li>A Man after my Heart</li>
-      <li>A Man after this Night</li>
-      <li>A Man after my Dreams</li>
-    </ol>
-
-
+    <video width="640" height="480" controls>
+      <source src="assets/video/brown_2.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
   </div>
 
 </template>
