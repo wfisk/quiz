@@ -41,6 +41,11 @@
     margin-bottom: 2rem;
   }
 
+  mark {
+    color: orange;
+    background-color: transparent;
+  }
+
 </style>
 
 <template>
@@ -48,7 +53,7 @@
     <h1>Question 3</h1>
 
     <p class="question">
-      Which of the following sports does not have seven players in a team (excluding substitutes)?
+      Which of the following sports does not have <mark>seven</mark> players in a team (excluding substitutes)?
     </p>
 
     <ol class="options">

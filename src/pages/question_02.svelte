@@ -43,6 +43,11 @@
     margin-bottom: 2rem;
   }
 
+  mark {
+    color: orange;
+    background-color: transparent;
+  }
+
 </style>
 
 <template>
@@ -50,7 +55,7 @@
     <h1>Question 2</h1>
 
     <p class="question">
-      Which of the following is not one of the dwarfs from the 1937 film Snow White and the Seven Dwarfs?
+      Which of the following is not one of the <mark>seven</mark> dwarfs from the 1937 film Snow White and the Seven Dwarfs?
     </p>
 
     <ol class="options">

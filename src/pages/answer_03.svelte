@@ -54,14 +54,19 @@
     margin-bottom: 2rem;
   }
 
+  mark {
+    color: orange;
+    background-color: transparent;
+  }
+
 </style>
 
 <template>
   <div in:fade="{{delay: 300, duration: 600}}" out:fade="{{delay: 0, duration: 300}}">
-    <h1>Question 3</h1>
+    <h1>Answer 3</h1>
 
     <p class="question">
-      Which of the following sports does not have seven players in a team (excluding substitutes)?
+      Which of the following sports does not have <mark>seven</mark> players in a team (excluding substitutes)?
     </p>
 
     <ol class="options">

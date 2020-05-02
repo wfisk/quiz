@@ -41,6 +41,11 @@
     margin-bottom: 2rem;
   }
 
+  mark {
+    color: orange;
+    background-color: transparent;
+  }
+
 </style>
 
 <template>
@@ -48,7 +53,7 @@
     <h1>Question 4</h1>
 
     <p class="question">
-      The British 50p coin is a 7 sided coin.
+      The British 50p coin is a <mark>seven</mark> sided coin.
       In 2019, a special commerative edition was planned to celebrate the exit of the United
       Kingdom from the European Union. The coin was inscribed with a quote,
       inspired by the inaugural address of Thomas Jefferson.

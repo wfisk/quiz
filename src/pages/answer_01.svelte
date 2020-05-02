@@ -55,6 +55,11 @@
     margin-bottom: 2rem;
   }
 
+  mark {
+    color: orange;
+    background-color: transparent;
+  }
+
 </style>
 
 <template>
@@ -62,7 +67,7 @@
     <h1>Answer 1</h1>
 
     <p class="question">
-      How do you write seven in Portuguese?
+      How do you write <mark>seven</mark> in Portuguese?
     </p>
 
     <ol class="options">

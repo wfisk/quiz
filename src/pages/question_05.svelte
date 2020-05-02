@@ -41,6 +41,11 @@
     margin-bottom: 2rem;
   }
 
+  mark {
+    color: orange;
+    background-color: transparent;
+  }
+
 </style>
 
 <template>
@@ -50,7 +55,7 @@
     <p class="question">
       Most French departments are assigned a two-digit number. This number is used as part of the post code.
       For example, I live in Seine et Marne, number 77, and my post code is 77190. Which French department
-      is assigned the number 7?
+      is assigned the number <mark>7</mark>?
     </p>
 
     <ol class="options">

@@ -41,6 +41,11 @@
     margin-bottom: 2rem;
   }
 
+  mark {
+    color: orange;
+    background-color: transparent;
+  }
+
 </style>
 
 <template>
@@ -48,7 +53,7 @@
     <h1>Question 6</h1>
 
     <p class="question">
-      The 7 up logo, for use outside the US, was redesigned in 2011.
+      The <mark>7</mark>up logo, for use outside the US, was redesigned in 2011.
       In what geometric shape does the word UP appear?
     </p>
 

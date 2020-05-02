@@ -53,14 +53,19 @@
     margin-bottom: 2rem;
   }
 
+  mark {
+    color: orange;
+    background-color: transparent;
+  }
+
 </style>
 
 <template>
   <div in:fade="{{delay: 300, duration: 600}}" out:fade="{{delay: 0, duration: 300}}">
-    <h1>Question 2</h1>
+    <h1>Answer 2</h1>
 
     <p class="question">
-      Which of the following is not one of the dwarfs from the 1937 film Snow White and the Seven Dwarfs?
+      Which of the following is not one of the <mark>seven</mark>dwarfs from the 1937 film Snow White and the Seven Dwarfs?
     </p>
 
 
