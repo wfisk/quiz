@@ -48,26 +48,25 @@
     <h1>Question 6</h1>
 
     <p class="question">
-      On a British Monopoloy board if a piece is on Free Parking and
-      moves forward 77 spaces, and then back one, on what color property
-      would it land?
+      The 7 up logo, for use outside the US, was redesigned in 2011.
+      In what geometric shape does the word UP appear?
     </p>
 
     <ol class="options">
       <li class="option">
-        Red
+        Green Circle
       </li>
 
       <li class="option">
-        Orange
+        Orange Diamond
       </li>
 
       <li class="option">
-        Yellow
+        Red Circle
       </li>
 
       <li class="option">
-        Green
+        Yellow Diamond
       </li>
 
 

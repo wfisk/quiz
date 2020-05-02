@@ -58,27 +58,35 @@
 
 <template>
   <div in:fade="{{delay: 300, duration: 600}}" out:fade="{{delay: 0, duration: 300}}">
-    <h1>Answer 6</h1>
+    <h1>Question 6</h1>
 
     <p class="question">
-      On a British Monopoloy board if a piece is on Free Parking and
-      moves forward 77 spaces, and then back one, on what colour property
-      would it land?
+      The 7 up logo, for use outside the US, was redesigned in 2011.
+      In what geometric shape does the word UP appear?
     </p>
 
-    <p class="option active">
-      B. Orange
-    </p>
+    <ol class="options">
+      <li class="option">
+        Green Circle
+      </li>
 
-    <p class="info">
-      Twice round the board and back four.
-    </p>
+      <li class="option">
+        Orange Diamond
+      </li>
 
-    <img src="assets/images/monopoly.png">
+      <li class="option active">
+        Red Circle
+      </li>
+
+      <li class="option">
+        Yellow Diamond
+      </li>
 
 
+    </ol>
 
 
+    <img src='/assets/images/7up.jpeg'>
 
   </div>
 

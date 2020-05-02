@@ -40,7 +40,7 @@
   }
 
   .option {
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: bold;
     margin-left: 3rem;
   }
@@ -59,66 +59,37 @@
 
 <template>
   <div in:fade="{{delay: 300, duration: 600}}" out:fade="{{delay: 0, duration: 300}}">
-    <h1>Answer 4</h1>
+    <h1>Question 4</h1>
 
     <p class="question">
-      In a 2D game of Noughts and Crosses, represented by a 3x3 grid, there are eight winning lines.
-      How many winning lines are there in a 3D game of Noughts and Crosses, represented by a 3x3x3 grid ?
+      The British 50p coin is a 7 sided coin.
+      In 2019, a special commerative edition was planned to celebrate the exit of the United
+      Kingdom from the European Union. The coin was inscribed with a quote,
+      inspired by the inaugural address of Thomas Jefferson.
+      What was the quote?
     </p>
 
-    <p class="option active">
-      D. 49
-    </p>
+    <ol class="options">
+      <li class="option">
+        Liberty, Equality, Fraternity, French National Motto
+      </li>
+
+      <li class="option">
+        Life, Liberty and the pursuit of Happiness, from the United States declaration of independence.
+      </li>
+
+      <li class="option active">
+        Peace, prosperity and friendship with all nations.
+      </li>
+
+      <li class="option">
+        So long, and thanks for all the fish, from a book by Douglas Adams. It is the message left by
+        dolphins when they departed Planet Earth just before it was demolished to make way for a
+        hyperspace bypass.
+      </li>
 
 
-    <p class="info">
-      The 3x3x3 grid is three layers, with each layer containing a 3x3 grid.
-      A winning line is either within a layer or goes through all three layers.
-
-      There are 3 x 8 (=24) winning lines that stay within their layer.
-
-      For the lines that go through all layers, consider all winning lines from the top layer.
-    </p>
-    <table border="1" width="25%">
-      <tr>
-        <td>
-          4
-        </td>
-        <td>
-          2
-        </td>
-        <td>
-          4
-        </td>
-      </tr>
-      <tr>
-        <td>
-          2
-        </td>
-        <td>
-          1
-        </td>
-        <td>
-          2
-        </td>
-      </tr>
-      <tr>
-        <td>
-          4
-        </td>
-        <td>
-          2
-        </td>
-        <td>
-          4
-        </td>
-      </tr>
-    </table>
-    <p class="info">
-      There are 25 winning lines that go through all three layers.
-
-      This gives a total of 24 + 25 = 49 winning lines.
-    </p>
+    </ol>
 
   </div>
 

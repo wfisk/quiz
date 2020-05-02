@@ -35,6 +35,14 @@ export default class Question extends Collection {
     );
   }
 
+  static findAllByQuizId( quizId ) {
+    const collectionRef = firestore.collection( this.collectionName );
+    return collectionData( collectionRef.where( 'quizId', '==', quizId ), 'id' ).pipe(
+      map( questions => questions.sort( ( a, b ) => a.questionIndex - b.questionIndex ) ),
+      startWith( [ { text: "one" } ] )
+    );
+  }
+
   static findAllInGroupsOfThree() {
     const collectionRef = firestore.collection( this.collectionName );
     return collectionData( collectionRef, 'id' ).pipe(

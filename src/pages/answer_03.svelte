@@ -58,26 +58,31 @@
 
 <template>
   <div in:fade="{{delay: 300, duration: 600}}" out:fade="{{delay: 0, duration: 300}}">
-    <h1>Answer 3</h1>
+    <h1>Question 3</h1>
 
     <p class="question">
-      Who is the current World Chess Champion?
+      Which of the following sports does not have seven players in a team (excluding substitutes)?
     </p>
 
-    <p class="option active">
-      B. Magnus Carlsen
-    </p>
-
-    <ul class="info">
-      <li><strong>Patrick Barrie</strong> is World TiddlyWinks Champion.
+    <ol class="options">
+      <li class="option">
+        Handball, 7 players in a team
       </li>
 
-      <li><strong>Nicolo Falcone</strong> is World Monopoly Champion.
+      <li class="option active">
+        Ice Hockey, 6 players in a team, 3 forwards, 2 defense and 1 goaltender
       </li>
 
-      <li><strong>Nigel Richards</strong> is World Scrabble Champion.
+      <li class="option">
+        Netball, 7 players in a team
       </li>
-    </ul>
+
+      <li class="option">
+        Ultimate Frisbee, 7 players in a team
+      </li>
+
+
+    </ol>
 
   </div>
 

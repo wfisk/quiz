@@ -48,25 +48,28 @@
     <h1>Question 4</h1>
 
     <p class="question">
-      In a 2D game of Noughts and Crosses, represented by a 3x3 grid, there are eight winning lines.
-      How many winning lines are there in a 3D game of Noughts and Crosses, represented by a 3x3x3 grid ?
+      The British 50p coin is a 7 sided coin.
+      In 2019, a special commerative edition was planned to celebrate the exit of the United
+      Kingdom from the European Union. The coin was inscribed with a quote,
+      inspired by the inaugural address of Thomas Jefferson.
+      What was the quote?
     </p>
 
     <ol class="options">
       <li class="option">
-        41
+        Liberty, Equality, Fraternity
       </li>
 
       <li class="option">
-        45
+        Life, Liberty and the pursuit of Happiness
       </li>
 
       <li class="option">
-        48
+        Peace, prosperity and friendship with all nations.
       </li>
 
       <li class="option">
-        49
+        So long, and thanks for all the fish
       </li>
 
 

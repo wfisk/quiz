@@ -59,20 +59,33 @@
 
 <template>
   <div in:fade="{{delay: 300, duration: 600}}" out:fade="{{delay: 0, duration: 300}}">
-    <h1>Answer 5</h1>
+    <h1>Question 5</h1>
 
     <p class="question">
-      In Poker, what hand is also know as a 'boat' ?
+      Most French departments are assigned a two-digit number. This number is used as part of the post code.
+      For example, I live in Seine et Marne, number 77, and my post code is 77190. Which French department
+      is assigned the number 7?
     </p>
 
-    <p class="option active">
-      B. Full House
-    </p>
+    <ol class="options">
+      <li class="option active">
+        Ardèche
+      </li>
 
-    <p class="info">
-      Four of a kind is also know as quads.
-    </p>
+      <li class="option">
+        Haute-Loire
+      </li>
 
+      <li class="option">
+        Puy de Dôme
+      </li>
+
+      <li class="option">
+        Savoie
+      </li>
+
+
+    </ol>
 
   </div>
 

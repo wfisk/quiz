@@ -48,24 +48,24 @@
     <h1>Question 3</h1>
 
     <p class="question">
-      Who is the current World Chess Champion?
+      Which of the following sports does not have seven players in a team (excluding substitutes)?
     </p>
 
     <ol class="options">
       <li class="option">
-        Patrick Barrie
+        Handball
       </li>
 
       <li class="option">
-        Magnus Carlsen
+        Ice Hockey
       </li>
 
       <li class="option">
-        Niclolo Falcone
+        Netball
       </li>
 
       <li class="option">
-        Nigel Richards
+        Ultimate Frisbee
       </li>
 
 

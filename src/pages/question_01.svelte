@@ -2,8 +2,6 @@
   import {
     fade,
   } from 'svelte/transition';
-  import question01Option from 'src/stores/question_01_option.js';
-  import answer01Visible from 'src/stores/answer_01_visible.js';
 
 </script>
 
@@ -50,24 +48,24 @@
     <h1>Question 1</h1>
 
     <p class="question">
-      Which of the following characters is not considered a Pokémon?
+      How do you write seven in Portuguese?
     </p>
 
     <ol class="options">
       <li class="option">
-        JigglyPuff
+        Sept
       </li>
 
       <li class="option">
-        Frodo
+        Sete
       </li>
 
       <li class="option">
-        Squirtle
+        Sette
       </li>
 
       <li class="option">
-        Pikachu
+        Siete
       </li>
 
 

@@ -48,24 +48,26 @@
     <h1>Question 5</h1>
 
     <p class="question">
-      In Poker, what hand is also know as a 'boat' ?
+      Most French departments are assigned a two-digit number. This number is used as part of the post code.
+      For example, I live in Seine et Marne, number 77, and my post code is 77190. Which French department
+      is assigned the number 7?
     </p>
 
     <ol class="options">
       <li class="option">
-        Four of a Kind
+        Ardèche
       </li>
 
       <li class="option">
-        Full House
+        Haute-Loire
       </li>
 
       <li class="option">
-        Flush
+        Puy de Dôme
       </li>
 
       <li class="option">
-        Straight
+        Savoie
       </li>
 
 

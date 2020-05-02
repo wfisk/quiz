@@ -62,23 +62,28 @@
     <h1>Answer 1</h1>
 
     <p class="question">
-      Which of the following characters is not considered a Pokémon?
+      How do you write seven in Portuguese?
     </p>
 
-    <p class="option active">
-      B. Frodo
-    </p>
+    <ol class="options">
+      <li class="option">
+        Sept (French)
+      </li>
 
-    <p class="info">
-      Frodo is a Hobbit, a fictional character from the Lord of the Rings
-    </p>
+      <li class="option active">
+        Sete (Portuguese)
+      </li>
 
-    <p class="info">
-      This was the $500,000 question from Who Wants to be a Millionaire (US).
-      The candidate declined to answer this question and walked away with
-      $250,000.
-    </p>
+      <li class="option">
+        Sette (Italian)
+      </li>
 
+      <li class="option">
+        Siete (Spanish)
+      </li>
+
+
+    </ol>
 
   </div>
 

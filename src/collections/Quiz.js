@@ -21,7 +21,7 @@ export default class Quiz extends Collection {
   static find( id ) {
     let docRef = this.collectionRef.doc( id );
 
-    return docData( docRef ).pipe( startWith( null ) );
+    return docData( docRef, 'id' ).pipe( startWith( null ) );
 
     // let doc = await docRef.get();
     // return { id, ...doc.data() };

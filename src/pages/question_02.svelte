@@ -2,6 +2,8 @@
   import {
     fade,
   } from 'svelte/transition';
+  import question01Option from 'src/stores/question_01_option.js';
+  import answer01Visible from 'src/stores/answer_01_visible.js';
 
 </script>
 
@@ -48,25 +50,24 @@
     <h1>Question 2</h1>
 
     <p class="question">
-      In a basic double-six domino set there are 28 tiles.
-      How many dots are there?
+      Which of the following is not one of the dwarfs from the 1937 film Snow White and the Seven Dwarfs?
     </p>
 
     <ol class="options">
       <li class="option">
-        126
+        Bashful
       </li>
 
       <li class="option">
-        147
+        Bossy
       </li>
 
       <li class="option">
-        168
+        Doc
       </li>
 
       <li class="option">
-        196
+        Happy
       </li>
 
 

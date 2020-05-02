@@ -57,27 +57,45 @@
 
 <template>
   <div in:fade="{{delay: 300, duration: 600}}" out:fade="{{delay: 0, duration: 300}}">
-    <h1>Answer 2</h1>
+    <h1>Question 2</h1>
 
     <p class="question">
-      In a basic double-six domino set there are 28 tiles.
-      How many dots are there?
+      Which of the following is not one of the dwarfs from the 1937 film Snow White and the Seven Dwarfs?
     </p>
 
-    <p class="option active">
-      C. 168
-    </p>
 
-    <img src="assets/images/dominoes.png">
+    <ol class="options">
+      <li class="option">
+        Bashful
+      </li>
 
-    <p class="info">
-      Each number is present on seven dominoes, and on one of these seven is present twice.
-      So we need eight of each number.
-    </p>
+      <li class="option active">
+        Bossy
+      </li>
 
-    <p class="info">
-      Total number of dots = 8 &times; (1 + 2 + 3 + 4 + 5 + 6) = 8 &times; 21 = 168
-    </p>
+      <li class="option">
+        Doc
+      </li>
+
+      <li class="option">
+        Happy
+      </li>
+
+
+    </ol>
+
+    <div class="info">
+      The names of the seven dwarfs are:
+      <ul>
+        <li>Doc</li>
+        <li>Grumpy</li>
+        <li>Happy</li>
+        <li>Sleepy</li>
+        <li>Dopey</li>
+        <li>Bashful</li>
+        <li>Sneezy</li>
+      </ul>
+    </div>
 
   </div>
 

@@ -34,6 +34,9 @@
 
 
   import QuestionsPage from 'src/pages/questions.svelte';
+  import QuizzesPage from 'src/pages/quizzes.svelte';
+  import QuizPage from 'src/pages/quiz.svelte';
+  import QuestionPage from 'src/pages/question.svelte';
 
   import 'src/services/firebase'
   import {
@@ -55,7 +58,9 @@
 
   const routes = {
     // Exact path
-    '/': QuestionsPage,
+    '/': QuizzesPage,
+    "/quizzes/:quizId/questions/:questionId": QuestionPage,
+    "/quizzes/:quizId": QuizPage,
     "/questions": QuestionsPage,
     "/questions/1": Question01Page,
     "/questions/2": Question02Page,
@@ -128,8 +133,8 @@
   $: params = qs.parse($querystring);
   $: loggedIn = params.loggedIn;
 
-  $: console.log(activeQuestion);
-  $: console.log(page);
+  // $: console.log(activeQuestion);
+  // $: console.log(page);
 
 </script>
 
@@ -137,6 +142,12 @@
   @import "styles/global.scss";
 
 </style>
+
+<!-- template>
+  <div class="container-fluid">
+    <Router {routes} />
+  </div>
+</template -->
 
 <template>
   <div class="container-fluid">
