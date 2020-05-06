@@ -1,9 +1,13 @@
 <script>
-  import Question from 'src/collections/Question';
-  import Quiz from 'src/collections/Quiz';
+  import Questions from 'src/collections/Questions';
+  import Quizzes from 'src/collections/Quizzes';
+  import {
+    of as rxOf
+  } from 'rxjs';
   import {
     map
   } from 'rxjs/operators';
+  import debounce from 'lodash/debounce';
 
   export let params = {};
 
@@ -11,33 +15,32 @@
 
   let quizId = params.quizId;
   let questionId = params.questionId;
-  let quiz = Quiz.find(quizId);
-  let questions = Question.findAllByQuizId(quizId);
 
-  $: console.log($quiz);
+  let quiz = Quizzes.find(quizId);
+  $: question = $quiz ? $quiz.findQuestion(questionId) : rxOf(null);
+
+  $: console.log({
+    $question
+  });
+
+
+  const handleInput = debounce(
+    function(event) {
+      // $question.text = event.target.value;
+      Questions.updateBelongingTo($quiz, $question.id, {
+        text: event.target.value
+      });
+    },
+    300
+  );
 
 </script>
 
 <template>
-  {#if $quiz}
-    <h1>Quiz - {$quiz.name}</h1>
+  {#if $question}
 
-    <table class="table table-striped">
-      <thead>
-        <th class="question-index">Index</th>
-        <th class="question-text">Text</th>
-      </thead>
-      <tbody>
-        {#each $questions as question}
-        <tr>
-          <td class="question-number">
-            <a href="#/quizzes/{$quiz.id}/questions/{question.id}">Question {question.questionIndex}</a>
-          </td>
-          <td class="question-text">
-            {question.text}
-          </td>
-        {/each}
-      </tbody>
-    </table>
+
+    <input class="form-control" value={$question.text} on:input={handleInput}>
+
   {/if}  
 </template>

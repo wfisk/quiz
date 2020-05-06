@@ -37,6 +37,7 @@
   import QuizzesPage from 'src/pages/quizzes.svelte';
   import QuizPage from 'src/pages/quiz.svelte';
   import QuestionPage from 'src/pages/question.svelte';
+  import SessionPage from 'src/pages/session.svelte';
 
   import 'src/services/firebase'
   import {
@@ -45,7 +46,7 @@
   } from 'src/services/firebase';
 
   import Question from 'src/collections/Question.js';
-  import Quiz from 'src/collections/Quiz.js';
+  import Quizzes from 'src/collections/Quizzes.js';
   import session from 'src/stores/session.js';
 
   let signOut = null;
@@ -68,7 +69,8 @@
     "/questions/4": Question04Page,
     "/questions/5": Question05Page,
     "/questions/6": Question06Page,
-    '*': QuestionsPage,
+    "/session": SessionPage,
+    '*': QuizzesPage,
   };
 
   const pages = [{
@@ -127,7 +129,7 @@
     signOut = auth.onAuthStateChanged;
   });
 
-  let quiz = Quiz.find('default');
+  let quiz = Quizzes.find('default');
   $: activeQuestion = $quiz ? $quiz.activeQuestion : 1;
   $: page = pages.find((page) => page.questionIndex === activeQuestion);
   $: params = qs.parse($querystring);
@@ -143,13 +145,13 @@
 
 </style>
 
-<!-- template>
+<template>
   <div class="container-fluid">
     <Router {routes} />
   </div>
-</template -->
+</template>
 
-<template>
+<!-- template>
   <div class="container-fluid">
     {#if loggedIn }
       <QuestionsPage />
@@ -159,4 +161,4 @@
       {/if}
     {/if}
   </div>
-</template>
+</template -->

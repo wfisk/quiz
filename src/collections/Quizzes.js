@@ -1,13 +1,17 @@
 import { collectionData, docData } from 'rxfire/firestore';
-import { bufferCount, groupBy, map, startWith } from 'rxjs/operators';
+import { filter, groupBy, map, startWith } from 'rxjs/operators';
 
 import Collection from 'src/collections/Collection';
+import Quiz from 'src/collections/Quiz';
 import { firestore } from 'src/services/firebase';
 
-export default class User extends Collection {
+export default class Quizzes extends Collection {
 
-  constructor() {
+  constructor( data ) {
     super();
+    for ( let key in data ) {
+      this[ key ] = data[ key ];
+    }
   }
 
   static add( props ) {
@@ -21,18 +25,38 @@ export default class User extends Collection {
   static find( id ) {
     let docRef = this.collectionRef.doc( id );
 
-    return docData( docRef ).pipe( startWith( null ) );
+    return docData( docRef, 'id' ).pipe(
+      // map( data => ( { ...data, ...{ color: 'purple' } } ) ),
+      map( data => new Quiz( data ) ),
+      startWith( null )
+    );
 
     // let doc = await docRef.get();
     // return { id, ...doc.data() };
   }
 
-  static findAll() {
+  static findAll( { order = '' } ) {
+    const collectionRef = firestore.collection( this.collectionPath );
+    let result = collectionData( collectionRef, 'id' ).pipe(
+      startWith( [] )
+    );
+
+    if ( order ) {
+      result = result.pipe(
+        map( quizzes => quizzes.sort( ( a, b ) => ( a[ order ] && a[ order ].toString().localeCompare( b[ order ] ) ) ) )
+      );
+    }
+    return result;
+  }
+
+  static findByName( name ) {
     const collectionRef = firestore.collection( this.collectionPath );
     return collectionData( collectionRef, 'id' ).pipe(
-      startWith( [ { text: "one" } ] )
+      filter( quiz => quiz.name === name ),
+      startWith( [] )
     );
   }
+
 
   static findAllInGroupsOfThree() {
     const collectionRef = firestore.collection( this.collectionPath );
@@ -52,5 +76,5 @@ export default class User extends Collection {
 
 }
 
-User.collectionPath = 'users';
-User.collectionRef = firestore.collection( User.collectionPath );
+Quizzes.collectionPath = 'quizzes';
+Quizzes.collectionRef = firestore.collection( Quizzes.collectionPath );

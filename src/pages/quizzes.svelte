@@ -1,14 +1,37 @@
 <script>
-  import Quiz from 'src/collections/Quiz';
+  import Quizzes from 'src/collections/Quizzes';
   import {
     map
   } from 'rxjs/operators';
 
-  let quizzes = Quiz.findAll().pipe(map(quizzes => quizzes.sort((a, b) => a.name.localeCompare(b.name))));
+
+
+  let quizzes = Quizzes.findAll({
+    order: 'activeQuestion'
+  });
 
   $: console.log($quizzes[0]);
 
 </script>
+
+<style>
+  .quiz-name {
+    width: 25%;
+  }
+
+  .quiz-id {
+    width: 33.333%;
+  }
+
+  .quiz-owner {
+    width: 25%;
+  }
+
+  .quiz-active-question {
+    width: 16.667%;
+  }
+
+</style>
 
 <template>
   <h1>Quizzes</h1>
@@ -17,6 +40,7 @@
     <thead>
       <th class="quiz-name">Name</th>
       <th class="quiz-id">Quiz Id</th>
+      <th class="quiz-owner">Owner</th>
       <th class="quiz-active-question">Active Question</th>
     </thead>
     <tbody>
@@ -27,6 +51,9 @@
         </td>
         <td class="quiz-id">
           {quiz.id}
+        </td>
+        <td class="quiz-owner">
+          {quiz.owner && quiz.owner.displayName}
         </td>
         <td class="quiz-active-question">
           {quiz.activeQuestion}

@@ -1,6 +1,6 @@
 <script>
   import Question from "src/collections/Question.js";
-  import Quiz from "src/collections/Quiz.js";
+  import Quizzes from "src/collections/Quizzes.js";
   import Question01Page from 'src/pages/question_01.svelte';
   import Question02Page from 'src/pages/question_02.svelte';
   import Question03Page from 'src/pages/question_03.svelte';
@@ -82,7 +82,7 @@
 
   // Question Observable
   let questions = Question.findAll();
-  let quiz = Quiz.find('default');
+  let quiz = Quizzes.find('default');
   $: activeQuestion = $quiz ? $quiz.activeQuestion : 1;
   $: page = pages.find((page) => page.questionIndex === activeQuestion);
   $: console.log(activeQuestion);

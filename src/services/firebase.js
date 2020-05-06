@@ -21,7 +21,7 @@ export const firestore = firebase.firestore();
 // export const auth = firebase.auth( app );
 export const auth = firebase.auth();
 
-const loggedIn$ = authState( auth ).pipe( map( user => !!user ) );
+export const loggedIn = authState( auth ).pipe( map( user => !!user ) );
 
 export const googleProvider = new firebase.auth.GoogleAuthProvider();
 

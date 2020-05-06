@@ -1,6 +1,8 @@
 <script>
   import Question from 'src/collections/Question';
+  import Questions from 'src/collections/Questions';
   import Quiz from 'src/collections/Quiz';
+  import Quizzes from 'src/collections/Quizzes';
   import {
     map
   } from 'rxjs/operators';
@@ -10,8 +12,9 @@
   $: console.log(params.quizId);
 
   let quizId = params.quizId;
-  let quiz = Quiz.find(quizId);
-  let questions = Question.findAllByQuizId(quizId);
+
+  let quiz = Quizzes.find(quizId);
+  $: questions = Questions.findAllBelongingTo($quiz);
 
   $: console.log($quiz);
 
@@ -19,10 +22,13 @@
 
   // Events
   function handleAddQuestion_click() {
-    Question.add({
-      quizId: $quiz.id,
-      questionIndex: $questions.length + 1
-    });
+    if ($quiz) {
+      $quiz.addQuestion({
+        quizId: $quiz.id,
+        questionIndex: $questions.length + 1,
+        text: 'Question ' + ($questions.length + 1)
+      });
+    }
   }
 
 </script>

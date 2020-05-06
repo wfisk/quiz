@@ -91,7 +91,7 @@
     </ol>
 
 
-    <img src='/assets/images/7up.jpeg'>
+    <img src='/assets/images/7up.jpeg' alt="7-up">
 
   </div>
 

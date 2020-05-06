@@ -1,65 +1,41 @@
 import { collectionData, docData } from 'rxfire/firestore';
 import { filter, groupBy, map, startWith } from 'rxjs/operators';
 
-import Collection from 'src/collections/Collection';
+import Document from 'src/collections/Document';
 import { firestore } from 'src/services/firebase';
+import Questions from 'src/collections/Questions';
 
-export default class Quiz extends Collection {
+export default class Quiz extends Document {
+  static collectionPath = 'quizzes';
 
-  constructor() {
+  constructor( data ) {
     super();
+    for ( let key in data ) {
+      this[ key ] = data[ key ];
+    }
   }
 
-  static add( props ) {
-    firestore.collection( this.collectionName ).add( props );
+  documentPath() {
+    return this.constructor.collectionPath + '/' + this.id;
   }
 
-  static delete( id ) {
-    firestore.collection( this.collectionName ).doc( id ).delete();
+  questions() {
+    return Questions.findAllBelongingTo( this );
   }
 
-  static find( id ) {
-    let docRef = this.collectionRef.doc( id );
-
-    return docData( docRef, 'id' ).pipe( startWith( null ) );
-
-    // let doc = await docRef.get();
-    // return { id, ...doc.data() };
+  findQuestion( id ) {
+    return Questions.findBelongingTo( this, id );
   }
 
-  static findAll() {
-    const collectionRef = firestore.collection( this.collectionName );
-    return collectionData( collectionRef, 'id' ).pipe(
-      startWith( [] )
-    );
-  }
-
-  static findByName( name ) {
-    const collectionRef = firestore.collection( this.collectionName );
-    return collectionData( collectionRef, 'id' ).pipe(
-      filter( quiz => quiz.name === name ),
-      startWith( [] )
-    );
-  }
-
-
-  static findAllInGroupsOfThree() {
-    const collectionRef = firestore.collection( this.collectionName );
-    return collectionData( collectionRef, 'id' ).pipe(
-      startWith( [] ),
-      map( ( it, index ) => {
-        it.index = index;
-        return it;
-      } ),
-      groupBy( it => it.index )
-    );
+  addQuestion( props ) {
+    Questions.addTo( this, props );
   }
 
   static update( id, props ) {
-    firestore.collection( this.collectionName ).doc( id ).update( props );
+    firestore.collection( this.collectionPath ).doc( id ).update( props );
   }
 
 }
 
-Quiz.collectionName = 'quizzes';
-Quiz.collectionRef = firestore.collection( Quiz.collectionName );
+// Quiz.collectionPath = 'quizzes';
+// Quiz.collectionRef = firestore.collection( Quiz.collectionPath );

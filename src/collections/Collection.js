@@ -4,4 +4,4 @@ export default class Collection {
 
 }
 
-Collection.collectionName = null;
+Collection.collectionPath = null;
