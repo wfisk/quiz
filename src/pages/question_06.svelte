@@ -58,12 +58,13 @@
     </p>
 
     <ol class="options">
-      <li class="option">
-        Afore Ye Go
-      </li>
 
       <li class="option">
         Life Tastes Good
+      </li>
+
+      <li class="option">
+        Made from Girders
       </li>
 
       <li class="option">

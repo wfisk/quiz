@@ -72,11 +72,11 @@
 
     <ol class="options">
       <li class="option">
-        Afore Ye Go, <span style="font-weight: normal;">Bell's Whisky</span>
+        Life Tastes Good, <span style="font-weight: normal;">Coca Cola 2001</span>
       </li>
 
       <li class="option">
-        Life Tastes Good, <span style="font-weight: normal;">Coca Cola 2001</span>
+        Made from Girders
       </li>
 
       <li class="option active">
