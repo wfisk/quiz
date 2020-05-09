@@ -84,7 +84,7 @@
       </li>
 
       <li class="option">
-        Scotland's National Drink, <span style="font-weight: normal;">Coca Cola</span>
+        Scotland's National Drink
       </li>
 
 
