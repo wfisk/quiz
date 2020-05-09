@@ -53,26 +53,25 @@
     <h1>Question 3</h1>
 
     <p class="question">
-      Which of the following sports does not have <mark>seven</mark> players in a team (excluding substitutes)?
+      Which Scottish Professonal Football League Club has it's home ground in Cumbernauld?
     </p>
 
     <ol class="options">
       <li class="option">
-        Handball
+        Albion Rovers
       </li>
 
       <li class="option">
-        Ice Hockey
+        Clyde FC
       </li>
 
       <li class="option">
-        Netball
+        Cowdenbeath
       </li>
 
       <li class="option">
-        Ultimate Frisbee
+        Cumbernauld United
       </li>
-
 
     </ol>
 

@@ -53,25 +53,25 @@
     <h1>Question 6</h1>
 
     <p class="question">
-      The <mark>7</mark>up logo, for use outside the US, was redesigned in 2011.
-      In what geometric shape does the word UP appear?
+      What three letter tag line appears on a can of bottle of Irn Bru,
+      often written between the words Irn and Bru?
     </p>
 
     <ol class="options">
       <li class="option">
-        Green Circle
+        Afore Ye Go
       </li>
 
       <li class="option">
-        Orange Diamond
+        Life Tastes Good
       </li>
 
       <li class="option">
-        Red Circle
+        Original and Best
       </li>
 
       <li class="option">
-        Yellow Diamond
+        Scotland's National Drink
       </li>
 
 

@@ -90,14 +90,14 @@
 
   function handleClick_PreviousQuestion() {
     let value = (($quiz.activeQuestion + 10) % 12) + 1;
-    Quiz.update('default', {
+    Quizzes.update('default', {
       activeQuestion: value
     });
   }
 
   function handleClick_NextQuestion() {
     let value = ($quiz.activeQuestion % 12) + 1;
-    Quiz.update('default', {
+    Quizzes.update('default', {
       activeQuestion: value
     });
   }

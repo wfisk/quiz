@@ -53,26 +53,25 @@
     <h1>Question 5</h1>
 
     <p class="question">
-      Most French departments are assigned a two-digit number. This number is used as part of the post code.
-      For example, I live in Seine et Marne, number 77, and my post code is 77190. Which French department
-      is assigned the number <mark>7</mark>?
+      The name Cumbernauld probably comes from the Gaelic <em>comar nan allt</em>.
+      What does this mean?
     </p>
 
     <ol class="options">
       <li class="option">
-        Ardèche
+        Cottage Bridge
       </li>
 
       <li class="option">
-        Haute-Loire
+        The King's Height
       </li>
 
       <li class="option">
-        Puy de Dôme
+        Lady Well
       </li>
 
       <li class="option">
-        Savoie
+        Meeting of the streams
       </li>
 
 

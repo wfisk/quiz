@@ -24,7 +24,7 @@ export default class Quiz extends Document {
   }
 
   findQuestion( id ) {
-    return Questions.findBelongingTo( this, id );
+    return Questions.findBelongingTo( id, this );
   }
 
   addQuestion( props ) {

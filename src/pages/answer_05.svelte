@@ -64,29 +64,28 @@
 
 <template>
   <div in:fade="{{delay: 300, duration: 600}}" out:fade="{{delay: 0, duration: 300}}">
-    <h1>Answer 5</h1>
+    <h1>Question 5</h1>
 
     <p class="question">
-      Most French departments are assigned a two-digit number. This number is used as part of the post code.
-      For example, I live in Seine et Marne, number 77, and my post code is 77190. Which French department
-      is assigned the number <mark>7</mark>?
+      The name Cumbernauld probably comes from the Gaelic <em>comar nan allt</em>.
+      What does this mean?
     </p>
 
     <ol class="options">
+      <li class="option">
+        Cottage Bridge, <span style="font-weight: normal;">Coatbridge</span>
+      </li>
+
+      <li class="option">
+        The King's Height, <span style="font-weight: normal;">Airdrie</span>
+      </li>
+
+      <li class="option">
+        Lady Well, <span style="font-weight: normal;">Motherwell</span>
+      </li>
+
       <li class="option active">
-        Ardèche
-      </li>
-
-      <li class="option">
-        Haute-Loire
-      </li>
-
-      <li class="option">
-        Puy de Dôme
-      </li>
-
-      <li class="option">
-        Savoie
+        Meeting of the streams
       </li>
 
 

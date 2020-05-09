@@ -1,13 +1,15 @@
 <script>
   import Questions from 'src/collections/Questions';
   import Quizzes from 'src/collections/Quizzes';
+  import QuestionEditor from 'src/components/question_editor.svelte';
+  import QuestionPreview from 'src/components/question_preview.svelte';
   import {
     of as rxOf
   } from 'rxjs';
   import {
     map
   } from 'rxjs/operators';
-  import debounce from 'lodash/debounce';
+
 
   export let params = {};
 
@@ -23,24 +25,17 @@
     $question
   });
 
-
-  const handleInput = debounce(
-    function(event) {
-      // $question.text = event.target.value;
-      Questions.updateBelongingTo($quiz, $question.id, {
-        text: event.target.value
-      });
-    },
-    300
-  );
-
 </script>
 
 <template>
   {#if $question}
-
-
-    <input class="form-control" value={$question.text} on:input={handleInput}>
-
+    <div class="row">
+      <div class="col border-right bg-light">
+        <QuestionEditor {quiz} {question} />
+      </div>
+      <div class="col">
+        <QuestionPreview {question} />
+      </div>
+    </div>
   {/if}  
 </template>

@@ -40,7 +40,7 @@
   }
 
   .option {
-    font-size: 2rem;
+    font-size: 3rem;
     font-weight: bold;
     margin-left: 3rem;
   }
@@ -64,33 +64,28 @@
 
 <template>
   <div in:fade="{{delay: 300, duration: 600}}" out:fade="{{delay: 0, duration: 300}}">
-    <h1>Answer 4</h1>
+    <h1>Question 4</h1>
 
     <p class="question">
-      The British 50p coin is a <mark>seven</mark> sided coin.
-      In 2019, a special commerative edition was planned to celebrate the exit of the United
-      Kingdom from the European Union. The coin was inscribed with a quote,
-      inspired by the inaugural address of Thomas Jefferson.
-      What was the quote?
+      According to Trip Advisor, what is the number one tourist attraction in Cumbernauld?
     </p>
 
     <ol class="options">
+
       <li class="option">
-        Liberty, Equality, Fraternity, French National Motto
+        Cumbernauld Museum
       </li>
 
       <li class="option">
-        Life, Liberty and the pursuit of Happiness, from the United States declaration of independence.
+        Cumbernauld Theatre
+      </li>
+
+      <li class="option">
+        Tour of Broadwood Stadium
       </li>
 
       <li class="option active">
-        Peace, prosperity and friendship with all nations.
-      </li>
-
-      <li class="option">
-        So long, and thanks for all the fish, from a book by Douglas Adams. It is the message left by
-        dolphins when they departed Planet Earth just before it was demolished to make way for a
-        hyperspace bypass.
+        World of Wings Birds of Prey Centre
       </li>
 
 

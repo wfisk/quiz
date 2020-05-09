@@ -62,45 +62,32 @@
 
 <template>
   <div in:fade="{{delay: 300, duration: 600}}" out:fade="{{delay: 0, duration: 300}}">
-    <h1>Answer 2</h1>
+    <h1>Question 2</h1>
 
     <p class="question">
-      Which of the following is not one of the <mark>seven</mark>dwarfs from the 1937 film Snow White and the Seven Dwarfs?
+      The Plook on the Plinth award was an award given by the Urban Realm magazine for <mark>the most dismal town
+        in Scotland</mark>. Only one town has won it twice. Which town was it?
     </p>
-
 
     <ol class="options">
       <li class="option">
-        Bashful
+        Airdrie, Winner 2000
+      </li>
+
+      <li class="option">
+        Coatbridge, Winner 2007
       </li>
 
       <li class="option active">
-        Bossy
+        Cumbernauld, Winner 2001 and 2005
       </li>
 
       <li class="option">
-        Doc
-      </li>
-
-      <li class="option">
-        Happy
+        Motherwell. Shortlisted but not Winnner
       </li>
 
 
     </ol>
-
-    <div class="info">
-      The names of the seven dwarfs are:
-      <ul>
-        <li>Doc</li>
-        <li>Grumpy</li>
-        <li>Happy</li>
-        <li>Sleepy</li>
-        <li>Dopey</li>
-        <li>Bashful</li>
-        <li>Sneezy</li>
-      </ul>
-    </div>
 
   </div>
 

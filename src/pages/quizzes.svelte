@@ -7,7 +7,7 @@
 
 
   let quizzes = Quizzes.findAll({
-    order: 'activeQuestion'
+    order: 'name'
   });
 
   $: console.log($quizzes[0]);

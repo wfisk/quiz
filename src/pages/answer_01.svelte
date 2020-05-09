@@ -64,27 +64,27 @@
 
 <template>
   <div in:fade="{{delay: 300, duration: 600}}" out:fade="{{delay: 0, duration: 300}}">
-    <h1>Answer 1</h1>
+    <h1>Question 1</h1>
 
     <p class="question">
-      How do you write <mark>seven</mark> in Portuguese?
+      Which is the most populous town in North Lanarkshire?
     </p>
 
     <ol class="options">
       <li class="option">
-        Sept (French)
+        Airdrie
+      </li>
+
+      <li class="option">
+        Coatbridge
       </li>
 
       <li class="option active">
-        Sete (Portuguese)
+        Cumbernauld
       </li>
 
       <li class="option">
-        Sette (Italian)
-      </li>
-
-      <li class="option">
-        Siete (Spanish)
+        Motherwell
       </li>
 
 

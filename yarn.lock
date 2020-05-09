@@ -410,6 +410,35 @@
   dependencies:
     "@types/node" "*"
 
+"@vime-js/core@^1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@vime-js/core/-/core-1.6.1.tgz#332dfe431c303d59b68d689481cdec2a0490b16e"
+  integrity sha512-tFp+Vd+4MJiOXd7KaUuEAAMpJYwlrZn15qwmki8eCGJCtZPKq/yfVC1uXJijI1gaB/HsUS/AUPETUVP75l6P8A==
+  dependencies:
+    "@vime-js/utils" "^1.6.1"
+
+"@vime-js/lite@^1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@vime-js/lite/-/lite-1.6.1.tgz#0c7fb516996a04ba69c8388b10913570b5dc6e09"
+  integrity sha512-cVtKzKZHmLyhg12+I3AYI4yoRTkgII49KReQvZHzz3rwTTzPDVOnx4vXYatS6Y3KceST3gRn9W0T07ia/PL+KA==
+  dependencies:
+    "@vime-js/core" "^1.6.1"
+    "@vime-js/utils" "^1.6.1"
+
+"@vime-js/standard@^1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@vime-js/standard/-/standard-1.6.1.tgz#349e9795a606c31e9dc4e3e54e0f8881620738dd"
+  integrity sha512-3oSK0xCBpJLyhzsjr3AtZsrq6zJExfPHu2KvrOoA/ECXKetdJa8VHJGJrSkPxor3/n3JAetxqdfoqv8m2lsYlQ==
+  dependencies:
+    "@vime-js/core" "^1.6.1"
+    "@vime-js/lite" "^1.6.1"
+    "@vime-js/utils" "^1.6.1"
+
+"@vime-js/utils@^1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@vime-js/utils/-/utils-1.6.1.tgz#e3720b2ed9bec201122c6c083e6af567ab2be00f"
+  integrity sha512-BCixvi+idjldjrQwMtH7GnByoL6TV66OLsc4guwj078KdD1KBaeMWnPFyK+p+XsQooXsSKQYlEhbW6J4xwvZmw==
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"

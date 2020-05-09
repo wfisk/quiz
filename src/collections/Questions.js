@@ -27,7 +27,7 @@ export default class Question extends Collection {
     firestore.collection( this.collectionPath ).doc( id ).delete();
   }
 
-  static findBelongingTo( parent, id ) {
+  static findBelongingTo( id, parent ) {
     if ( !parent ) {
       return of( null );
     }
@@ -80,6 +80,15 @@ export default class Question extends Collection {
     firestore.collection( this.collectionPath ).doc( id ).update( props );
   }
 
+  static setBelongingTo( parent, id, props ) {
+    // firestore.collection( this.collectionPath ).doc( id ).update( props );
+
+    let documentPath = parent.documentPath() + '/' + this.collectionPath + '/' + id;
+    let documentRef = firestore.doc( documentPath );
+    documentRef.set( props );
+
+  }
+
   static updateBelongingTo( parent, id, props ) {
     // firestore.collection( this.collectionPath ).doc( id ).update( props );
 
@@ -88,5 +97,7 @@ export default class Question extends Collection {
     documentRef.update( props );
 
   }
+
+
 
 }

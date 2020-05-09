@@ -55,24 +55,25 @@
     <h1>Question 2</h1>
 
     <p class="question">
-      Which of the following is not one of the <mark>seven</mark> dwarfs from the 1937 film Snow White and the Seven Dwarfs?
+      The Plook on the Plinth award was an award given by the Urban Realm magazine for <mark>the most dismal town
+        in Scotland</mark>. Only one town has won it twice. Which town was it?
     </p>
 
     <ol class="options">
       <li class="option">
-        Bashful
+        Airdrie
       </li>
 
       <li class="option">
-        Bossy
+        Coatbridge
       </li>
 
       <li class="option">
-        Doc
+        Cumbernauld
       </li>
 
       <li class="option">
-        Happy
+        Motherwell
       </li>
 
 

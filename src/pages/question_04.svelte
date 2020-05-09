@@ -53,28 +53,25 @@
     <h1>Question 4</h1>
 
     <p class="question">
-      The British 50p coin is a <mark>seven</mark> sided coin.
-      In 2019, a special commerative edition was planned to celebrate the exit of the United
-      Kingdom from the European Union. The coin was inscribed with a quote,
-      inspired by the inaugural address of Thomas Jefferson.
-      What was the quote?
+      According to Trip Advisor, what is the number one tourist attraction in Cumbernauld?
     </p>
 
     <ol class="options">
+
       <li class="option">
-        Liberty, Equality, Fraternity
+        Cumbernauld Museum
       </li>
 
       <li class="option">
-        Life, Liberty and the pursuit of Happiness
+        Cumbernauld Theatre
       </li>
 
       <li class="option">
-        Peace, prosperity and friendship with all nations.
+        Tour of Broadwood Stadium Tour
       </li>
 
       <li class="option">
-        So long, and thanks for all the fish
+        World of Wings Birds of Prey Centre
       </li>
 
 

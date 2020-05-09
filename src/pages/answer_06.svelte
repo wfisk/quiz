@@ -63,36 +63,34 @@
 
 <template>
   <div in:fade="{{delay: 300, duration: 600}}" out:fade="{{delay: 0, duration: 300}}">
-    <h1>Answer 6</h1>
+    <h1>Question 6</h1>
 
     <p class="question">
-      The <mark>7</mark>up logo, for use outside the US, was redesigned in 2011.
-      In what geometric shape does the word UP appear?
+      What three letter tag line appears on a can of bottle of Irn Bru,
+      often written between the words Irn and Bru?
     </p>
 
     <ol class="options">
       <li class="option">
-        Green Circle
+        Afore Ye Go, <span style="font-weight: normal;">Bell's Whisky</span>
       </li>
 
       <li class="option">
-        Orange Diamond
+        Life Tastes Good, <span style="font-weight: normal;">Coca Cola 2001</span>
       </li>
 
       <li class="option active">
-        Red Circle
+        Original and Best
       </li>
 
       <li class="option">
-        Yellow Diamond
+        Scotland's National Drink, <span style="font-weight: normal;">Coca Cola</span>
       </li>
 
 
     </ol>
-
-
-    <img src='/assets/images/7up.jpeg' alt="7-up">
-
+    <img src='/assets/images/irn_bru_1.jpg' alt="irn bru can">
+    <img src='/assets/images/irn_bru_2.jpg' alt="irn bru bottle">
   </div>
 
 </template>
