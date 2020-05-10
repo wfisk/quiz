@@ -24,6 +24,17 @@
     300
   );
 
+
+  const handleQuestionrevealAnswer_change = debounce(
+    function(event) {
+      Questions.updateBelongingTo($quiz, $question.id, {
+        reveal_answer: event.target.checked
+      });
+    },
+    300
+  );
+
+
   const handleInputOption_input = debounce(
     function(event, option) {
       console.log({
@@ -77,19 +88,6 @@
     300
   );
 
-
-  async function handleVideoFileInput_input(event) {
-    console.log(event);
-    if (event.target.files) {
-      let fileContent = await toBase64(event.target.files[0]);
-      Questions.updateBelongingTo($quiz, $question.id, {
-        video: {
-          ...$question.video,
-          file: fileContent
-        }
-      });
-    }
-  }
 
   function toBase64(file) {
     return new Promise((resolve, reject) => {
@@ -201,9 +199,9 @@
       <input class="form-control" id="question-text" value={$question.text} on:input={handleQuestionTextInput_input}>
     </div>
 
-    <div class="form-group">
-      <label for="question-text">Reveal Anwswer</label>
-      <input class="form-control" id="question-text" value={$question.text} on:input={handleQuestionTextInput_input}>
+    <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" id="question-reveal-answer" checked={$question.reveal_answer} on:change={handleQuestionrevealAnswer_change}>
+      <label class="form-check-label" for="question-reveal-answer">Reveal Answer</label>
     </div>
 
     <h3>Options</h3>
@@ -261,6 +259,7 @@
       </div>
   
       <button class="btn btn-warning" on:click={handleDeleteAudio_click}>Delete Audio</button>
+      <hr/>
     {/if}
 
 
@@ -269,6 +268,7 @@
 
 
       <button class="btn btn-warning" on:click={handleDeleteImage_click}>Delete Image</button>
+      <hr/>
     {/if}
 
     
@@ -279,12 +279,8 @@
         <input class="form-control" id="video-url" value={$question.video.url} on:input={handleVideoUrlInput_input}>
       </div>
       
-      <div class="form-group">
-        <label for="video-file">Upload mp3 file</label>
-        <input type="file" class="form-control" id="video-file" on:input={handleVideoFileInput_input}>
-      </div>
-
       <button class="btn btn-warning" on:click={handleDeleteVideo_click}>Delete Video</button>
+      <hr/>
     {/if}
   {/if}
  
