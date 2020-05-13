@@ -1,6 +1,6 @@
 <script>
-  import Questions from 'src/collections/Questions';
-  import Quizzes from 'src/collections/Quizzes';
+  import Question from 'src/models/Question';
+  import Quiz from 'src/models/Quiz';
   import QuestionEditor from 'src/components/question_editor.svelte';
   import QuestionPreview from 'src/components/question_preview.svelte';
   import {
@@ -18,7 +18,7 @@
   let quizId = params.quizId;
   let questionId = params.questionId;
 
-  let quiz = Quizzes.find(quizId);
+  let quiz = Quiz.find(quizId);
   $: question = $quiz ? $quiz.findQuestion(questionId) : rxOf(null);
 
   $: console.log({

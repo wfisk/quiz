@@ -1,23 +1,17 @@
 <script>
-  import Question from 'src/collections/Question';
-  import Questions from 'src/collections/Questions';
-  import Quiz from 'src/collections/Quiz';
-  import Quizzes from 'src/collections/Quizzes';
+  import Question from 'src/models/Question';
+  import Quiz from 'src/models/Quiz';
+  import {
+    EMPTY
+  } from 'rxjs';
   import {
     map
   } from 'rxjs/operators';
 
   export let params = {};
+  let quiz = Quiz.find(params.quizId);
 
-  $: console.log(params.quizId);
-
-  let quizId = params.quizId;
-
-  let quiz = Quizzes.find(quizId);
-  $: questions = Questions.findAllBelongingTo($quiz);
-
-  $: console.log($quiz);
-
+  $: questions = $quiz ? $quiz.questions() : EMPTY;
 
 
   // Events

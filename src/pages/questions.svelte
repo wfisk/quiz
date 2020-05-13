@@ -1,6 +1,6 @@
 <script>
-  import Question from "src/collections/Question.js";
-  import Quizzes from "src/collections/Quizzes.js";
+  import Question from "src/models/Question.js";
+  import Quiz from "src/models/Quiz.js";
   import Question01Page from 'src/pages/question_01.svelte';
   import Question02Page from 'src/pages/question_02.svelte';
   import Question03Page from 'src/pages/question_03.svelte';
@@ -82,7 +82,7 @@
 
   // Question Observable
   let questions = Question.findAll();
-  let quiz = Quizzes.find('default');
+  let quiz = Quiz.find('default');
   $: activeQuestion = $quiz ? $quiz.activeQuestion : 1;
   $: page = pages.find((page) => page.questionIndex === activeQuestion);
   $: console.log(activeQuestion);
@@ -90,14 +90,14 @@
 
   function handleClick_PreviousQuestion() {
     let value = (($quiz.activeQuestion + 10) % 12) + 1;
-    Quizzes.update('default', {
+    Quiz.updateById('default', {
       activeQuestion: value
     });
   }
 
   function handleClick_NextQuestion() {
     let value = ($quiz.activeQuestion % 12) + 1;
-    Quizzes.update('default', {
+    Quiz.updateById('default', {
       activeQuestion: value
     });
   }

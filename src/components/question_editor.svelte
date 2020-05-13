@@ -1,6 +1,6 @@
 <script>
   import debounce from 'lodash/debounce';
-  import Questions from 'src/collections/Questions';
+  import Question from 'src/models/Question';
   import {
     Dropdown,
     DropdownItem,
@@ -17,7 +17,7 @@
   const handleQuestionTextInput_input = debounce(
     function(event) {
       // $question.text = event.target.value;
-      Questions.updateBelongingTo($quiz, $question.id, {
+      $question.update({
         text: event.target.value
       });
     },
@@ -27,7 +27,7 @@
 
   const handleQuestionrevealAnswer_change = debounce(
     function(event) {
-      Questions.updateBelongingTo($quiz, $question.id, {
+      $question.update({
         reveal_answer: event.target.checked
       });
     },
@@ -43,7 +43,7 @@
       });
 
       option.text = event.target.value;
-      Questions.updateBelongingTo($quiz, $question.id, {
+      $question.update({
         options: $question.options
       });
     },
@@ -52,7 +52,7 @@
 
   const handleAudioUrlInput_input = debounce(
     function(event) {
-      Questions.updateBelongingTo($quiz, $question.id, {
+      $question.update({
         audio: {
           ...$question.audio,
           url: event.target.value
@@ -67,7 +67,7 @@
     console.log(event);
     if (event.target.files) {
       let fileContent = await toBase64(event.target.files[0]);
-      Questions.updateBelongingTo($quiz, $question.id, {
+      $question.update({
         audio: {
           ...$question.audio,
           file: fileContent
@@ -78,7 +78,7 @@
 
   const handleVideoUrlInput_input = debounce(
     function(event) {
-      Questions.updateBelongingTo($quiz, $question.id, {
+      $question.update({
         video: {
           ...$question.video,
           url: event.target.value
@@ -108,14 +108,14 @@
       selected: false,
     }];
 
-    Questions.updateBelongingTo($quiz, $question.id, {
+    $question.update({
       options: options
     });
   }
 
 
   function handleDeleteOption_click(event) {
-    Questions.updateBelongingTo($quiz, $question.id, {
+    $question({
       options: $question.options.slice(0, -1)
     });
   }
@@ -127,21 +127,20 @@
     };
     delete props.id;
     delete props.audio;
-    // Questions.setBelongingTo($quiz, $question.id, props);
-    Questions.updateBelongingTo($quiz, $question.id, {
+    $question.update({
       audio: null
-    });
+    })
 
   }
 
   function handleDeleteImage_click(event) {
-    Questions.updateBelongingTo($quiz, $question.id, {
+    $question.update({
       image: null
     });
   }
 
   function handleDeleteVideo_click(event) {
-    Questions.updateBelongingTo($quiz, $question.id, {
+    $question.update({
       video: null
     });
   }
@@ -156,8 +155,7 @@
       }
     };
     delete props.id;
-    // Questions.updateBelongingTo($quiz, $question.id, props);
-    Questions.updateBelongingTo($quiz, $question.id, {
+    $question.update({
       audio: {
         url: '???'
       }
@@ -173,7 +171,7 @@
       }
     };
     delete props.id;
-    Questions.updateBelongingTo($quiz, $question.id, props);
+    $question.update(props);
   }
 
   function handleAddVideo_click(event) {
@@ -184,7 +182,7 @@
       }
     };
     delete props.id;
-    Questions.updateBelongingTo($quiz, $question.id, props);
+    $question.update(props);
   }
 
 </script>
@@ -285,3 +283,14 @@
   {/if}
  
   </template>
+
+
+  <style>
+    .form-check,
+    .form-check .form-check-input,
+    .form-check .form-check-label {
+      cursor: pointer;  
+    }
+
+
+  </style>

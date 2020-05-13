@@ -1,12 +1,12 @@
 <script>
-  import Quizzes from 'src/collections/Quizzes';
+  import Quiz from 'src/models/Quiz';
   import {
     map
   } from 'rxjs/operators';
 
 
 
-  let quizzes = Quizzes.findAll({
+  let quizzes = Quiz.findAll({
     order: 'name'
   });
 

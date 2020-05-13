@@ -1,17 +1,13 @@
 import { collectionData, docData } from 'rxfire/firestore';
-import { filter, groupBy, map, startWith } from 'rxjs/operators';
+import { bufferCount, groupBy, map, startWith } from 'rxjs/operators';
 
-import Collection from 'src/collections/Collection';
-import Quiz from 'src/collections/Quiz';
+import Collection from 'src/models/Collection';
 import { firestore } from 'src/services/firebase';
 
-export default class Quizzes extends Collection {
+export default class Question extends Collection {
 
-  constructor( data ) {
+  constructor() {
     super();
-    for ( let key in data ) {
-      this[ key ] = data[ key ];
-    }
   }
 
   static add( props ) {
@@ -25,38 +21,27 @@ export default class Quizzes extends Collection {
   static find( id ) {
     let docRef = this.collectionRef.doc( id );
 
-    return docData( docRef, 'id' ).pipe(
-      // map( data => ( { ...data, ...{ color: 'purple' } } ) ),
-      map( data => new Quiz( data ) ),
-      startWith( null )
-    );
+    return docData( docRef ).pipe( startWith( null ) );
 
     // let doc = await docRef.get();
     // return { id, ...doc.data() };
   }
 
-  static findAll( { order = '' } ) {
-    const collectionRef = firestore.collection( this.collectionPath );
-    let result = collectionData( collectionRef, 'id' ).pipe(
-      startWith( [] )
-    );
-
-    if ( order ) {
-      result = result.pipe(
-        map( quizzes => quizzes.sort( ( a, b ) => ( a[ order ] && a[ order ].toString().localeCompare( b[ order ] ) ) ) )
-      );
-    }
-    return result;
-  }
-
-  static findByName( name ) {
+  static findAll() {
     const collectionRef = firestore.collection( this.collectionPath );
     return collectionData( collectionRef, 'id' ).pipe(
-      filter( quiz => quiz.name === name ),
-      startWith( [] )
+      map( questions => questions.sort( ( a, b ) => a.questionIndex - b.questionIndex ) ),
+      startWith( [ { text: "one" } ] )
     );
   }
 
+  static findAllByQuizId( quizId ) {
+    const collectionRef = firestore.collection( this.collectionPath );
+    return collectionData( collectionRef.where( 'quizId', '==', quizId ), 'id' ).pipe(
+      map( questions => questions.sort( ( a, b ) => a.questionIndex - b.questionIndex ) ),
+      startWith( [ { text: "one" } ] )
+    );
+  }
 
   static findAllInGroupsOfThree() {
     const collectionRef = firestore.collection( this.collectionPath );
@@ -76,5 +61,5 @@ export default class Quizzes extends Collection {
 
 }
 
-Quizzes.collectionPath = 'quizzes';
-Quizzes.collectionRef = firestore.collection( Quizzes.collectionPath );
+Question.collectionPath = 'questions';
+Question.collectionRef = firestore.collection( Question.collectionPath );

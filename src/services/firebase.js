@@ -3,23 +3,15 @@ import "firebase/firestore";
 
 import firebase from "firebase/app";
 import { authState } from "rxfire/auth";
-import { collectionData } from "rxfire/firestore";
-import { filter } from "rxjs/operators";
 import { map } from "rxjs/operators";
 
 import config from "src/config/firebase.json";
 import currentUser from "src/stores/current-user.js";
 
 export const app = firebase.initializeApp( config );
-
-// Cloud Firestore cls
-// export const firestore = firebase.firestore( app );
+export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
-// Firebase Auth fba
-//
-// export const auth = firebase.auth( app );
-export const auth = firebase.auth();
 
 export const loggedIn = authState( auth ).pipe( map( user => !!user ) );
 

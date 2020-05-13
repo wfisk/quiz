@@ -1,6 +1,6 @@
 import { readable } from 'svelte/store';
-import Question from 'src/collections/Question.js';
-import Quizzes from 'src/collections/Quizzes.js';
+import Question from 'src/models/Question.js';
+import Quiz from 'src/models/Quiz.js';
 
 let activeQuestion = readable(
   1,
@@ -9,7 +9,7 @@ let activeQuestion = readable(
     console.log( 'got a subscriber' );
 
     // let quizzes = Quiz.findAll();
-    let quiz = Quizzes.find( 'default' );
+    let quiz = Quiz.find( 'default' );
 
     let unsubscribeQuiz = quiz.subscribe( function( value ) {
       let quiz = value;

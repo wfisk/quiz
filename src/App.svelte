@@ -45,8 +45,8 @@
     googleProvider
   } from 'src/services/firebase';
 
-  import Question from 'src/collections/Question.js';
-  import Quizzes from 'src/collections/Quizzes.js';
+  import Question from 'src/models/Question.js';
+  import Quiz from 'src/models/Quiz.js';
   import session from 'src/stores/session.js';
 
   let signOut = null;
@@ -129,14 +129,11 @@
     signOut = auth.onAuthStateChanged;
   });
 
-  let quiz = Quizzes.find('default');
+  let quiz = Quiz.find('default');
   $: activeQuestion = $quiz ? $quiz.activeQuestion : 1;
   $: page = pages.find((page) => page.questionIndex === activeQuestion);
   $: params = qs.parse($querystring);
   $: loggedIn = params.loggedIn;
-
-  // $: console.log(activeQuestion);
-  // $: console.log(page);
 
 </script>
 
@@ -145,13 +142,13 @@
 
 </style>
 
-<!--template>
+<template>
   <div class="container-fluid">
     <Router {routes} />
   </div>
-</template-->
+</template>
 
-<template>
+<!--template>
   <div class="container-fluid">
     {#if loggedIn }
       <QuestionsPage />
@@ -161,4 +158,4 @@
       {/if}
     {/if}
   </div>
-</template>
+</template-->
