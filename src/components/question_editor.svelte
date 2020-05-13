@@ -1,5 +1,12 @@
 <script>
   import debounce from 'lodash/debounce';
+  import {
+    Button,
+    Modal,
+    ModalBody,
+    ModalFooter,
+    ModalHeader
+  } from "sveltestrap";
   import Question from 'src/models/Question';
   import {
     Dropdown,
@@ -12,6 +19,11 @@
   export let question;
 
   let isOpen = false;
+  let modalIsOpen = true;
+
+  function modalToggle() {
+    modalIsOpen = !modalIsOpen;
+  }
 
 
   const handleQuestionTextInput_input = debounce(
@@ -281,6 +293,28 @@
       <hr/>
     {/if}
   {/if}
+
+
+   <Button color="danger" on:click={modalToggle}>
+    Open Modal
+  </Button>
+
+  <Modal isOpen={modalIsOpen} toggle={modalToggle}>
+    <ModalHeader toggle={modalToggle}>Modal title</ModalHeader>
+    <ModalBody>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    </ModalBody>
+    <ModalFooter>
+      <Button color="primary" on:click={modalToggle}>
+        Do Something
+      </Button>
+      <Button color="secondary" on:click={modalToggle}>
+        Cancel
+      </Button>
+    </ModalFooter>
+  </Modal>
+  
  
   </template>
 
