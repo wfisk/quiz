@@ -142,13 +142,13 @@
 
 </style>
 
-<template>
-  <!-- div class="container-fluid">
+<!-- template>
+  <div class="container-fluid">
     <Router {routes} />
   </div>
 </template -->
 
-  <!--template>
+<template>
   <div class="container-fluid">
     {#if loggedIn }
       <QuestionsPage />
@@ -158,4 +158,4 @@
       {/if}
     {/if}
   </div>
-</template-->
+</template>
