@@ -8,7 +8,7 @@ let activeQuestion = readable(
   function( set ) {
     console.log( 'got a subscriber' );
 
-    // let quizzes = Quiz.findAll();
+    // let quizzes = Quiz.all();
     let quiz = Quiz.find( 'default' );
 
     let unsubscribeQuiz = quiz.subscribe( function( value ) {

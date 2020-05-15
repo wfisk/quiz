@@ -81,7 +81,7 @@
 
 
   // Question Observable
-  let questions = Question.findAll();
+  let questions = Question.all();
   let quiz = Quiz.find('default');
   $: activeQuestion = $quiz ? $quiz.activeQuestion : 1;
   $: page = pages.find((page) => page.questionIndex === activeQuestion);

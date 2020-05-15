@@ -4,14 +4,9 @@ import { map, startWith } from 'rxjs/operators';
 import { firestore } from 'src/services/firebase';
 
 export default class Model {
-  static collectionPath = '';
-  static itemClass = Document;
 
-  id = 0;
-  parent = null;
-
-  static add( props, parent = null ) {
-    let collectionPath = this.collectionPath;
+  static add( props, { parent = null } = {} ) {
+    let collectionPath = this.getCollectionId();
     if ( parent ) {
       collectionPath = parent.getDocumentPath() + '/' + collectionPath;
     }
@@ -19,36 +14,9 @@ export default class Model {
     collectionRef.add( props );
   }
 
-  static deleteById( id, parent = null ) {
-    let documentPath = this.collectionPath + '/' + id;
-    if ( parent ) {
-      let documentPath = parent.getDocumentPath() + '/' + documentPath;
-    }
 
-    firestore.doc( documentPath ).delete();
-  }
-
-  static find( id, parent ) {
-    let documentPath = this.collectionPath + '/' + id;
-    if ( parent ) {
-      documentPath = parent.getDocumentPath() + '/' + documentPath;
-    }
-
-    let documentRef = firestore.doc( documentPath );
-    let itemClass = this;
-
-    let result = docData( documentRef, 'id' ).pipe(
-      map( data => new itemClass( data, parent ) ),
-      startWith( null )
-    );
-    // result.set = result.next;
-
-    return result;
-  }
-
-
-  static findAll( { parent = null, order = '' } ) {
-    let collectionPath = this.collectionPath;
+  static all( { parent = null, order = '' } = {} ) {
+    let collectionPath = this.getCollectionId();
     if ( parent ) {
       collectionPath = parent.getDocumentPath() + '/' + collectionPath;
     }
@@ -60,8 +28,41 @@ export default class Model {
     );
   }
 
-  static updateById( id, props, { parent = null } ) {
-    let documentPath = this.collectionPath + '/' + id;
+
+  static deleteById( id, { parent = null } = {} ) {
+    let documentPath = this.getCollectionId() + '/' + id;
+    if ( parent ) {
+      let documentPath = parent.getDocumentPath() + '/' + documentPath;
+    }
+
+    firestore.doc( documentPath ).delete();
+  }
+
+  static find( id, { parent = null } = {} ) {
+    let documentPath = this.getCollectionId() + '/' + id;
+    if ( parent ) {
+      documentPath = parent.getDocumentPath() + '/' + documentPath;
+    }
+
+    let documentRef = firestore.doc( documentPath );
+    let itemClass = this;
+
+    let result = docData( documentRef, 'id' ).pipe(
+      map( data => new itemClass( data, { parent: parent } ) ),
+      startWith( null )
+    );
+    // result.set = result.next;
+
+    return result;
+  }
+
+
+  static getCollectionId() {
+    return '';
+  }
+
+  static updateById( id, props, { parent = null } = {} ) {
+    let documentPath = this.getCollectionId() + '/' + id;
     if ( parent ) {
       documentPath = parent.getDocumentPath() + '/' + documentPath;
     }
@@ -71,7 +72,10 @@ export default class Model {
 
 
 
-  constructor( data, parent = null ) {
+  constructor( data, { parent = null } = {} ) {
+    this.id = 0;
+    this.parent = null;
+
     for ( let key in data ) {
       this[ key ] = data[ key ];
     }
@@ -79,7 +83,7 @@ export default class Model {
   }
 
   getDocumentPath() {
-    let result = this.constructor.collectionPath + '/' + this.id;
+    let result = this.constructor.getCollectionId() + '/' + this.id;
     if ( this.parent ) {
       result = this.parent.getDocumentPath() + '/' + result;
     }

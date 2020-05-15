@@ -6,7 +6,7 @@
 
 
 
-  let quizzes = Quiz.findAll({
+  let quizzes = Quiz.all({
     order: 'name'
   });
 

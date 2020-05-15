@@ -143,12 +143,12 @@
 </style>
 
 <template>
-  <div class="container-fluid">
+  <!-- div class="container-fluid">
     <Router {routes} />
   </div>
-</template>
+</template -->
 
-<!--template>
+  <!--template>
   <div class="container-fluid">
     {#if loggedIn }
       <QuestionsPage />
