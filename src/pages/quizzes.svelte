@@ -1,16 +1,50 @@
 <script>
-  import Quiz from 'src/models/Quiz';
   import {
     map
   } from 'rxjs/operators';
+  import {
+    Button,
+    Dropdown,
+    DropdownItem,
+    DropdownMenu,
+    DropdownToggle,
+    Modal,
+    ModalBody,
+    ModalFooter,
+    ModalHeader
+  } from "sveltestrap";
+
+  import currentUser from "src/stores/current-user.js";
+  import Quiz from 'src/models/Quiz';
 
 
 
+  let modalIsOpen = false;
+  let mediaType;
+  let newQuizId;
+  let newQuizName;
   let quizzes = Quiz.all({
     order: 'name'
   });
+  $: console.log({
+    currentUser: $currentUser
+  });
 
-  $: console.log($quizzes[0]);
+  function handleAddQuizCancel() {
+    modalIsOpen = false;
+  }
+
+  async function handleAddQuizConfirm() {
+    Quiz.add({
+      id: newQuizId,
+      name: newQuizName,
+      owner: {
+        uid: $currentUser.uid,
+        displayName: $currentUser.displayName
+      }
+    });
+    modalIsOpen = false;
+  }
 
 </script>
 
@@ -61,4 +95,34 @@
       {/each}
     </tbody>
   </table>
+
+  <Button color="success" on:click={() => modalIsOpen = true}>
+    Add Quiz
+  </Button>
+
+
+  <Modal isOpen={modalIsOpen} >
+    <ModalHeader toggle={handleAddQuizCancel}>Add Quiz</ModalHeader>
+    <ModalBody>
+      <div class="form-group">
+        <label for="quiz-id">Quiz Id</label>
+        <input class="form-control" id="quiz-id" bind:value={newQuizId}>
+      </div>
+      <div class="form-group">
+        <label for="quiz-name">Name</label>
+        <input class="form-control" id="quiz-name" bind:value={newQuizName}>
+      </div>
+    </ModalBody>
+    <ModalFooter>
+      <Button color="primary" on:click={handleAddQuizConfirm}>
+        OK
+      </Button>
+      <Button color="secondary" on:click={handleAddQuizCancel}>
+        Cancel
+      </Button>
+    </ModalFooter>
+  </Modal>
+  
+
+
 </template>
