@@ -10,8 +10,16 @@ export default class Model {
     if ( parent ) {
       collectionPath = parent.getDocumentPath() + '/' + collectionPath;
     }
-    const collectionRef = firestore.collection( collectionPath );
-    collectionRef.add( props );
+    if ( props.id ) {
+      let { id, ...otherProps } = props;
+      const documentPath = collectionPath + '/' + id;
+      const documentRef = firestore.doc( documentPath );
+      documentRef.set( otherProps );
+
+    } else {
+      const collectionRef = firestore.collection( collectionPath );
+      collectionRef.add( props );
+    }
   }
 
 
@@ -22,7 +30,10 @@ export default class Model {
     }
 
     const collectionRef = firestore.collection( collectionPath );
+    let itemClass = this;
+
     return collectionData( collectionRef, 'id' ).pipe(
+      map( items => items.map( it => new itemClass( it, { parent: parent } ) ) ),
       map( items => items.sort( ( a, b ) => a[ order ] - b[ order ] ) ),
       startWith( [] )
     );
@@ -32,7 +43,7 @@ export default class Model {
   static deleteById( id, { parent = null } = {} ) {
     let documentPath = this.getCollectionId() + '/' + id;
     if ( parent ) {
-      let documentPath = parent.getDocumentPath() + '/' + documentPath;
+      documentPath = parent.getDocumentPath() + '/' + documentPath;
     }
 
     firestore.doc( documentPath ).delete();
@@ -55,6 +66,26 @@ export default class Model {
 
     return result;
   }
+
+
+  static findWhere( id, { parent = null } = {} ) {
+    let documentPath = this.getCollectionId() + '/' + id;
+    if ( parent ) {
+      documentPath = parent.getDocumentPath() + '/' + documentPath;
+    }
+
+    let documentRef = firestore.doc( documentPath );
+    let itemClass = this;
+
+    let result = docData( documentRef, 'id' ).pipe(
+      map( data => new itemClass( data, { parent: parent } ) ),
+      startWith( null )
+    );
+    // result.set = result.next;
+
+    return result;
+  }
+
 
 
   static getCollectionId() {
@@ -80,6 +111,10 @@ export default class Model {
       this[ key ] = data[ key ];
     }
     this.parent = parent;
+  }
+
+  delete() {
+    this.constructor.deleteById( this.id, { parent: this.parent } );
   }
 
   getDocumentPath() {

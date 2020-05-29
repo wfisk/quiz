@@ -7,6 +7,8 @@
     "start": "sirv public"
   },
   "devDependencies": {
+    "@fortawesome/free-regular-svg-icons": "^5.13.0",
+    "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@rollup/plugin-alias": "^3.0.1",
     "@rollup/plugin-commonjs": "^11.0.0",
     "@rollup/plugin-json": "^4.0.2",
@@ -19,15 +21,20 @@
     "prettier": "^2.0.2",
     "qs": "^6.9.3",
     "rollup": "^2.7.6",
+    "rollup-plugin-buble": "^0.19.8",
     "rollup-plugin-livereload": "^1.0.0",
     "rollup-plugin-postcss": "^3.1.1",
+    "rollup-plugin-sizes": "^1.0.2",
     "rollup-plugin-svelte": "^5.0.3",
     "rollup-plugin-terser": "^5.1.2",
     "rxfire": "^3.11.1",
     "rxjs": "^6.5.4",
     "svelte": "^3.22.2",
+    "svelte-fa": "^2.1.1",
+    "svelte-headroom": "^2.2.1",
     "svelte-preprocess": "^3.6.0",
     "svelte-spa-router": "^2.1.0",
+    "svelte-typewriter": "^2.1.9",
     "sveltestrap": "^3.3.3"
   },
   "dependencies": {

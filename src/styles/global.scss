@@ -3,6 +3,12 @@
 @import "src/styles/bootstrap.scss";
 
 // your global styles
+
+body {
+  padding: 0;
+}
+
+
 p.foo {
   color: red;
   display: flex;

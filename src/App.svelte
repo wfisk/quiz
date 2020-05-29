@@ -8,16 +8,30 @@
     setContext
   } from 'svelte';
   import {
+    get
+  } from 'svelte/store';
+  import {
     authState
   } from 'rxfire/auth';
   // import Router from 'svelte-spa-router'
   import {
     default as Router,
     location,
-    querystring
+    querystring,
+    wrap,
+    replace
   } from 'svelte-spa-router';
   import qs from 'qs';
+  import Headroom from "svelte-headroom";
+  import Fa from 'svelte-fa';
+  import {
+    faHome
+  } from '@fortawesome/free-solid-svg-icons/faHome';
 
+  import {
+    loggedIn,
+    signOut
+  } from 'src/services/firebase';
 
   import Question01Page from 'src/pages/question_01.svelte';
   import Question02Page from 'src/pages/question_02.svelte';
@@ -33,11 +47,13 @@
   import Answer06Page from 'src/pages/answer_06.svelte';
 
 
+  import MediaItemPage from 'src/pages/media_item.svelte';
   import QuestionsPage from 'src/pages/questions.svelte';
   import QuizzesPage from 'src/pages/quizzes.svelte';
   import QuizPage from 'src/pages/quiz.svelte';
   import QuestionPage from 'src/pages/question.svelte';
   import SessionPage from 'src/pages/session.svelte';
+  import NotFoundPage from 'src/pages/not_found.svelte';
 
   import 'src/services/firebase'
   import {
@@ -49,17 +65,34 @@
   import Quiz from 'src/models/Quiz.js';
   import session from 'src/stores/session.js';
 
-  let signOut = null;
+  // let signOut = null;
 
-  const unsubscribe = authState(auth).subscribe(user => {
-    session.set({
-      user
-    });
+  // const unsubscribe = authState(auth).subscribe(user => {
+  //   session.set({
+  //     user
+  //   });
+  // });
+
+  let userLoggedIn;
+  $: console.log({
+    loggedIn: $loggedIn
   });
+  $: userLoggedIn = $loggedIn;
+
+  function getLoggedIn() {
+    return userLoggedIn;
+  }
 
   const routes = {
     // Exact path
-    '/': QuizzesPage,
+    '/': wrap(QuizzesPage,
+      function(detail) {
+        console.log({
+          detail: detail,
+        });
+        return userLoggedIn;
+      }),
+    "/quizzes/:quizId/questions/:questionId/media-items/:mediaItemId": MediaItemPage,
     "/quizzes/:quizId/questions/:questionId": QuestionPage,
     "/quizzes/:quizId": QuizPage,
     "/questions": QuestionsPage,
@@ -70,7 +103,7 @@
     "/questions/5": Question05Page,
     "/questions/6": Question06Page,
     "/session": SessionPage,
-    '*': QuizzesPage,
+    '*': NotFoundPage,
   };
 
   const pages = [{
@@ -125,30 +158,83 @@
 
 
 
-  onMount(function() {
-    signOut = auth.onAuthStateChanged;
-  });
+  // onMount(function() {
+  //   signOut = auth.onAuthStateChanged;
+  // });
 
   let quiz = Quiz.find('default');
   $: activeQuestion = $quiz ? $quiz.activeQuestion : 1;
   $: page = pages.find((page) => page.questionIndex === activeQuestion);
-  $: params = qs.parse($querystring);
-  $: loggedIn = params.loggedIn;
+  // $: params = qs.parse($querystring);
+  // $: loggedIn = params.loggedIn;
+
+  function handleHome() {
+
+  }
+
+  function handleLogout() {
+    signOut();
+  }
+
+  function handleRouterFailed(event) {
+    console.error({
+      event
+    });
+    replace('/session');
+  }
 
 </script>
 
 <style global lang="scss">
   @import "styles/global.scss";
 
+  body>div:first-child {
+    z-index: 1000;
+  }
+
+  header {
+    background-color: darkblue;
+    height: 60px;
+    opacity: 0.2;
+    z-index: 1;
+  }
+
+  .container-fluid {
+    padding-top: 60px;
+  }
+
 </style>
 
-<!-- template>
-  <div class="container-fluid">
-    <Router {routes} />
-  </div>
-</template -->
-
 <template>
+  {#if $loggedIn}
+    <Headroom duration="350ms" offset={50} tolerance={5} >
+      <header class="d-flex justify-content-between">
+        <div>
+          <button class="btn btn-sm btn-light" on:click={handleHome}>
+            <Fa icon={faHome} />
+          </button>
+        </div>
+        <div>
+          <button class="btn btn-sm btn-light" on:click={handleLogout}>
+            <Fa icon={faHome} />
+          </button>
+        </div>
+      </header>
+    </Headroom>
+  {/if}
+
+  <div class="container-fluid">
+    {#if $loggedIn == null }
+      <p>
+        Loading...
+      </p>
+    {:else}
+        <Router {routes} on:conditionsFailed={handleRouterFailed} />
+    {/if} 
+  </div>
+</template>
+
+<!--template>
   <div class="container-fluid">
     {#if loggedIn }
       <QuestionsPage />

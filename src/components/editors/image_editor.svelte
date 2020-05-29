@@ -1,28 +1,85 @@
 <script>
   import debounce from 'lodash/debounce';
   import {
+    EMPTY
+  } from 'rxjs';
+  import {
     Button,
+    Dropdown,
+    DropdownItem,
+    DropdownMenu,
+    DropdownToggle,
     Modal,
     ModalBody,
     ModalFooter,
     ModalHeader
   } from "sveltestrap";
-  import Question from 'src/models/Question';
-  import {
-    Dropdown,
-    DropdownItem,
-    DropdownMenu,
-    DropdownToggle
-  } from 'sveltestrap';
 
-  export let quiz;
+  import MediaItemModal from 'src/components/modals/media_item_modal.svelte';
+  import Question from 'src/models/Question';
+
   export let question;
 
-  let isOpen = false;
-  let modalIsOpen = true;
+  let mediaItems;
+  let mediaType = 'image';
+  let audioFile;
+  let audioFileContent;
+  let audioFileName;
+  let imageFileContent;
+  let imageFileName;
+  let videoUrl;
 
-  function modalToggle() {
-    modalIsOpen = !modalIsOpen;
+
+  let isOpen = false;
+  let modalIsOpen = false;
+
+  $: console.log({
+    $mediaItems
+  });
+
+  $: mediaItems = $question ? $question.mediaItems() : EMPTY;
+  $: questionOptions = $question ? ($question.options || []) : [];
+
+
+  function addMediaItemModal_cancel() {
+    modalIsOpen = false;
+  }
+
+  async function addMediaItemModal_confirm() {
+    let props = {
+      mediaType
+    };
+
+    if (mediaType === 'audio') {
+      props.fileName = audioFileName;
+      props.value = audioFileContent;
+    }
+
+    if (mediaType === 'image') {
+      props.fileName = imageFileName;
+      props.value = imageFileContent;
+
+    }
+
+    if (mediaType === 'video') {
+      props.fileName = videoUrl;
+      props.value = videoUrl;
+    }
+
+    $question.addMediaItem(props);
+
+    modalIsOpen = false;
+  }
+
+
+  async function handleAudioFile_input(event) {
+    audioFileContent = await toBase64(event.target.files[0]);
+    audioFileName = event.target.value;
+  }
+
+  async function handleImageFile_input(event) {
+    imageFileContent = await toBase64(event.target.files[0]);
+    imageFileName = event.target.value;
   }
 
 
@@ -127,7 +184,7 @@
 
 
   function handleDeleteOption_click(event) {
-    $question({
+    $question.update({
       options: $question.options.slice(0, -1)
     });
   }
@@ -195,6 +252,11 @@
     };
     delete props.id;
     $question.update(props);
+  }
+
+
+  function handleMediaType_change(event) {
+
   }
 
 </script>
@@ -292,24 +354,69 @@
       <button class="btn btn-warning" on:click={handleDeleteVideo_click}>Delete Video</button>
       <hr/>
     {/if}
-  {/if}
+
+    <hr/>
+
+    <h3>Media Items</h3>
+
+    <ul class="list-group">
+      {#each $mediaItems as mediaItem}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <a href="#{$question.getDocumentPath()}/media-items/{mediaItem.id}">
+          {mediaItem.fileName}
+        </a>  
+        <span class="badge badge-primary badge-pill">{mediaItem.mediaType}</span>
+      </li>
+      {/each}
+    </ul>
+
+    <Button color="danger" on:click={() => modalIsOpen = true}>
+      Add Media Item
+    </Button>
+   {/if}
 
 
-   <Button color="danger" on:click={modalToggle}>
-    Open Modal
-  </Button>
 
-  <Modal isOpen={modalIsOpen} toggle={modalToggle}>
-    <ModalHeader toggle={modalToggle}>Modal title</ModalHeader>
+  <Modal isOpen={modalIsOpen} >
+    <ModalHeader toggle={addMediaItemModal_cancel}>Add Media Item</ModalHeader>
     <ModalBody>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      <div class="form-group">
+        <label for="media-type">Media Type</label>
+        <select class="form-control" id="media-type" bind:value={mediaType}>
+          <option value="image">Image</option>
+          <option disabled>_________</option>
+          <option value="audio">Audio</option>
+          <option value="video">Video</option>
+        </select>
+
+      </div>
+
+      {#if mediaType === 'audio'}
+        <div class="form-group">
+          <label for="audio-file">Upload mp3 file</label>
+          <input type="file" class="form-control" id="audio-file" on:input={handleAudioFile_input}>
+        </div>
+      {/if}
+
+      {#if mediaType === 'image'}
+        <div class="form-group">
+          <label for="image-file">Upload image file</label>
+          <input type="file" class="form-control" id="image-file" on:input={handleImageFile_input}>
+        </div>
+      {/if}
+    
+      {#if mediaType === 'video'}
+        <div class="form-group">
+          <label for="video-url">URL</label>
+          <input class="form-control" id="video-url" bind:value={videoUrl}>
+        </div>
+      {/if}
     </ModalBody>
     <ModalFooter>
-      <Button color="primary" on:click={modalToggle}>
-        Do Something
+      <Button color="primary" on:click={addMediaItemModal_confirm}>
+        OK
       </Button>
-      <Button color="secondary" on:click={modalToggle}>
+      <Button color="secondary" on:click={addMediaItemModal_cancel}>
         Cancel
       </Button>
     </ModalFooter>

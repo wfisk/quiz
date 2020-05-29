@@ -187,7 +187,7 @@
 
 
     {#if $question.image}
-
+      Question Image
     {/if}
 
 
