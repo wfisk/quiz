@@ -36,7 +36,10 @@
 
   export let question;
 
+  let mediaItemEnded = false;
+
   $: mediaItems = $question ? $question.mediaItems() : EMPTY;
+
 
   $: console.log({
     $mediaItems
@@ -58,6 +61,10 @@
     }
   }
 
+  function handleMediaItemEnded() {
+    mediaItemEnded = true;
+  }
+
 </script>
 
 
@@ -66,7 +73,7 @@
    <h1>Question {$question.questionIndex}</h1>
 
   {#each $mediaItems as mediaItem}
-    <MediaItemPlayer {mediaItem} />
+    <MediaItemPlayer {mediaItem} onEnded={handleMediaItemEnded}/>
   {/each}
 
     {#if $question.image}
@@ -82,17 +89,19 @@
       />
     {/if}
 
-    <p class="question">
-      {$question.text}
-    </p>
+    {#if !$mediaItems.length || mediaItemEnded}
+      <p class="question">
+        {$question.text}
+      </p>
 
-    <ol class="options">
-      {#each $question.options as option}
-        <li class="option" class:active={$question.reveal_answer && option.correct}>
-          {option.text}
-        </li>
-      {/each}
-    </ol>
+      <ol class="options">
+        {#each $question.options as option}
+          <li class="option" class:active={$question.reveal_answer && option.correct}>
+            {option.text}
+          </li>
+        {/each}
+      </ol>
+    {/if}  
 
   {/if}
 </template>

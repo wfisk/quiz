@@ -1,8 +1,17 @@
 <script>
-
   export let mediaItem;
+  export let onEnded;
+  import {
+    onMount
+  } from 'svelte';
 
-  $: mediaFile = mediaItem ? mediaItem.parent.findMediaFile(mediaItem.fileName) : rxOf(null)
+  $: mediaFile = mediaItem ? mediaItem.parent.findMediaFile(mediaItem.fileName) : rxOf(null);
+
+  onMount(function() {
+    if (onEnded) {
+      onEnded();
+    }
+  })
 
 </script>
 

@@ -5,16 +5,23 @@
   import Lyric from 'src/components/lyric.svelte';
 
   export let mediaItem;
+  export let onEnded;
 
   let audio;
   let currentTime;
   let duration;
+  let ended;
 
   $: mediaFile = mediaItem ? mediaItem.parent.findMediaFile(mediaItem.fileName) : rxOf(null)
 
   function handleAudioTimeUpdate() {
     currentTime = audio.currentTime.toFixed(2);
     duration = audio.duration.toFixed(2);
+
+    if (!ended && audio.ended && onEnded) {
+      onEnded();
+    }
+    ended = audio.ended;
   }
 
 </script>

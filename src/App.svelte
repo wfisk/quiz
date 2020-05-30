@@ -19,7 +19,8 @@
     location,
     querystring,
     wrap,
-    replace
+    replace,
+    push
   } from 'svelte-spa-router';
   import qs from 'qs';
   import Headroom from "svelte-headroom";
@@ -27,6 +28,9 @@
   import {
     faHome
   } from '@fortawesome/free-solid-svg-icons/faHome';
+  import {
+    faPowerOff
+  } from '@fortawesome/free-solid-svg-icons/faPowerOff';
 
   import {
     loggedIn,
@@ -169,11 +173,12 @@
   // $: loggedIn = params.loggedIn;
 
   function handleHome() {
-
+    push('/');   
   }
 
-  function handleLogout() {
-    signOut();
+  async function handleLogout() {
+    await signOut();
+    push('/session');   
   }
 
   function handleRouterFailed(event) {
@@ -216,7 +221,7 @@
         </div>
         <div>
           <button class="btn btn-sm btn-light" on:click={handleLogout}>
-            <Fa icon={faHome} />
+            <Fa icon={faPowerOff} />
           </button>
         </div>
       </header>
