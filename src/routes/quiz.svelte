@@ -38,13 +38,22 @@
   let activeQuestion;
 
   $: activeQuestionId = $quiz ? ($quiz.activeQuestionId || null) : null;
-  $: questions = $quiz ? $quiz.questions() : EMPTY;
+  $: quizLoaded = !!$quiz;
+  $: questions = quizLoaded ? loadQuestions() : EMPTY;
   $: activeQuestion = ($quiz && activeQuestionId) ? $quiz.findQuestion(activeQuestionId) : rxOf(null)
   $: activeQuestionIndex = $activeQuestion ? ($activeQuestion.questionIndex || 0) : 0;
 
+  $: console.log({
+    quiz: $quiz,
+    questions: $questions
+  });
+
+  function loadQuestions() {
+    return $quiz.questions();
+  }
 
   // Events
-  function handleAddQuestion_click() {
+  function handleAddQuestionClick() {
     if ($quiz) {
       $quiz.addQuestion({
         quizId: $quiz.id,
@@ -151,7 +160,7 @@
       </table>
 
 
-      <button class="btn btn-primary" on:click={handleAddQuestion_click}>Add Question</button>
+      <button class="btn btn-primary" on:click={handleAddQuestionClick}>Add Question</button>
 
     {:else}  
       {#if $activeQuestion}
