@@ -65,13 +65,24 @@
 
     let svg = document.getElementById('svg');
 
-    let uri = await saveSvgAsPng.svgAsPngUri(svg);
+    let uri = await saveSvgAsPng.svgAsPngUri(svg, {
+      scale: 10
+    });
 
     const imageId2 = workbook.addImage({
       base64: uri,
       extension: 'png',
     });
-    sheet.addImage(imageId2, 'B2:D6');
+    sheet.addImage(imageId2, {
+      tl: {
+        col: 2,
+        row: 2
+      },
+      ext: {
+        width: 240,
+        height: 240
+      }
+    });
 
     let buffer = await workbook.xlsx.writeBuffer();
     const blob = new Blob([buffer], {
