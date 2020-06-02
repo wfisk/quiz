@@ -81,10 +81,21 @@ export default {
     } ),
     sizes()
   ],
+
   watch: {
     clearScreen: false
+  },
+
+  //see https://github.com/d3/d3-selection/issues/168
+  onwarn: function( warning, warn ) {
+    if ( warning.code === 'CIRCULAR_DEPENDENCY' ) return;
+    if ( warning.code === 'EVAL' ) return;
+    warn( warning );
   }
 };
+
+
+
 
 function serve() {
   let started = false;
