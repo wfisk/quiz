@@ -11,6 +11,10 @@
     DropdownToggle,
   } from "sveltestrap";
 
+  import {
+    toBase64
+  } from 'src/lib/base/utilities.js';
+
 
   export let mediaItem;
 
@@ -23,44 +27,18 @@
   let modalIsOpen = false;
 
 
+  $: question = $mediaItem ? $mediaItem.parent : rxOf(null);
+
+
+
   async function handleAudioFile_input(event) {
     audioFileContent = await toBase64(event.target.files[0]);
     audioFileName = event.target.value;
   }
 
-  // const handleAudioUrlInput_input = debounce(
-  //   function(event) {
-  //     mediaItem.update({
-  //       url: event.target.value
-  //     });
-  //   },
-  //   300
-  // );
 
 
-  // async function handleAudioFileInput_input(event) {
-  //   console.log(event);
-  //   if (event.target.files) {
-  //     let fileContent = await toBase64(event.target.files[0]);
-  //     $question.update({
-  //       audio: {
-  //         ...$question.audio,
-  //         file: fileContent
-  //       }
-  //     });
-  //   }
-  // }
-
-  function toBase64(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = error => reject(error);
-    });
-  }
-
-  function handleAddLyric_click(event) {
+  function handleLyricAdd(event) {
     let lyricIndex = $mediaItem.lyrics.length + 1;
     let lyrics = [...$mediaItem.lyrics, {
       text: `Lyric ${lyricIndex}`,
@@ -75,14 +53,14 @@
   }
 
 
-  function handleDeleteLyric_click(event) {
+  function handleLyricDelete(event) {
     $mediaItem.update({
       lyrics: $mediaItem.lyrics.slice(0, -1)
     });
   }
 
 
-  const handleInputLyricText = debounce(
+  const handleLyricText = debounce(
     function(event, lyric) {
       lyric.text = event.target.value;
       $mediaItem.update({
@@ -92,7 +70,7 @@
     300
   );
 
-  const handleInputLyricStart = debounce(
+  const handleLyricStart = debounce(
     function(event, lyric) {
       let newStart = Number(event.target.value);
       if (!isNaN(newStart)) {
@@ -105,7 +83,7 @@
     300
   );
 
-  const handleInputLyricEnd = debounce(
+  const handleLyricEnd = debounce(
     function(event, lyric) {
       let newEnd = Number(event.target.value);
       if (!isNaN(newEnd)) {
@@ -138,7 +116,7 @@
             class="form-control" 
             id="mediaItem-lyric-text-{lyric.lyricIndex}" 
             value={lyric.text} 
-            on:input={ (event) => handleInputLyricText( event, lyric ) }>
+            on:input={ (event) => handleLyricText( event, lyric ) }>
           </div>
         <div class="col-sm-2">
           <label for="mediaItem-lyric-start-{lyric.lyricIndex}" class="small">Start</label>
@@ -147,7 +125,7 @@
             class="form-control" 
             id="mediaItem-lyric-add-at-{lyric.lyricIndex}" 
             value={lyric.start} 
-            on:input={ (event) => handleInputLyricStart( event, lyric ) }>
+            on:input={ (event) => handleLyricStart( event, lyric ) }>
           </div>
         <div class="col-sm-2">
           <label for="mediaItem-lyric-end-{lyric.lyricIndex}" class="small">End</label>
@@ -156,15 +134,15 @@
             class="form-control" 
             id="mediaItem-lyric-end-{lyric.lyricIndex}" 
             value={lyric.end} 
-            on:input={ (event) => handleInputLyricEnd( event, lyric ) }>
+            on:input={ (event) => handleLyricEnd( event, lyric ) }>
           </div>
       </div>
 
     {/each}
 
-    <button class="btn btn-primary" on:click={handleAddLyric_click}>Add Lyric</button>
+    <button class="btn btn-primary" on:click={handleLyricAdd}>Add Lyric</button>
 
-    <button class="btn btn-warning" on:click={handleDeleteLyric_click}>Delete Lyric</button>
+    <button class="btn btn-warning" on:click={handleLyricDelete}>Delete Lyric</button>
 
 
  

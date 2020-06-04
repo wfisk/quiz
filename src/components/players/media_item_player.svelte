@@ -16,7 +16,7 @@
     <ImagePlayer {mediaItem} {onEnded}/>
 
   {:else if mediaItem.mediaType === 'video'}
-   <VideoPlayer {mediaItem} {onEnded}/>
+   <VideoPlayer {mediaItem} />
 
   {/if}
 </template>

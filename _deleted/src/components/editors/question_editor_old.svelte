@@ -254,11 +254,6 @@
     $question.update(props);
   }
 
-
-  function handleMediaType_change(event) {
-
-  }
-
 </script>
 
 

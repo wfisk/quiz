@@ -16,9 +16,12 @@
   } from "sveltestrap";
 
   import MediaItemModal from 'src/components/modals/media_item_modal.svelte';
+  import {
+    toBase64
+  } from 'src/lib/base/utilities.js';
   import Question from 'src/models/Question';
 
-  export let question;
+  export let mediaItem;
 
   let mediaItems;
   let mediaType = 'image';
@@ -37,8 +40,9 @@
     $mediaItems
   });
 
-  $: mediaItems = $question ? $question.mediaItems() : EMPTY;
-  $: questionOptions = $question ? ($question.options || []) : [];
+  // $: mediaItems = $question ? $question.mediaItems() : EMPTY;
+  // $: questionOptions = $question ? ($question.options || []) : [];
+  $: question = $mediaItem ? $mediaItem.parent : null;
 
 
   function addMediaItemModal_cancel() {
@@ -158,14 +162,14 @@
   );
 
 
-  function toBase64(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = error => reject(error);
-    });
-  }
+  // function toBase64(file) {
+  //   return new Promise((resolve, reject) => {
+  //     const reader = new FileReader();
+  //     reader.readAsDataURL(file);
+  //     reader.onload = () => resolve(reader.result);
+  //     reader.onerror = error => reject(error);
+  //   });
+  // }
 
 
   function handleAddOption_click(event) {
@@ -254,17 +258,12 @@
     $question.update(props);
   }
 
-
-  function handleMediaType_change(event) {
-
-  }
-
 </script>
 
 
 <template>
   {#if $question}
-    <h2>Question Editor</h2>
+    <h2>Video Editor</h2>
 
     <div class="form-group">
       <label for="question-text">Question Text</label>
