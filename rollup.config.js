@@ -1,54 +1,51 @@
-import svelte from 'rollup-plugin-svelte';
-import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
-import livereload from 'rollup-plugin-livereload';
-import { terser } from 'rollup-plugin-terser';
+import svelte from "rollup-plugin-svelte";
+import resolve from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
+import livereload from "rollup-plugin-livereload";
+import { terser } from "rollup-plugin-terser";
 
-import alias from '@rollup/plugin-alias';
-import json from '@rollup/plugin-json';
-import postcss from 'rollup-plugin-postcss';
-import autoPreprocess from 'svelte-preprocess';
-import buble from 'rollup-plugin-buble';
-import sizes from 'rollup-plugin-sizes';
+import alias from "@rollup/plugin-alias";
+import json from "@rollup/plugin-json";
+import postcss from "rollup-plugin-postcss";
+import autoPreprocess from "svelte-preprocess";
+import buble from "rollup-plugin-buble";
+import sizes from "rollup-plugin-sizes";
 
 const production = !process.env.ROLLUP_WATCH;
 
 export default {
-  input: 'src/main.js',
+  input: "/src/main.js",
   output: {
     sourcemap: true,
-    format: 'iife',
-    name: 'app',
-    file: 'public/build/bundle.js'
+    format: "iife",
+    name: "app",
+    file: "public/build/bundle.js"
   },
   plugins: [
-    svelte( {
+    svelte({
       // enable run-time checks when not in production
       dev: !production,
       // we'll extract any component CSS out into
       // a separate file - better for performance
-      css: css => {
-        css.write( 'public/build/bundle.css' );
+      css: (css) => {
+        css.write("public/build/bundle.css");
       },
-      preprocess: autoPreprocess( {
+      preprocess: autoPreprocess({
         scss: {
-          includePaths: [
-            'node_modules',
-            'src'
-          ]
-        },
-      } ),
-    } ),
+          includePaths: ["node_modules", "src"]
+        }
+      })
+    }),
 
     // If you have external dependencies installed from
     // npm, you'll most likely need these plugins. In
     // some cases you'll need additional configuration -
     // consult the documentation for details:
     // https://github.com/rollup/plugins/tree/master/packages/commonjs
-    resolve( {
+    resolve({
       browser: true,
-      dedupe: [ 'svelte' ]
-    } ),
+      dedupe: ["svelte"]
+    }),
     commonjs(),
 
     // In dev mode, call `npm run start` once
@@ -57,28 +54,26 @@ export default {
 
     // Watch the `public` directory and refresh the
     // browser on changes when not in production
-    !production && livereload( 'public' ),
+    !production && livereload("public"),
 
     // If we're building for production (npm run build
     // instead of npm run dev), minify
     production && terser(),
 
-    alias( {
-      resolve: [ '.js', '.json', '.scss', '.svelte' ],
-      entries: [
-        { find: /^src/, replacement: __dirname + '/src' }
-      ],
-    } ),
+    alias({
+      resolve: [".js", ".json", ".scss", ".svelte"],
+      entries: [{ find: /^\/src/, replacement: __dirname + "/src" }]
+    }),
     json(),
     postcss(),
 
-    buble( {
-      objectAssign: 'Object.assign',
+    buble({
+      objectAssign: "Object.assign",
       transforms: {
         asyncAwait: false,
-        forOf: false,
+        forOf: false
       }
-    } ),
+    }),
     sizes()
   ],
 
@@ -87,28 +82,25 @@ export default {
   },
 
   //see https://github.com/d3/d3-selection/issues/168
-  onwarn: function( warning, warn ) {
-    if ( warning.code === 'CIRCULAR_DEPENDENCY' ) return;
-    if ( warning.code === 'EVAL' ) return;
-    warn( warning );
+  onwarn: function (warning, warn) {
+    if (warning.code === "CIRCULAR_DEPENDENCY") return;
+    if (warning.code === "EVAL") return;
+    warn(warning);
   }
 };
-
-
-
 
 function serve() {
   let started = false;
 
   return {
     writeBundle() {
-      if ( !started ) {
+      if (!started) {
         started = true;
 
-        require( 'child_process' ).spawn( 'npm', [ 'run', 'start', '--', '--dev' ], {
-          stdio: [ 'ignore', 'inherit', 'inherit' ],
+        require("child_process").spawn("npm", ["run", "start", "--", "--dev"], {
+          stdio: ["ignore", "inherit", "inherit"],
           shell: true
-        } );
+        });
       }
     }
   };

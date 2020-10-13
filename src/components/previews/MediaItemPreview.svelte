@@ -1,7 +1,7 @@
 <script>
-  import AudioPreview from "src/components/previews/AudioPreview.svelte";
-  import ImagePreview from "src/components/previews/ImagePreview.svelte";
-  import VideoPreview from "src/components/previews/VideoPreview.svelte";
+  import AudioPreview from "/src/components/previews/AudioPreview.svelte";
+  import ImagePreview from "/src/components/previews/ImagePreview.svelte";
+  import VideoPreview from "/src/components/previews/VideoPreview.svelte";
 
   export let mediaItem;
 </script>

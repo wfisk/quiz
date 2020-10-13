@@ -1,8 +1,6 @@
 <script>
-  import {
-    of as rxOf
-  } from 'rxjs';
-  import Lyric from 'src/components/lyric.svelte';
+  import { of as rxOf } from 'rxjs';
+  import Lyric from '/src/components/lyric.svelte';
 
   export let mediaItem;
   export let onEnded;
@@ -12,7 +10,9 @@
   let duration;
   let ended;
 
-  $: mediaFile = mediaItem ? mediaItem.parent.findMediaFile(mediaItem.fileName) : rxOf(null)
+  $: mediaFile = mediaItem
+    ? mediaItem.parent.listenMediaFile(mediaItem.fileName)
+    : rxOf(null);
 
   function handleAudioTimeUpdate() {
     currentTime = audio.currentTime.toFixed(2);
@@ -23,38 +23,33 @@
     }
     ended = audio.ended;
   }
-
 </script>
-
 
 <template>
   {#if !mediaItem}
     Loading...
-  {:else}  
+  {:else}
     {#if $mediaFile && $mediaFile.url}
-      <audio 
-        controls 
-        src={$mediaFile.url} 
-        bind:this={audio} 
-        on:timeupdate={handleAudioTimeUpdate}
-      />
-    {/if}  
+      <audio
+        controls
+        src={$mediaFile.url}
+        bind:this={audio}
+        on:timeupdate={handleAudioTimeUpdate}>
+        <track default kind="captions" />
+      </audio>
+    {/if}
 
     <div class="lyrics">
       {#each mediaItem.lyrics as lyric}
-        <Lyric showWhen="{currentTime > lyric.start}" hideWhen="{currentTime > lyric.end }">
+        <Lyric
+          showWhen={currentTime > lyric.start}
+          hideWhen={currentTime > lyric.end}>
           {lyric.text}
         </Lyric>
       {/each}
-
     </div>
-  
-  
-   {/if}   
-
-
+  {/if}
 </template>
-
 
 <style>
   :global(.lyrics .lyric:last-child) {

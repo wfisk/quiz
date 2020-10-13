@@ -1,5 +1,5 @@
 <script>
-  import debounce from "lodash/debounce";
+  import debounce from "lodash-es/debounce";
   import { EMPTY } from "rxjs";
   import {
     Button,
@@ -9,7 +9,7 @@
     DropdownToggle
   } from "sveltestrap";
 
-  import { toBase64 } from "src/lib/base/utilities.js";
+  import { toBase64 } from "/src/lib/base/utilities";
 
   export let mediaItem;
 

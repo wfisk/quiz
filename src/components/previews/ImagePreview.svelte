@@ -1,32 +1,14 @@
 <script>
-  import {
-    onMount
-  } from 'svelte';
-  import {
-    Howler,
-    Howl
-  } from 'howler';
-  import {
-    from as rxFrom,
-    timer as rxTimer
-  } from 'rxjs'
-  import {
-    switchMap,
-    startWith
-  } from 'rxjs/operators'
-  import {
-    fade,
-    fly
-  } from 'svelte/transition';
-  import Lyric from 'src/components/lyric.svelte';
+  import { onMount } from 'svelte';
+  import 'howler';
+  import { from as rxFrom, timer as rxTimer } from 'rxjs';
+  import { switchMap, startWith } from 'rxjs/operators';
+  import { fade, fly } from 'svelte/transition';
+  import Lyric from '/src/components/lyric.svelte';
 
   // All providers are named {ProviderName}Provider.
-  import {
-    Player,
-    FileProvider,
-    YouTubeProvider
-  } from '@vime-js/standard';
-
+  // import { Player, FileProvider, YouTubeProvider } from '@vime/svelte';
+  import { VimePlayer, VimeVideo, VimeUi } from '@vime/svelte';
 
   export let question;
 
@@ -39,7 +21,6 @@
 
   $: $question, updateAudioPlayer();
   $: videoPlayer, updateVideoPlayer();
-
 
   let sound;
   let soundId;
@@ -63,17 +44,13 @@
   //   );
   // $: soundFinished = soundFinished || $timer.seek > 30;
 
-
-
-  onMount(function() {
-
-    return function() {
+  onMount(function () {
+    return function () {
       if (soundId) {
         stopMusic();
       }
-
     };
-  })
+  });
 
   function playMusic() {
     soundId = sound.play();
@@ -107,8 +84,74 @@
       videoPlayer.useNativeView = false;
     }
   }
-
 </script>
+
+<template>
+  {#if $question}
+    <h1>Question {$question.questionIndex}</h1>
+
+    {#if $question.audio}
+      {#if $question.audio.file}
+        <audio controls src={$question.audio.file}>
+          <track default kind="captions" />
+        </audio>
+      {/if}
+
+      <div class="buttons">
+        <button
+          class="btn btn-primary"
+          on:click={playMusic}
+          disabled={!sound || soundId}>
+          Play Music
+        </button>
+
+        <button
+          class="btn btn-primary"
+          on:click={pauseMusic}
+          disabled={!sound || !soundId}>
+          Pause Music
+        </button>
+
+        <button
+          class="btn btn-primary"
+          on:click={resumeMusic}
+          disabled={!sound || !soundId}>
+          Resume Music
+        </button>
+
+        <button
+          class="btn btn-primary"
+          on:click={stopMusic}
+          disabled={!sound || !soundId}>
+          Stop Music
+        </button>
+      </div>
+    {/if}
+
+    {#if $question.image}Question Image{/if}
+
+    {#if $question.video}
+      <VimePlayer controls bind:this={videoPlayer}>
+        <VimeVideo crossOrigin="" poster="https://media.vimejs.com/poster.png">
+          <!-- These are passed directly to the underlying HTML5 `<video>` element. -->
+          <!-- Why `data-src`? Lazy loading, you can always use `src` if you prefer.  -->
+          <source data-src={$question.video.url} type="video/mp4" />
+          <track default kind="captions" />
+        </VimeVideo>
+
+        <!-- ... -->
+      </VimePlayer>
+    {/if}
+
+    <p class="question">{$question.text}</p>
+
+    <ol class="options">
+      {#each $question.options as option}
+        <li class="option">{option.text}</li>
+      {/each}
+    </ol>
+  {/if}
+</template>
 
 <style>
   h1 {
@@ -145,72 +188,4 @@
   .buttons {
     margin-bottom: 2rem;
   }
-
-  mark {
-    color: orange;
-    background-color: transparent;
-  }
-
 </style>
-
-
-<template>
-  {#if $question}
-    <h1>Question {$question.questionIndex}</h1>
-
-    {#if $question.audio}
-
-      {#if $question.audio.file}
-        <audio controls src={$question.audio.file}/>
-      {/if}  
-   
-
-     <div class="buttons">
-        <button class="btn btn-primary" on:click={playMusic} disabled={!sound || soundId}>
-          Play Music
-        </button>
-
-        <button class="btn btn-primary" on:click={pauseMusic} disabled={!sound || !soundId}>
-          Pause Music
-        </button>
-
-        <button class="btn btn-primary" on:click={resumeMusic} disabled={!sound || !soundId}>
-          Resume Music
-        </button>
-
-        <button class="btn btn-primary" on:click={stopMusic} disabled={!sound || !soundId}>
-          Stop Music
-        </button>
-
-      </div>
-    {/if}
-
-
-    {#if $question.image}
-      Question Image
-    {/if}
-
-
-    {#if $question.video}
-      <Player
-        src="{$question.video.url}"
-        {providers}
-        bind:this={videoPlayer} 
-      />
-    {/if}
-
-    <p class="question">
-      {$question.text}
-    </p>
-
-    <ol class="options">
-      {#each $question.options as option}
-        <li class="option">
-          {option.text}
-        </li>
-      {/each}
-    </ol>
-
-  {/if}
-
-</template>

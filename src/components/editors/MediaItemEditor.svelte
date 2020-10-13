@@ -1,7 +1,7 @@
 <script>
-  import AudioEditor from "src/components/editors/AudioEditor.svelte";
-  import ImageEditor from "src/components/editors/ImageEditor.svelte";
-  import VideoEditor from "src/components/editors/VideoEditor.svelte";
+  import AudioEditor from "/src/components/editors/AudioEditor.svelte";
+  import ImageEditor from "/src/components/editors/ImageEditor.svelte";
+  import VideoEditor from "/src/components/editors/VideoEditor.svelte";
 
   export let mediaItem;
 </script>

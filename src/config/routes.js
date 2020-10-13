@@ -1,36 +1,32 @@
-import { get } from "svelte/store";
+import { get } from 'svelte/store';
+import { wrap as routeWrap } from 'svelte-spa-router/wrap';
 
-import { wrap as routeWrap } from "svelte-spa-router";
+import route__admin from '/src/routes/admin.svelte';
+import route__guest from '/src/routes/guest.svelte';
+import route__login from '/src/routes/login.svelte';
+import route__not_found from '/src/routes/not-found.svelte';
 
-import route__media_item from "src/routes/media-item.svelte";
-import route__not_found from "src/routes/not-found.svelte";
-import route__question from "src/routes/question.svelte";
-import route__quiz from "src/routes/quiz.svelte";
-import route__quizzes from "src/routes/quizzes.svelte";
-import route__session from "src/routes/session.svelte";
-import { loggedIn } from "src/services/firebase";
+import { loggedIn } from '/src/services/firebase';
 
 const routes = {
-  // Exact path
-  "/": routeWrap({
-    component: route__quizzes,
-    conditions: () => get(loggedIn),
+  '/admin': routeWrap({
+    component: route__admin,
+    conditions: () => true
   }),
-  "/quizzes/:quizId/questions/:questionId/media-items/:mediaItemId": routeWrap({
-    component: route__media_item,
-    conditions: () => get(loggedIn),
+
+  '/guest': routeWrap({
+    component: route__guest,
+    conditions: () => true
   }),
-  "/quizzes/:quizId/questions/:questionId": routeWrap({
-    component: route__question,
-    conditions: () => get(loggedIn),
+
+  '/login': route__login,
+
+  '/': routeWrap({
+    component: route__admin,
+    conditions: () => true
   }),
-  "/quizzes/:quizId": route__quiz,
-  "/quizzes": routeWrap({
-    component: route__quizzes,
-    conditions: () => get(loggedIn),
-  }),
-  "/session": route__session,
-  "*": route__not_found,
+
+  '*': route__not_found
 };
 
 export default routes;

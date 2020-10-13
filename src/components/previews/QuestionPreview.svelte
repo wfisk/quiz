@@ -1,57 +1,27 @@
 <script>
-  import {
-    onMount
-  } from 'svelte';
-  import {
-    Howler,
-    Howl
-  } from 'howler';
-  import {
-    from as rxFrom,
-    timer as rxTimer
-  } from 'rxjs'
-  import {
-    EMPTY
-  } from 'rxjs';
-  import {
-    switchMap,
-    startWith
-  } from 'rxjs/operators'
-  import {
-    fade,
-    fly
-  } from 'svelte/transition';
-  import Lyric from 'src/components/lyric.svelte';
-  import MediaItemPlayer from 'src/components/players/media_item_player.svelte';
-
-
+  import { onMount } from 'svelte';
+  // import { Howler, Howl } from "howler";
+  import { from as rxFrom, of as rxOf, timer as rxTimer } from 'rxjs';
+  import { switchMap, startWith } from 'rxjs/operators';
+  import { fade, fly } from 'svelte/transition';
+  import Lyric from '/src/components/lyric.svelte';
+  import MediaItemPlayer from '/src/components/players/MediaItemPlayer.svelte';
 
   // All providers are named {ProviderName}Provider.
-  import {
-    Player,
-    FileProvider,
-    YouTubeProvider
-  } from '@vime-js/standard';
-
-
+  // import { Player, FileProvider, YouTubeProvider } from '@vime/svelte';
+  import { VimePlayer, VimeVideo, VimeUi } from '@vime/svelte';
   export let question;
 
   let mediaItemEnded = false;
 
-  $: mediaItems = $question ? $question.mediaItems() : EMPTY;
-
-
-  $: console.log({
-    $mediaItems
-  });
+  $: mediaItems = $question ? $question.listenMediaItems() : rxOf([]);
 
   // Vime Player
   let player;
   let audioPlayer;
   let videoPlayer;
 
-  const providers = [FileProvider, YouTubeProvider];
-
+  // const providers = [FileProvider, YouTubeProvider];
 
   function updateVideoPlayer() {
     if (videoPlayer) {
@@ -64,48 +34,46 @@
   function handleMediaItemEnded() {
     mediaItemEnded = true;
   }
-
 </script>
-
 
 <template>
   {#if $question}
-   <h1>Question {$question.questionIndex}</h1>
+    <h1>Question {$question.questionIndex}</h1>
 
-  {#each $mediaItems as mediaItem}
-    <MediaItemPlayer {mediaItem} onEnded={handleMediaItemEnded}/>
-  {/each}
+    {#each $mediaItems as mediaItem}
+      <MediaItemPlayer {mediaItem} onEnded={handleMediaItemEnded} />
+    {/each}
 
-    {#if $question.image}
-      Question Image
-    {/if}
-
+    {#if $question.image}Question Image{/if}
 
     {#if $question.video}
-      <Player
-        src="{$question.video.url}"
-        {providers}
-        bind:this={videoPlayer} 
-      />
+      <VimePlayer controls bind:this={videoPlayer}>
+        <VimeVideo crossOrigin="" poster="https://media.vimejs.com/poster.png">
+          <!-- These are passed directly to the underlying HTML5 `<video>` element. -->
+          <!-- Why `data-src`? Lazy loading, you can always use `src` if you prefer.  -->
+          <source data-src={$question.video.url} type="video/mp4" />
+          <track default kind="captions" />
+        </VimeVideo>
+
+        <!-- ... -->
+      </VimePlayer>
     {/if}
 
     {#if !$mediaItems.length || mediaItemEnded}
-      <p class="question">
-        {$question.text}
-      </p>
+      <p class="question">{$question.text}</p>
 
       <ol class="options">
         {#each $question.options as option}
-          <li class="option" class:active={$question.reveal_answer && option.correct}>
+          <li
+            class="option"
+            class:active={$question.reveal_answer && option.correct}>
             {option.text}
           </li>
         {/each}
       </ol>
-    {/if}  
-
+    {/if}
   {/if}
 </template>
-
 
 <style>
   h1 {
@@ -142,15 +110,4 @@
   .option.active {
     color: red;
   }
-
-
-  .buttons {
-    margin-bottom: 2rem;
-  }
-
-  mark {
-    color: orange;
-    background-color: transparent;
-  }
-
 </style>

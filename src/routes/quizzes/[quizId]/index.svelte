@@ -1,21 +1,21 @@
 <script>
-  import debounce from "lodash/debounce";
+  import debounce from 'lodash-es/debounce';
 
-  import { EMPTY, of as rxOf } from "rxjs";
-  import { map } from "rxjs/operators";
+  import { EMPTY, of as rxOf } from 'rxjs';
+  import { map } from 'rxjs/operators';
 
-  import Fa from "svelte-fa";
-  import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
-  import { faTimes } from "@fortawesome/free-solid-svg-icons/faTimes";
-  import { faTrashAlt } from "@fortawesome/free-regular-svg-icons/faTrashAlt";
+  import Fa from 'svelte-fa';
+  import { faCheck } from '@fortawesome/free-solid-svg-icons';
+  import { faTimes } from '@fortawesome/free-solid-svg-icons';
+  import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 
-  import QuestionPreview from "src/components/previews/QuestionPreview.svelte";
-  import Question from "src/models/Question";
-  import Quiz from "src/models/Quiz";
-  import { loggedIn, signOut } from "src/services/firebase";
+  import QuestionPreview from '/src/components/previews/QuestionPreview.svelte';
+  import Question from '/src/models/Question';
+  import Quiz from '/src/models/Quiz';
+  import { loggedIn, signOut } from '/src/services/firebase';
 
   export let params = {};
-  let quiz = Quiz.find(params.quizId);
+  let quiz = Quiz.listen(params.quizId);
 
   let activeQuestionIndex;
   let questions;
@@ -23,23 +23,14 @@
 
   $: activeQuestionId = $quiz ? $quiz.activeQuestionId || null : null;
   $: quizLoaded = !!$quiz;
-  $: questions = quizLoaded ? loadQuestions() : EMPTY;
+  $: questions = quizLoaded ? $quiz.listenQuestions() : EMPTY;
   $: activeQuestion =
     $quiz && activeQuestionId
-      ? $quiz.findQuestion(activeQuestionId)
+      ? $quiz.listenQuestion(activeQuestionId)
       : rxOf(null);
   $: activeQuestionIndex = $activeQuestion
     ? $activeQuestion.questionIndex || 0
     : 0;
-
-  $: console.log({
-    quiz: $quiz,
-    questions: $questions
-  });
-
-  function loadQuestions() {
-    return $quiz.questions();
-  }
 
   // Events
   function handleAddQuestionClick() {
@@ -47,7 +38,7 @@
       $quiz.addQuestion({
         quizId: $quiz.id,
         questionIndex: $questions.length + 1,
-        text: "Question " + ($questions.length + 1)
+        text: 'Question ' + ($questions.length + 1)
       });
     }
   }
@@ -118,7 +109,8 @@
           {#each $questions as question (question.id)}
             <tr>
               <td class="question-number">
-                <a href="#/quizzes/{$quiz.id}/questions/{question.id}">Question {question.questionIndex}</a>
+                <a href="#/quizzes/{$quiz.id}/questions/{question.id}">Question
+                  {question.questionIndex}</a>
               </td>
               <td class="question-text">{question.text}</td>
               <td class="question-answered">
@@ -158,10 +150,6 @@
 </template>
 
 <style>
-  table-fixed {
-    table-layout: fixed;
-  }
-
   .question-index {
     width: 12.5;
   }

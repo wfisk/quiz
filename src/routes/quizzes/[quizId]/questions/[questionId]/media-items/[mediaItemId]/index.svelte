@@ -1,29 +1,28 @@
 <script>
-  import { of as rxOf } from "rxjs";
+  import { of as rxOf } from 'rxjs';
 
-  import MediaItemEditor from "src/components/editors/MediaItemEditor.svelte";
-  import MediaItemPreview from "src/components/previews/MediaItemPreview.svelte";
-  import Quiz from "src/models/Quiz";
+  import MediaItemEditor from '/src/components/editors/MediaItemEditor.svelte';
+  import MediaItemPreview from '/src/components/previews/MediaItemPreview.svelte';
+  import Quiz from '/src/models/Quiz';
 
   export let params = {};
 
-  let quiz = Quiz.find(params.quizId);
-  $: question = $quiz ? $quiz.findQuestion(params.questionId) : rxOf(null);
+  let quiz = Quiz.listen(params.quizId);
+  $: question = $quiz ? $quiz.listenQuestion(params.questionId) : rxOf(null);
   $: mediaItem = $question
-    ? $question.findMediaItem(params.mediaItemId)
+    ? $question.listenMediaItem(params.mediaItemId)
     : rxOf(null);
-
-  $: console.log({
-    $mediaItem
-  });
 </script>
 
 <template>
   {#if $mediaItem}
     <div class="row">
       <div class="col border-right bg-light">
-        <a href="#/">Quizzes</a> / <a
-          href="#/quizzes/{$quiz.id}">{$quiz.name}</a> / <a
+        <a href="#/">Quizzes</a>
+        /
+        <a href="#/quizzes/{$quiz.id}">{$quiz.name}</a>
+        /
+        <a
           href="#/quizzes/{$quiz.id}/questions/{$question.id}"
           class="question-text">{$question.text}</a>
         <MediaItemEditor {mediaItem} />

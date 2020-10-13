@@ -1,8 +1,5 @@
 <script>
-  import debounce from 'lodash/debounce';
-  import {
-    EMPTY
-  } from 'rxjs';
+  import debounce from 'lodash-es/debounce';
   import {
     Button,
     Dropdown,
@@ -13,13 +10,11 @@
     ModalBody,
     ModalFooter,
     ModalHeader
-  } from "sveltestrap";
+  } from 'sveltestrap';
 
-  import MediaItemModal from 'src/components/modals/media_item_modal.svelte';
-  import {
-    toBase64
-  } from 'src/lib/base/utilities.js';
-  import Question from 'src/models/Question';
+  import MediaItemModal from '/src/components/modals/MediaItemModal.svelte';
+  import { toBase64 } from '/src/lib/base/utilities';
+  import Question from '/src/models/Question';
 
   export let mediaItem;
 
@@ -32,18 +27,10 @@
   let imageFileName;
   let videoUrl;
 
-
   let isOpen = false;
   let modalIsOpen = false;
 
-  $: console.log({
-    $mediaItems
-  });
-
-  // $: mediaItems = $question ? $question.mediaItems() : EMPTY;
-  // $: questionOptions = $question ? ($question.options || []) : [];
   $: question = $mediaItem ? $mediaItem.parent : null;
-
 
   function addMediaItemModal_cancel() {
     modalIsOpen = false;
@@ -62,7 +49,6 @@
     if (mediaType === 'image') {
       props.fileName = imageFileName;
       props.value = imageFileContent;
-
     }
 
     if (mediaType === 'video') {
@@ -75,7 +61,6 @@
     modalIsOpen = false;
   }
 
-
   async function handleAudioFile_input(event) {
     audioFileContent = await toBase64(event.target.files[0]);
     audioFileName = event.target.value;
@@ -86,55 +71,39 @@
     imageFileName = event.target.value;
   }
 
+  const handleQuestionTextInput_input = debounce(function (event) {
+    // $question.text = event.target.value;
+    $question.update({
+      text: event.target.value
+    });
+  }, 300);
 
-  const handleQuestionTextInput_input = debounce(
-    function(event) {
-      // $question.text = event.target.value;
-      $question.update({
-        text: event.target.value
-      });
-    },
-    300
-  );
+  const handleQuestionrevealAnswer_change = debounce(function (event) {
+    $question.update({
+      reveal_answer: event.target.checked
+    });
+  }, 300);
 
+  const handleInputOption_input = debounce(function (event, option) {
+    console.log({
+      event,
+      option
+    });
 
-  const handleQuestionrevealAnswer_change = debounce(
-    function(event) {
-      $question.update({
-        reveal_answer: event.target.checked
-      });
-    },
-    300
-  );
+    option.text = event.target.value;
+    $question.update({
+      options: $question.options
+    });
+  }, 300);
 
-
-  const handleInputOption_input = debounce(
-    function(event, option) {
-      console.log({
-        event,
-        option
-      });
-
-      option.text = event.target.value;
-      $question.update({
-        options: $question.options
-      });
-    },
-    300
-  );
-
-  const handleAudioUrlInput_input = debounce(
-    function(event) {
-      $question.update({
-        audio: {
-          ...$question.audio,
-          url: event.target.value
-        }
-      });
-    },
-    300
-  );
-
+  const handleAudioUrlInput_input = debounce(function (event) {
+    $question.update({
+      audio: {
+        ...$question.audio,
+        url: event.target.value
+      }
+    });
+  }, 300);
 
   async function handleAudioFileInput_input(event) {
     console.log(event);
@@ -149,18 +118,14 @@
     }
   }
 
-  const handleVideoUrlInput_input = debounce(
-    function(event) {
-      $question.update({
-        video: {
-          ...$question.video,
-          url: event.target.value
-        }
-      });
-    },
-    300
-  );
-
+  const handleVideoUrlInput_input = debounce(function (event) {
+    $question.update({
+      video: {
+        ...$question.video,
+        url: event.target.value
+      }
+    });
+  }, 300);
 
   // function toBase64(file) {
   //   return new Promise((resolve, reject) => {
@@ -171,28 +136,28 @@
   //   });
   // }
 
-
   function handleAddOption_click(event) {
     let optionIndex = $question.options.length;
-    let optionValue = String.fromCharCode(65 + optionIndex)
-    let options = [...$question.options, {
-      text: `Option ${optionValue}`,
-      value: optionValue,
-      selected: false,
-    }];
+    let optionValue = String.fromCharCode(65 + optionIndex);
+    let options = [
+      ...$question.options,
+      {
+        text: `Option ${optionValue}`,
+        value: optionValue,
+        selected: false
+      }
+    ];
 
     $question.update({
       options: options
     });
   }
 
-
   function handleDeleteOption_click(event) {
     $question.update({
       options: $question.options.slice(0, -1)
     });
   }
-
 
   function handleDeleteAudio_click(event) {
     let props = {
@@ -202,8 +167,7 @@
     delete props.audio;
     $question.update({
       audio: null
-    })
-
+    });
   }
 
   function handleDeleteImage_click(event) {
@@ -218,8 +182,6 @@
     });
   }
 
-
-
   function handleAddAudio_click(event) {
     let props = {
       ...$question,
@@ -233,7 +195,6 @@
         url: '???'
       }
     });
-
   }
 
   function handleAddImage_click(event) {
@@ -257,9 +218,7 @@
     delete props.id;
     $question.update(props);
   }
-
 </script>
-
 
 <template>
   {#if $question}
@@ -267,34 +226,42 @@
 
     <div class="form-group">
       <label for="question-text">Question Text</label>
-      <input class="form-control" id="question-text" value={$question.text} on:input={handleQuestionTextInput_input}>
+      <input
+        class="form-control"
+        id="question-text"
+        value={$question.text}
+        on:input={handleQuestionTextInput_input} />
     </div>
 
     <div class="form-group form-check">
-      <input type="checkbox" class="form-check-input" id="question-reveal-answer" checked={$question.reveal_answer} on:change={handleQuestionrevealAnswer_change}>
+      <input
+        type="checkbox"
+        class="form-check-input"
+        id="question-reveal-answer"
+        checked={$question.reveal_answer}
+        on:change={handleQuestionrevealAnswer_change} />
       <label class="form-check-label" for="question-reveal-answer">Reveal Answer</label>
     </div>
 
     <h3>Options</h3>
     {#each $question.options as option}
-
       <div class="form-group">
-        <label for="question-option-{option.value}">Option {option.value}</label>
-        <input 
-          class="form-control" 
-          id="question-option-{option.value}" 
-          value={option.text} 
-          on:input={ (event) => handleInputOption_input( event, option ) }>
+        <label for="question-option-{option.value}">Option
+          {option.value}</label>
+        <input
+          class="form-control"
+          id="question-option-{option.value}"
+          value={option.text}
+          on:input={(event) => handleInputOption_input(event, option)} />
       </div>
-
-
     {/each}
 
     <button class="btn btn-primary" on:click={handleAddOption_click}>Add Option</button>
 
-    <button class="btn btn-warning" on:click={handleDeleteOption_click}>Delete Option</button>
+    <button class="btn btn-warning" on:click={handleDeleteOption_click}>Delete
+      Option</button>
 
-    <hr/>
+    <hr />
 
     <h3>Add Media</h3>
 
@@ -303,80 +270,92 @@
       <DropdownMenu>
         {#if !$question.audio}
           <DropdownItem on:click={handleAddAudio_click}>Add Audio</DropdownItem>
-        {/if} 
+        {/if}
 
         {#if !$question.image}
           <DropdownItem on:click={handleAddImage_click}>Add Image</DropdownItem>
-        {/if} 
+        {/if}
 
         {#if !$question.video}
           <DropdownItem on:click={handleAddVideo_click}>Add Video</DropdownItem>
-        {/if} 
+        {/if}
       </DropdownMenu>
     </Dropdown>
-    <hr/>
+    <hr />
 
     <!-- Question Audio -->
-    {#if $question.audio}    
+    {#if $question.audio}
       <h3>Audio</h3>
       <div class="form-group">
         <label for="audio-url">URL</label>
-        <input class="form-control" id="audio-url" value={$question.audio.url} on:input={handleAudioUrlInput_input}>
+        <input
+          class="form-control"
+          id="audio-url"
+          value={$question.audio.url}
+          on:input={handleAudioUrlInput_input} />
       </div>
-      
+
       <div class="form-group">
         <label for="audio-file">Upload mp3 file</label>
-        <input type="file" class="form-control" id="audio-file" on:input={handleAudioFileInput_input}>
+        <input
+          type="file"
+          class="form-control"
+          id="audio-file"
+          on:input={handleAudioFileInput_input} />
       </div>
-  
-      <button class="btn btn-warning" on:click={handleDeleteAudio_click}>Delete Audio</button>
-      <hr/>
-    {/if}
 
+      <button class="btn btn-warning" on:click={handleDeleteAudio_click}>Delete
+        Audio</button>
+      <hr />
+    {/if}
 
     <!-- Question Image -->
-    {#if $question.image}    
-
-
-      <button class="btn btn-warning" on:click={handleDeleteImage_click}>Delete Image</button>
-      <hr/>
+    {#if $question.image}
+      <button class="btn btn-warning" on:click={handleDeleteImage_click}>Delete
+        Image</button>
+      <hr />
     {/if}
 
-    
     <!-- Question Video -->
-    {#if $question.video}    
+    {#if $question.video}
       <div class="form-group">
         <label for="video-url">URL</label>
-        <input class="form-control" id="video-url" value={$question.video.url} on:input={handleVideoUrlInput_input}>
+        <input
+          class="form-control"
+          id="video-url"
+          value={$question.video.url}
+          on:input={handleVideoUrlInput_input} />
       </div>
-      
-      <button class="btn btn-warning" on:click={handleDeleteVideo_click}>Delete Video</button>
-      <hr/>
+
+      <button class="btn btn-warning" on:click={handleDeleteVideo_click}>Delete
+        Video</button>
+      <hr />
     {/if}
 
-    <hr/>
+    <hr />
 
     <h3>Media Items</h3>
 
     <ul class="list-group">
       {#each $mediaItems as mediaItem}
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        <a href="#{$question.getDocumentPath()}/media-items/{mediaItem.id}">
-          {mediaItem.fileName}
-        </a>  
-        <span class="badge badge-primary badge-pill">{mediaItem.mediaType}</span>
-      </li>
+        <li
+          class="list-group-item d-flex justify-content-between
+            align-items-center">
+          <a href="#{$question.getDocumentPath()}/media-items/{mediaItem.id}">
+            {mediaItem.fileName}
+          </a>
+          <span
+            class="badge badge-primary badge-pill">{mediaItem.mediaType}</span>
+        </li>
       {/each}
     </ul>
 
-    <Button color="danger" on:click={() => modalIsOpen = true}>
+    <Button color="danger" on:click={() => (modalIsOpen = true)}>
       Add Media Item
     </Button>
-   {/if}
+  {/if}
 
-
-
-  <Modal isOpen={modalIsOpen} >
+  <Modal isOpen={modalIsOpen}>
     <ModalHeader toggle={addMediaItemModal_cancel}>Add Media Item</ModalHeader>
     <ModalBody>
       <div class="form-group">
@@ -387,50 +366,50 @@
           <option value="audio">Audio</option>
           <option value="video">Video</option>
         </select>
-
       </div>
 
       {#if mediaType === 'audio'}
         <div class="form-group">
           <label for="audio-file">Upload mp3 file</label>
-          <input type="file" class="form-control" id="audio-file" on:input={handleAudioFile_input}>
+          <input
+            type="file"
+            class="form-control"
+            id="audio-file"
+            on:input={handleAudioFile_input} />
         </div>
       {/if}
 
       {#if mediaType === 'image'}
         <div class="form-group">
           <label for="image-file">Upload image file</label>
-          <input type="file" class="form-control" id="image-file" on:input={handleImageFile_input}>
+          <input
+            type="file"
+            class="form-control"
+            id="image-file"
+            on:input={handleImageFile_input} />
         </div>
       {/if}
-    
+
       {#if mediaType === 'video'}
         <div class="form-group">
           <label for="video-url">URL</label>
-          <input class="form-control" id="video-url" bind:value={videoUrl}>
+          <input class="form-control" id="video-url" bind:value={videoUrl} />
         </div>
       {/if}
     </ModalBody>
     <ModalFooter>
-      <Button color="primary" on:click={addMediaItemModal_confirm}>
-        OK
-      </Button>
+      <Button color="primary" on:click={addMediaItemModal_confirm}>OK</Button>
       <Button color="secondary" on:click={addMediaItemModal_cancel}>
         Cancel
       </Button>
     </ModalFooter>
   </Modal>
-  
- 
-  </template>
+</template>
 
-
-  <style>
-    .form-check,
-    .form-check .form-check-input,
-    .form-check .form-check-label {
-      cursor: pointer;  
-    }
-
-
-  </style>
+<style>
+  .form-check,
+  .form-check .form-check-input,
+  .form-check .form-check-label {
+    cursor: pointer;
+  }
+</style>
