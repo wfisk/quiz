@@ -6,7 +6,7 @@ import route__admin__quizzes__quizId__questions__questionId__mediaItems__mediaIt
 import route__admin__quizzes__quizId__questions__questionId from '../routes/admin/quizzes/[quizId]/questions/[questionId]/index.svelte';
 import route__admin__quizzes__quizId from '/src/routes/admin/quizzes/[quizId]/index.svelte';
 import route__admin__quizzes from '/src/routes/admin/quizzes/index.svelte';
-import route__admin from '/src/routes/admin/quizzes/index.svelte';
+import route__admin from '/src/routes/admin/index.svelte';
 import route__admin__not_found from '/src/routes/admin/not-found.svelte';
 
 import { loggedIn } from '/src/services/firebase';
@@ -36,7 +36,7 @@ const routes = {
     conditions: () => true
   }),
 
-  '*': admin__route__not_found
+  '*': route__admin__not_found
 };
 
 export default routes;

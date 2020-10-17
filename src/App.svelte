@@ -23,36 +23,21 @@
 
   async function handleLogout() {
     await signOut();
-    routePush('/session');
+    routePush('/login');
   }
 
   function handleRouterFailed(event) {
     console.error({
       event
     });
-    routeReplace('/login');
+    routeReplace('/admin/quizzes');
   }
 </script>
 
 <template>
-  {#if $loggedIn}
-    <Headroom duration="350ms" offset={50} tolerance={5}>
-      <header class="d-flex justify-content-between">
-        <div>
-          <button class="btn btn-sm btn-light" on:click={handleHome}>
-            <Fa icon={faHome} />
-          </button>
-        </div>
-        <div>
-          <button class="btn btn-sm btn-light" on:click={handleLogout}>
-            <Fa icon={faPowerOff} />
-          </button>
-        </div>
-      </header>
-    </Headroom>
-  {/if}
+  {#if $loggedIn}{/if}
 
-  <div class="container-fluid">
+  <div class="container-fluid" style="height: 100%;">
     {#if $loggedIn == null}
       <p>Loading...</p>
     {:else}
@@ -64,8 +49,8 @@
 <style global lang="scss">
   @import 'styles/global.scss';
 
-  body > div:first-child {
-    z-index: 1000;
+  body {
+    height: 100vh;
   }
 
   header {
@@ -73,9 +58,5 @@
     height: 60px;
     opacity: 0.2;
     z-index: 1;
-  }
-
-  .container-fluid {
-    padding-top: 60px;
   }
 </style>
