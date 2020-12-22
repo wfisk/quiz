@@ -81,7 +81,7 @@
 <template>
   {#if $quiz}
     {#if $loggedIn}
-      <a href="#/admin/quizzes">Quizzes</a>
+      <a href="#/">Quizzes</a>
 
       <h1>Quiz - {$quiz.name}</h1>
 
@@ -93,7 +93,7 @@
         </button>
 
         <button class="btn btn-primary" on:click={handleNextQuestionClick}>
-          Next Question xxx&gt;
+          Next Question &gt;
         </button>
       </div>
 
@@ -109,8 +109,7 @@
           {#each $questions as question (question.id)}
             <tr>
               <td class="question-number">
-                <a
-                  href="#/admin/quizzes/{$quiz.id}/questions/{question.id}">Question
+                <a href="#/quizzes/{$quiz.id}/questions/{question.id}">Question
                   {question.questionIndex}</a>
               </td>
               <td class="question-text">{question.text}</td>

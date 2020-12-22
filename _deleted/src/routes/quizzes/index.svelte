@@ -96,7 +96,7 @@
       {#each $quizzes as quiz}
         <tr>
           <td class="quiz-name">
-            <a href="#/admin/quizzes/{quiz.id}">{quiz.name}</a>
+            <a href="#/quizzes/{quiz.id}">{quiz.name}</a>
           </td>
           <td class="quiz-id">{quiz.id}</td>
           <td class="quiz-owner">{quiz.owner && quiz.owner.displayName}</td>

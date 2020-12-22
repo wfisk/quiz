@@ -1,4 +1,5 @@
 <script>
+  import AdminNavbar from '/src/components/navbars/AdminNavbar.svelte';
   import adminRoutes from '/src/config/adminRoutes';
   import {
     default as Router,
@@ -7,5 +8,6 @@
   } from 'svelte-spa-router';
 </script>
 
-<h1>Administrator</h1>
+<AdminNavbar />
+
 <Router routes={adminRoutes} />

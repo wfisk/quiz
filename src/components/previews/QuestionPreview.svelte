@@ -9,7 +9,11 @@
 
   // All providers are named {ProviderName}Provider.
   // import { Player, FileProvider, YouTubeProvider } from '@vime/svelte';
-  import { VimePlayer, VimeVideo, VimeUi } from '@vime/svelte';
+  import {
+    Player as VimePlayer,
+    Video as VimeVideo,
+    Ui as VimeUi
+  } from '@vime/svelte';
   export let question;
 
   let mediaItemEnded = false;

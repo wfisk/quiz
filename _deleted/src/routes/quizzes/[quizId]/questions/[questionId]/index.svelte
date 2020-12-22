@@ -21,7 +21,7 @@
       <div class="col-md-6 border-right bg-light">
         <a href="#/">Quizzes</a>
         /
-        <a href="#/admin/quizzes/{$quiz.id}">{$quiz.name}</a>
+        <a href="#/quizzes/{$quiz.id}">{$quiz.name}</a>
         <QuestionEditor {quiz} {question} />
       </div>
       <div class="col-md-6">

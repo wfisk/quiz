@@ -20,10 +20,10 @@
       <div class="col border-right bg-light">
         <a href="#/">Quizzes</a>
         /
-        <a href="#/admin/quizzes/{$quiz.id}">{$quiz.name}</a>
+        <a href="#/quizzes/{$quiz.id}">{$quiz.name}</a>
         /
         <a
-          href="#/admin/quizzes/{$quiz.id}/questions/{$question.id}"
+          href="#/quizzes/{$quiz.id}/questions/{$question.id}"
           class="question-text">{$question.text}</a>
         <MediaItemEditor {mediaItem} />
       </div>

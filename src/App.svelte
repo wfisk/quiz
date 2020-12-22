@@ -35,8 +35,6 @@
 </script>
 
 <template>
-  {#if $loggedIn}{/if}
-
   <div class="container-fluid" style="height: 100%;">
     {#if $loggedIn == null}
       <p>Loading...</p>
@@ -47,8 +45,6 @@
 </template>
 
 <style global lang="scss">
-  @import 'styles/global.scss';
-
   body {
     height: 100vh;
   }
