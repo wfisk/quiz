@@ -1,7 +1,7 @@
 import { collectionData, docData, snapToData, doc } from 'rxfire/firestore';
 import { map, startWith } from 'rxjs/operators';
-// import { lowerCaseFirstLetter, pluralize } from '../lib/base/strings';
-import { firestore } from '../services/firebase';
+import { lowerCaseFirstLetter, pluralize } from '/src/lib/utils/strings';
+import { firestore } from '/src/services/firebase';
 
 export default class Model {
   constructor(data, { parent = null } = {}) {
@@ -106,10 +106,15 @@ export default class Model {
     return result;
   }
 
-  static async findAll({ parent = null, where = [], order = '' } = {}) {
+  static async findAll({
+    parent = null,
+    where = [],
+    andWhere = [],
+    order = '',
+  } = {}) {
     const itemClass = this;
     let collectionPath = this.getCollectionId();
-    let result;
+    let result = [];
 
     if (parent) {
       collectionPath = parent.getDocumentPath() + '/' + collectionPath;
@@ -120,50 +125,46 @@ export default class Model {
     // Where
     if (where.length === 3) {
       collectionRef = collectionRef.where(...where);
+      if (andWhere.length === 3) {
+        collectionRef = collectionRef.where(...andWhere);
+      }
     }
 
-    // Collection Data
-    result = await collectionRef.get();
+    // Query Snapshot
+    let snapshot = await collectionRef.get();
 
-    // Map to Instances of Model
-    result = result.map((items) =>
-      items.map((it) => new itemClass(it, { parent: parent }))
-    );
+    // Transform to an array of models
+
+    snapshot.forEach((doc) => {
+      let data = snapToData(doc, 'id');
+      let item = new itemClass(data, { parent: parent });
+      result.push(item);
+    });
 
     // Sort Order
     let orderFields = order.split(',');
     if (orderFields.length) {
-      result = result.pipe(
-        map((items) => {
-          items.sort((a, b) => {
-            let comparison = 0;
-            orderFields.forEach((orderField) => {
-              if (!comparison) {
-                if (a[orderField] < b[orderField]) {
-                  comparison = -1;
-                } else if (a[orderField] > b[orderField]) {
-                  comparison = 1;
-                }
-              }
-            });
-            return comparison;
-          });
-          return items;
-        })
-      );
+      result = result.sort((a, b) => {
+        let comparison = 0;
+        orderFields.forEach((orderField) => {
+          if (!comparison) {
+            if (a[orderField] < b[orderField]) {
+              comparison = -1;
+            } else if (a[orderField] > b[orderField]) {
+              comparison = 1;
+            }
+          }
+        });
+        return comparison;
+      });
     }
-
-    // Start With Empty Array
-    result = result.pipe(startWith([]));
 
     // Return Result
     return result;
   }
 
   static getCollectionId() {
-    // let result = pluralize(lowerCaseFirstLetter(this.name));
-    // console.log({ getCollectionId: result });
-    let result = 'unknowns';
+    let result = pluralize(lowerCaseFirstLetter(this.name));
     return result;
   }
 
@@ -251,13 +252,13 @@ export default class Model {
     return result;
   }
 
-  static async setById(id, props, { parent = null } = {}) {
+  static setById(id, props, { parent = null } = {}) {
     let documentPath = this.getCollectionId() + '/' + id;
     if (parent) {
       documentPath = parent.getDocumentPath() + '/' + documentPath;
     }
 
-    return await firestore.doc(documentPath).set(props, { merge: true });
+    firestore.doc(documentPath).set(props, { merge: true });
   }
 
   static async updateById(id, props, { parent = null } = {}) {
@@ -287,7 +288,7 @@ export default class Model {
     }
 
     return await this.constructor.updateById(this.id, props, {
-      parent: this.parent
+      parent: this.parent,
     });
   }
 }
