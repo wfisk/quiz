@@ -91,5 +91,11 @@ Then, from within your project folder:
 npm run build
 surge public my-project.surge.sh
 ```
-![roundel-strap_RGB-wht](https://user-images.githubusercontent.com/5175/154103264-3d1b2626-8959-45ee-bd4b-688d10eda684.svg)
 
+```mermaid
+flowchart LR
+A[Start] -->|Text| B(Middle)
+B --> C{End}
+C -->|One| D[Result 1]
+C -->|Two| E[Result 2]
+```
