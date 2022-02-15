@@ -94,8 +94,8 @@ surge public my-project.surge.sh
 
 ```mermaid
 flowchart LR
-A[Hard] -->|Text| B(Round)
-B --> C{Decision}
+A[Start] -->|Text| B(Middle)
+B --> C{End}
 C -->|One| D[Result 1]
 C -->|Two| E[Result 2]
 ```
